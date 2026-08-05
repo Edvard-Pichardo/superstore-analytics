@@ -13,6 +13,8 @@ USE superstore_analytics;
 
 -- Eliminamos las tablas si existen para permitir reconstruir
 -- el modelo durante el desarrollo.
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS sub_categories;
 DROP TABLE IF EXISTS segments;
@@ -178,4 +180,85 @@ DESCRIBE locations;
 -- Revisamos la definición completa, incluyendo
 -- la restricción única y la clave foránea.
 SHOW CREATE TABLE locations;
+
+
+
+-- Creamos la tabla de clientes
+
+-- Tabla: customers
+-- Almacena la información principal de cada cliente.
+-- La ubicación no se incluye porque un mismo cliente puede
+-- realizar pedidos desde diferentes ciudades o códigos postales.
+CREATE TABLE customers
+(
+    customer_id      VARCHAR(20) NOT NULL,
+    segment_id       TINYINT UNSIGNED NOT NULL,
+    customer_name    VARCHAR(100) NOT NULL,
+
+    CONSTRAINT pk_customers
+        PRIMARY KEY (customer_id),
+
+    INDEX idx_customers_segment_id (segment_id),
+
+    CONSTRAINT fk_customers_segment
+        FOREIGN KEY (segment_id)
+        REFERENCES segments (segment_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+-- Verificamos que la tabla haya sido creada.
+SHOW TABLES LIKE 'customers';
+
+-- Revisamos sus columnas y tipos.
+DESCRIBE customers;
+
+-- Revisamos la clave primaria, el índice y la clave foránea.
+SHOW CREATE TABLE customers;
+
+
+
+-- Creamos la tabla de productos
+
+-- Tabla: products
+-- Almacena los productos disponibles en el dataset.
+
+-- Se utiliza product_key como clave primaria interna porque
+-- algunos product_id del archivo original están asociados con
+-- más de un nombre de producto.
+CREATE TABLE products
+(
+    product_key          INT UNSIGNED AUTO_INCREMENT,
+    source_product_id    VARCHAR(20) NOT NULL,
+    sub_category_id      TINYINT UNSIGNED NOT NULL,
+    product_name         VARCHAR(255) NOT NULL,
+
+    CONSTRAINT pk_products
+        PRIMARY KEY (product_key),
+    -- La combinación del identificador original y el nombre
+    -- distingue los productos cuyos códigos fueron reutilizados.
+    CONSTRAINT uq_products_source_id_name
+        UNIQUE (
+            source_product_id,
+            product_name
+        ),
+
+    INDEX idx_products_sub_category_id (sub_category_id),
+
+    CONSTRAINT fk_products_sub_category
+        FOREIGN KEY (sub_category_id)
+        REFERENCES sub_categories (sub_category_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+-- Verificamos que la tabla haya sido creada.
+SHOW TABLES LIKE 'products';
+
+-- Revisamos sus columnas y tipos.
+DESCRIBE products;
+
+-- Revisamos la clave primaria, la restricción única
+-- y la clave foránea.
+SHOW CREATE TABLE products;
 
