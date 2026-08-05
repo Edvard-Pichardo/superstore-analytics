@@ -13,8 +13,8 @@ USE superstore_analytics;
 
 -- Eliminamos las tablas si existen para permitir reconstruir
 -- el modelo durante el desarrollo.
+DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS sub_categories;
-
 DROP TABLE IF EXISTS segments;
 DROP TABLE IF EXISTS ship_modes;
 DROP TABLE IF EXISTS regions;
@@ -131,4 +131,51 @@ DESCRIBE sub_categories;
 -- Revisamos la definición completa, incluyendo
 -- claves y restricciones.
 SHOW CREATE TABLE sub_categories;
+
+
+
+-- Creamos la tabla de ubicaciones
+
+-- Tabla: locations
+-- Almacena las ubicaciones geográficas asociadas con los pedidos.
+-- La ubicación se separa del cliente porque un mismo cliente puede
+-- realizar compras desde diferentes ciudades o códigos postales.
+CREATE TABLE locations
+(
+    location_id    SMALLINT UNSIGNED AUTO_INCREMENT,
+    region_id      TINYINT UNSIGNED NOT NULL,
+    country        VARCHAR(100) NOT NULL,
+    city           VARCHAR(100) NOT NULL,
+    state          VARCHAR(100) NOT NULL,
+    postal_code    VARCHAR(20) NOT NULL,
+
+    CONSTRAINT pk_locations
+        PRIMARY KEY (location_id),
+    -- Evita registrar más de una vez exactamente
+    -- la misma ubicación geográfica.
+    CONSTRAINT uq_locations
+        UNIQUE (
+            country,
+            state,
+            city,
+            postal_code,
+            region_id
+        ),
+
+    CONSTRAINT fk_locations_region
+        FOREIGN KEY (region_id)
+        REFERENCES regions (region_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+-- Verificamos que la tabla haya sido creada.
+SHOW TABLES LIKE 'locations';
+
+-- Revisamos sus columnas y tipos.
+DESCRIBE locations;
+
+-- Revisamos la definición completa, incluyendo
+-- la restricción única y la clave foránea.
+SHOW CREATE TABLE locations;
 
