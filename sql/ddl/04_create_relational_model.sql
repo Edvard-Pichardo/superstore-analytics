@@ -13,6 +13,7 @@ USE superstore_analytics;
 
 -- Eliminamos las tablas si existen para permitir reconstruir
 -- el modelo durante el desarrollo.
+DROP TABLE IF EXISTS order_details;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS customers;
@@ -330,4 +331,75 @@ DESCRIBE orders;
 
 -- Revisamos claves, índices y restricciones.
 SHOW CREATE TABLE orders;
+
+
+
+-- Creamos la tabla de detalles de pedidos
+
+-- Tabla: order_details
+-- Almacena cada línea de producto incluida en un pedido,
+-- junto con sus ventas, cantidad, descuento y beneficio.
+
+-- Se utiliza order_detail_key como clave primaria interna.
+-- source_row_id conserva el identificador original del CSV.
+CREATE TABLE order_details
+(
+    order_detail_key    INT UNSIGNED AUTO_INCREMENT,
+    source_row_id       INT UNSIGNED NOT NULL,
+    order_key           INT UNSIGNED NOT NULL,
+    product_key         INT UNSIGNED NOT NULL,
+
+    sales               DECIMAL(15, 6),
+    quantity            INT UNSIGNED,
+    discount            DECIMAL(4, 2) NOT NULL,
+    profit              DECIMAL(15, 6),
+
+    CONSTRAINT pk_order_details
+        PRIMARY KEY (order_detail_key),
+    -- Cada Row ID del archivo original debe aparecer
+    -- una sola vez en el modelo relacional.
+    CONSTRAINT uq_order_details_source_row
+        UNIQUE (source_row_id),
+
+    CONSTRAINT chk_order_details_sales
+        CHECK (
+            sales IS NULL
+            OR sales > 0
+        ),
+
+    CONSTRAINT chk_order_details_quantity
+        CHECK (
+            quantity IS NULL
+            OR quantity > 0
+        ),
+
+    CONSTRAINT chk_order_details_discount
+        CHECK (
+            discount BETWEEN 0 AND 1
+        ),
+
+    INDEX idx_order_details_order_key (order_key),
+    INDEX idx_order_details_product_key (product_key),
+
+    CONSTRAINT fk_order_details_order
+        FOREIGN KEY (order_key)
+        REFERENCES orders (order_key)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_order_details_product
+        FOREIGN KEY (product_key)
+        REFERENCES products (product_key)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+-- Verificamos que la tabla haya sido creada.
+SHOW TABLES LIKE 'order_details';
+
+-- Revisamos sus columnas y tipos.
+DESCRIBE order_details;
+
+-- Revisamos claves, índices y restricciones.
+SHOW CREATE TABLE order_details;
 
