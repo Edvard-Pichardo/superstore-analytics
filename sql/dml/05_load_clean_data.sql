@@ -260,3 +260,86 @@ SELECT
     ) AS diferencia_profit;
 
 
+
+-- Validamos la integridad de clean_sales
+-- Comprobamos que no existan valores que violen las
+-- principales reglas de negocio de la tabla limpia.
+SELECT
+    SUM(row_id IS NULL) AS row_id_null,
+    SUM(order_id IS NULL) AS order_id_null,
+    SUM(order_date IS NULL) AS order_date_null,
+    SUM(ship_date IS NULL) AS ship_date_null,
+    SUM(customer_id IS NULL) AS customer_id_null,
+    SUM(product_id IS NULL) AS product_id_null,
+
+    SUM(ship_date < order_date)
+        AS envios_anteriores_al_pedido,
+
+    SUM(
+        segment NOT IN (
+            'Consumer',
+            'Corporate',
+            'Home Office'
+        )
+    ) AS segmentos_invalidos,
+
+    SUM(
+        category NOT IN (
+            'Furniture',
+            'Office Supplies',
+            'Technology'
+        )
+    ) AS categorias_invalidas,
+
+    SUM(
+        ship_mode IS NOT NULL
+        AND ship_mode NOT IN (
+            'Standard Class',
+            'Second Class',
+            'First Class',
+            'Same Day'
+        )
+    ) AS ship_modes_invalidos,
+
+    SUM(
+        sales IS NOT NULL
+        AND sales <= 0
+    ) AS sales_invalidas,
+
+    SUM(
+        quantity IS NOT NULL
+        AND quantity <= 0
+    ) AS cantidades_invalidas,
+
+    SUM(
+        discount < 0
+        OR discount > 1
+    ) AS descuentos_invalidos
+
+FROM clean_sales;
+
+
+-- Verificamos que la clave primaria conserve la misma
+-- cantidad de registros que identificadores únicos.
+SELECT
+    COUNT(*) AS total_registros,
+    COUNT(DISTINCT row_id) AS row_id_unicos,
+    COUNT(*) - COUNT(DISTINCT row_id) AS row_id_duplicados
+FROM clean_sales;
+
+-- Revisamos los valores mínimos y máximos después
+-- de la conversión de tipos.
+SELECT
+    MIN(sales) AS sales_minimas,
+    MAX(sales) AS sales_maximas,
+
+    MIN(quantity) AS quantity_minima,
+    MAX(quantity) AS quantity_maxima,
+
+    MIN(discount) AS discount_minimo,
+    MAX(discount) AS discount_maximo,
+
+    MIN(profit) AS profit_minimo,
+    MAX(profit) AS profit_maximo
+
+FROM clean_sales;
