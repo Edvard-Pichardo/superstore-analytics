@@ -1,0 +1,489 @@
+/*
+Archivo      : 06_load_relational_model.sql
+Proyecto     : SuperStore Analytics
+Autor        : Eduardo Pichardo
+Descripción  : Carga de los datos limpios en las tablas
+               que conforman el modelo relacional.
+*/
+
+-- Seleccionamos la base de datos.
+USE superstore_analytics;
+
+-- Cargamos las tablas de catálogo
+
+-- Tabla: segments
+-- Insertamos los segmentos distintos que todavía no existen
+-- en la tabla de catálogo.
+INSERT INTO segments
+(
+    segment_name
+)
+SELECT DISTINCT
+    cs.segment
+FROM clean_sales AS cs
+WHERE cs.segment IS NOT NULL
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM segments AS s
+      WHERE s.segment_name = cs.segment
+  )
+ORDER BY cs.segment;
+
+
+-- Tabla: ship_modes
+-- Los valores NULL no se incluyen en el catálogo porque
+-- representan modos de envío desconocidos.
+INSERT INTO ship_modes
+(
+    ship_mode_name
+)
+SELECT DISTINCT
+    cs.ship_mode
+FROM clean_sales AS cs
+WHERE cs.ship_mode IS NOT NULL
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM ship_modes AS sm
+      WHERE sm.ship_mode_name = cs.ship_mode
+  )
+ORDER BY cs.ship_mode;
+
+
+-- Tabla: regions
+INSERT INTO regions
+(
+    region_name
+)
+SELECT DISTINCT
+    cs.region
+FROM clean_sales AS cs
+WHERE cs.region IS NOT NULL
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM regions AS r
+      WHERE r.region_name = cs.region
+  )
+ORDER BY cs.region;
+
+
+-- Tabla: categories
+INSERT INTO categories
+(
+    category_name
+)
+SELECT DISTINCT
+    cs.category
+FROM clean_sales AS cs
+WHERE cs.category IS NOT NULL
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM categories AS c
+      WHERE c.category_name = cs.category
+  )
+ORDER BY cs.category;
+
+
+-- Verificamos los valores cargados en cada catálogo.
+
+SELECT
+    segment_id,
+    segment_name
+FROM segments
+ORDER BY segment_id;
+
+SELECT
+    ship_mode_id,
+    ship_mode_name
+FROM ship_modes
+ORDER BY ship_mode_id;
+
+SELECT
+    region_id,
+    region_name
+FROM regions
+ORDER BY region_id;
+
+SELECT
+    category_id,
+    category_name
+FROM categories
+ORDER BY category_id;
+
+SELECT
+    (SELECT COUNT(*) FROM segments) AS total_segments,
+    (SELECT COUNT(*) FROM ship_modes) AS total_ship_modes,
+    (SELECT COUNT(*) FROM regions) AS total_regions,
+    (SELECT COUNT(*) FROM categories) AS total_categories;
+
+
+
+-- Cargamos las subcategorías
+
+-- Insertamos cada combinación única de categoría y subcategoría.
+-- El JOIN permite sustituir el nombre de la categoría por su
+-- identificador interno category_id.
+
+INSERT INTO sub_categories
+(
+    category_id,
+    sub_category_name
+)
+SELECT DISTINCT
+    c.category_id,
+    cs.sub_category
+FROM clean_sales AS cs
+INNER JOIN categories AS c
+    ON c.category_name = cs.category
+WHERE cs.sub_category IS NOT NULL
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM sub_categories AS sc
+      WHERE sc.category_id = c.category_id
+        AND sc.sub_category_name = cs.sub_category
+  )
+ORDER BY
+    c.category_id,
+    cs.sub_category;
+
+
+-- Verificamos las subcategorías y su categoría correspondiente.
+SELECT
+    sc.sub_category_id,
+    c.category_name,
+    sc.sub_category_name
+FROM sub_categories AS sc
+INNER JOIN categories AS c
+    ON sc.category_id = c.category_id
+ORDER BY
+    c.category_name,
+    sc.sub_category_name;
+
+
+-- Confirmamos la cantidad total de subcategorías. (17)
+SELECT COUNT(*) AS total_subcategorias
+FROM sub_categories;
+
+
+-- Verificamos que ninguna combinación del conjunto limpio
+-- haya quedado sin representación en el modelo relacional. (Debe devolver cero)
+SELECT
+    cs.category,
+    cs.sub_category
+FROM clean_sales AS cs
+LEFT JOIN categories AS c
+    ON c.category_name = cs.category
+LEFT JOIN sub_categories AS sc
+    ON sc.category_id = c.category_id
+   AND sc.sub_category_name = cs.sub_category
+WHERE c.category_id IS NULL
+   OR sc.sub_category_id IS NULL
+GROUP BY
+    cs.category,
+    cs.sub_category;
+
+
+
+
+-- Cargamos las ubicaciones
+
+-- Insertamos las ubicaciones únicas presentes en clean_sales.
+-- El JOIN permite sustituir el nombre de la región por su
+-- identificador interno region_id.
+INSERT INTO locations
+(
+    region_id,
+    country,
+    city,
+    state,
+    postal_code
+)
+SELECT DISTINCT
+    r.region_id,
+    cs.country,
+    cs.city,
+    cs.state,
+    cs.postal_code
+FROM clean_sales AS cs
+INNER JOIN regions AS r
+    ON r.region_name = cs.region
+WHERE cs.country IS NOT NULL
+  AND cs.city IS NOT NULL
+  AND cs.state IS NOT NULL
+  AND cs.postal_code IS NOT NULL
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM locations AS l
+      WHERE l.region_id = r.region_id
+        AND l.country = cs.country
+        AND l.city = cs.city
+        AND l.state = cs.state
+        AND l.postal_code = cs.postal_code
+  )
+ORDER BY
+    cs.country,
+    cs.state,
+    cs.city,
+    cs.postal_code;
+
+
+-- Consultamos la cantidad total de ubicaciones únicas.
+SELECT COUNT(*) AS total_ubicaciones
+FROM locations;
+
+-- Visualizamos una muestra de las ubicaciones junto con
+-- el nombre de su región.
+SELECT
+    l.location_id,
+    l.country,
+    l.state,
+    l.city,
+    l.postal_code,
+    r.region_name
+FROM locations AS l
+INNER JOIN regions AS r
+    ON l.region_id = r.region_id
+ORDER BY
+    l.country,
+    l.state,
+    l.city,
+    l.postal_code
+LIMIT 20;
+
+
+-- Verificamos que ninguna ubicación del conjunto limpio
+-- haya quedado fuera del modelo relacional. (Debe devolver cero)
+SELECT
+    cs.country,
+    cs.state,
+    cs.city,
+    cs.postal_code,
+    cs.region,
+    COUNT(*) AS total_registros
+FROM clean_sales AS cs
+LEFT JOIN regions AS r
+    ON r.region_name = cs.region
+LEFT JOIN locations AS l
+    ON l.region_id = r.region_id
+   AND l.country = cs.country
+   AND l.state = cs.state
+   AND l.city = cs.city
+   AND l.postal_code = cs.postal_code
+WHERE r.region_id IS NULL
+   OR l.location_id IS NULL
+GROUP BY
+    cs.country,
+    cs.state,
+    cs.city,
+    cs.postal_code,
+    cs.region;
+
+
+
+-- Cargamos los clientes
+
+-- Insertamos los clientes únicos presentes en clean_sales.
+-- El JOIN sustituye el nombre textual del segmento por su
+-- identificador interno segment_id.
+
+INSERT INTO customers
+(
+    customer_id,
+    segment_id,
+    customer_name
+)
+SELECT DISTINCT
+    cs.customer_id,
+    s.segment_id,
+    cs.customer_name
+FROM clean_sales AS cs
+INNER JOIN segments AS s
+    ON s.segment_name = cs.segment
+WHERE cs.customer_id IS NOT NULL
+  AND cs.customer_name IS NOT NULL
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM customers AS c
+      WHERE c.customer_id = cs.customer_id
+  )
+ORDER BY cs.customer_id;
+
+-- Consultamos la cantidad total de clientes cargados.
+SELECT COUNT(*) AS total_clientes
+FROM customers;
+
+-- Visualizamos una muestra de clientes junto con
+-- el nombre de su segmento.
+SELECT
+    c.customer_id,
+    c.customer_name,
+    s.segment_name
+FROM customers AS c
+INNER JOIN segments AS s
+    ON c.segment_id = s.segment_id
+ORDER BY
+    c.customer_name,
+    c.customer_id
+LIMIT 20;
+
+
+-- Verificamos que todos los clientes de clean_sales
+-- tengan correspondencia en la tabla customers. (Debe devolver cero)
+SELECT
+    cs.customer_id,
+    cs.customer_name,
+    cs.segment,
+    COUNT(*) AS total_registros
+FROM clean_sales AS cs
+LEFT JOIN customers AS c
+    ON c.customer_id = cs.customer_id
+LEFT JOIN segments AS s
+    ON s.segment_id = c.segment_id
+WHERE c.customer_id IS NULL
+   OR s.segment_name <> cs.segment
+GROUP BY
+    cs.customer_id,
+    cs.customer_name,
+    cs.segment;
+
+
+-- Comparamos la cantidad de clientes únicos del conjunto limpio
+-- con la cantidad cargada en el modelo relacional.
+SELECT
+    (
+        SELECT COUNT(DISTINCT customer_id)
+        FROM clean_sales
+    ) AS clientes_unicos_clean,
+
+    (
+        SELECT COUNT(*)
+        FROM customers
+    ) AS clientes_modelo,
+
+    (
+        SELECT COUNT(DISTINCT customer_id)
+        FROM clean_sales
+    )
+    -
+    (
+        SELECT COUNT(*)
+        FROM customers
+    ) AS diferencia;
+
+
+
+
+-- Cargamos los productos
+
+-- Insertamos cada combinación única de identificador original
+-- y nombre de producto.
+
+-- Se utilizan categories y sub_categories para recuperar
+-- el sub_category_id correspondiente a cada producto.
+
+INSERT INTO products
+(
+    source_product_id,
+    sub_category_id,
+    product_name
+)
+SELECT DISTINCT
+    cs.product_id,
+    sc.sub_category_id,
+    cs.product_name
+FROM clean_sales AS cs
+INNER JOIN categories AS c
+    ON c.category_name = cs.category
+INNER JOIN sub_categories AS sc
+    ON sc.category_id = c.category_id
+   AND sc.sub_category_name = cs.sub_category
+WHERE cs.product_id IS NOT NULL
+  AND cs.product_name IS NOT NULL
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM products AS p
+      WHERE p.source_product_id = cs.product_id
+        AND p.product_name = cs.product_name
+  )
+ORDER BY
+    cs.product_id,
+    cs.product_name;
+
+
+-- Consultamos la cantidad total de productos cargados.
+SELECT COUNT(*) AS total_productos
+FROM products;
+
+-- Visualizamos una muestra de productos junto con
+-- su subcategoría y categoría.
+SELECT
+    p.product_key,
+    p.source_product_id,
+    p.product_name,
+    sc.sub_category_name,
+    c.category_name
+FROM products AS p
+INNER JOIN sub_categories AS sc
+    ON sc.sub_category_id = p.sub_category_id
+INNER JOIN categories AS c
+    ON c.category_id = sc.category_id
+ORDER BY
+    p.source_product_id,
+    p.product_name
+LIMIT 20;
+
+-- Verificamos que todas las combinaciones de código y nombre
+-- presentes en clean_sales tengan correspondencia en products. (Debe devolver cero filas)
+SELECT
+    cs.product_id,
+    cs.product_name,
+    cs.category,
+    cs.sub_category,
+    COUNT(*) AS total_registros
+FROM clean_sales AS cs
+LEFT JOIN products AS p
+    ON p.source_product_id = cs.product_id
+   AND p.product_name = cs.product_name
+LEFT JOIN sub_categories AS sc
+    ON sc.sub_category_id = p.sub_category_id
+LEFT JOIN categories AS c
+    ON c.category_id = sc.category_id
+WHERE p.product_key IS NULL
+   OR sc.sub_category_name <> cs.sub_category
+   OR c.category_name <> cs.category
+GROUP BY
+    cs.product_id,
+    cs.product_name,
+    cs.category,
+    cs.sub_category;
+
+-- Comparamos los productos únicos del conjunto limpio
+-- con los productos cargados en el modelo relacional.
+SELECT
+    (
+        SELECT COUNT(DISTINCT product_id, product_name)
+        FROM clean_sales
+    ) AS productos_unicos_clean,
+
+    (
+        SELECT COUNT(*)
+        FROM products
+    ) AS productos_modelo,
+
+    (
+        SELECT COUNT(DISTINCT product_id, product_name)
+        FROM clean_sales
+    )
+    -
+    (
+        SELECT COUNT(*)
+        FROM products
+    ) AS diferencia;
+
