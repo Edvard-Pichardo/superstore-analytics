@@ -487,3 +487,358 @@ SELECT
         FROM products
     ) AS diferencia;
 
+
+
+-- Cargamos los pedidos
+
+-- Insertamos cada pedido lógico presente en clean_sales.
+
+-- Un mismo identificador original puede representar más de
+-- un pedido cuando aparece asociado con ubicaciones distintas.
+-- Por esta razón, la identidad se determina mediante:
+-- source_order_id + customer_id + location_id
+
+INSERT INTO orders
+(
+    source_order_id,
+    customer_id,
+    location_id,
+    ship_mode_id,
+    order_date,
+    ship_date
+)
+SELECT DISTINCT
+    cs.order_id,
+    cs.customer_id,
+    l.location_id,
+    sm.ship_mode_id,
+    cs.order_date,
+    cs.ship_date
+FROM clean_sales AS cs
+
+INNER JOIN customers AS c
+    ON c.customer_id = cs.customer_id
+
+INNER JOIN regions AS r
+    ON r.region_name = cs.region
+
+INNER JOIN locations AS l
+    ON l.region_id = r.region_id
+   AND l.country = cs.country
+   AND l.state = cs.state
+   AND l.city = cs.city
+   AND l.postal_code = cs.postal_code
+
+LEFT JOIN ship_modes AS sm
+    ON sm.ship_mode_name = cs.ship_mode
+
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM orders AS o
+    WHERE o.source_order_id = cs.order_id
+      AND o.customer_id = cs.customer_id
+      AND o.location_id = l.location_id
+)
+
+ORDER BY
+    cs.order_id,
+    cs.customer_id,
+    l.location_id;
+
+
+-- Consultamos el total de pedidos normalizados.
+SELECT COUNT(*) AS total_pedidos
+FROM orders;
+
+-- Comparamos la cantidad de pedidos lógicos del conjunto limpio
+-- con la cantidad almacenada en el modelo relacional.
+SELECT
+    (
+        SELECT COUNT(*)
+        FROM
+        (
+            SELECT
+                cs.order_id,
+                cs.customer_id,
+                cs.country,
+                cs.state,
+                cs.city,
+                cs.postal_code,
+                cs.region
+            FROM clean_sales AS cs
+            GROUP BY
+                cs.order_id,
+                cs.customer_id,
+                cs.country,
+                cs.state,
+                cs.city,
+                cs.postal_code,
+                cs.region
+        ) AS pedidos_unicos
+    ) AS pedidos_clean,
+
+    (
+        SELECT COUNT(*)
+        FROM orders
+    ) AS pedidos_modelo,
+
+    (
+        SELECT COUNT(*)
+        FROM
+        (
+            SELECT
+                cs.order_id,
+                cs.customer_id,
+                cs.country,
+                cs.state,
+                cs.city,
+                cs.postal_code,
+                cs.region
+            FROM clean_sales AS cs
+            GROUP BY
+                cs.order_id,
+                cs.customer_id,
+                cs.country,
+                cs.state,
+                cs.city,
+                cs.postal_code,
+                cs.region
+        ) AS pedidos_unicos
+    )
+    -
+    (
+        SELECT COUNT(*)
+        FROM orders
+    ) AS diferencia;
+
+
+-- Visualizamos una muestra con los datos descriptivos
+-- provenientes de las tablas relacionadas.
+SELECT
+    o.order_key,
+    o.source_order_id,
+    o.order_date,
+    o.ship_date,
+    c.customer_name,
+    l.city,
+    l.state,
+    sm.ship_mode_name
+FROM orders AS o
+
+INNER JOIN customers AS c
+    ON c.customer_id = o.customer_id
+
+INNER JOIN locations AS l
+    ON l.location_id = o.location_id
+
+LEFT JOIN ship_modes AS sm
+    ON sm.ship_mode_id = o.ship_mode_id
+
+ORDER BY
+    o.order_date,
+    o.source_order_id,
+    o.order_key
+
+LIMIT 20;
+
+
+-- Verificamos que cada fila de clean_sales pueda localizar
+-- correctamente su pedido dentro del modelo relacional. (Debe devolver cero filas)
+SELECT
+    cs.order_id,
+    cs.customer_id,
+    cs.order_date,
+    cs.ship_date,
+    cs.country,
+    cs.state,
+    cs.city,
+    cs.postal_code,
+    cs.ship_mode,
+    COUNT(*) AS total_registros
+FROM clean_sales AS cs
+
+LEFT JOIN regions AS r
+    ON r.region_name = cs.region
+
+LEFT JOIN locations AS l
+    ON l.region_id = r.region_id
+   AND l.country = cs.country
+   AND l.state = cs.state
+   AND l.city = cs.city
+   AND l.postal_code = cs.postal_code
+
+LEFT JOIN ship_modes AS sm
+    ON sm.ship_mode_name = cs.ship_mode
+
+LEFT JOIN orders AS o
+    ON o.source_order_id = cs.order_id
+   AND o.customer_id = cs.customer_id
+   AND o.location_id = l.location_id
+   AND o.order_date = cs.order_date
+   AND o.ship_date = cs.ship_date
+   AND (o.ship_mode_id <=> sm.ship_mode_id)
+
+WHERE o.order_key IS NULL
+
+GROUP BY
+    cs.order_id,
+    cs.customer_id,
+    cs.order_date,
+    cs.ship_date,
+    cs.country,
+    cs.state,
+    cs.city,
+    cs.postal_code,
+    cs.ship_mode;
+
+
+
+-- Cargamos los detalles de pedidos
+
+-- Insertamos cada línea de venta presente en clean_sales.
+
+-- Para localizar el pedido se utilizan su identificador original,
+-- cliente, ubicación, fechas y modo de envío.
+
+-- Para localizar el producto se utiliza la combinación:
+-- product_id + product_name.
+
+INSERT INTO order_details
+(
+    source_row_id,
+    order_key,
+    product_key,
+    sales,
+    quantity,
+    discount,
+    profit
+)
+SELECT
+    cs.row_id,
+    o.order_key,
+    p.product_key,
+    cs.sales,
+    cs.quantity,
+    cs.discount,
+    cs.profit
+FROM clean_sales AS cs
+-- Recuperamos la región y la ubicación normalizada.
+INNER JOIN regions AS r
+    ON r.region_name = cs.region
+
+INNER JOIN locations AS l
+    ON l.region_id = r.region_id
+   AND l.country = cs.country
+   AND l.state = cs.state
+   AND l.city = cs.city
+   AND l.postal_code = cs.postal_code
+-- El LEFT JOIN conserva los registros cuyo modo
+-- de envío continúa siendo desconocido.
+LEFT JOIN ship_modes AS sm
+    ON sm.ship_mode_name = cs.ship_mode
+-- Recuperamos el pedido correspondiente a cada línea.
+INNER JOIN orders AS o
+    ON o.source_order_id = cs.order_id
+   AND o.customer_id = cs.customer_id
+   AND o.location_id = l.location_id
+   AND o.order_date = cs.order_date
+   AND o.ship_date = cs.ship_date
+   AND (o.ship_mode_id <=> sm.ship_mode_id)
+-- Recuperamos el producto utilizando el código original
+-- y el nombre, ya que algunos códigos fueron reutilizados.
+INNER JOIN products AS p
+    ON p.source_product_id = cs.product_id
+   AND p.product_name = cs.product_name
+-- Evitamos insertar nuevamente una fila original
+-- si el bloque se ejecuta más de una vez.
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM order_details AS od
+    WHERE od.source_row_id = cs.row_id
+)
+
+ORDER BY cs.row_id;
+
+
+-- Verificamos la cantidad total de líneas cargadas.
+SELECT COUNT(*) AS total_detalles
+FROM order_details;
+
+-- Comparamos la cantidad de filas del conjunto limpio
+-- con la cantidad de detalles del modelo relacional.
+SELECT
+    (SELECT COUNT(*) FROM clean_sales) AS filas_clean,
+
+    (SELECT COUNT(*) FROM order_details) AS filas_modelo,
+
+    (SELECT COUNT(*) FROM clean_sales)
+    -
+    (SELECT COUNT(*) FROM order_details) AS diferencia;
+
+
+-- Comprobamos que cada row_id original aparezca una sola vez.
+SELECT
+    COUNT(*) AS total_registros,
+    COUNT(DISTINCT source_row_id) AS row_id_unicos,
+    COUNT(*) - COUNT(DISTINCT source_row_id) AS duplicados
+FROM order_details;
+
+-- Verificamos que cada fila del conjunto limpio tenga
+-- correspondencia en la tabla de detalles. (Debe devolver cero)
+SELECT
+    cs.row_id,
+    cs.order_id,
+    cs.product_id,
+    cs.product_name
+FROM clean_sales AS cs
+
+LEFT JOIN order_details AS od
+    ON od.source_row_id = cs.row_id
+
+WHERE od.order_detail_key IS NULL
+
+ORDER BY cs.row_id;
+
+
+
+-- Comparamos los totales del conjunto limpio con los
+-- almacenados en el modelo relacional.
+SELECT
+    clean.total_ventas AS ventas_clean,
+    modelo.total_ventas AS ventas_modelo,
+    clean.total_ventas - modelo.total_ventas AS diferencia_ventas,
+
+    clean.total_cantidad AS cantidad_clean,
+    modelo.total_cantidad AS cantidad_modelo,
+    clean.total_cantidad - modelo.total_cantidad AS diferencia_cantidad,
+
+    clean.total_descuento AS descuento_clean,
+    modelo.total_descuento AS descuento_modelo,
+    clean.total_descuento - modelo.total_descuento
+        AS diferencia_descuento,
+
+    clean.total_beneficio AS beneficio_clean,
+    modelo.total_beneficio AS beneficio_modelo,
+    clean.total_beneficio - modelo.total_beneficio
+        AS diferencia_beneficio
+FROM
+(
+    SELECT
+        SUM(sales) AS total_ventas,
+        SUM(quantity) AS total_cantidad,
+        SUM(discount) AS total_descuento,
+        SUM(profit) AS total_beneficio
+    FROM clean_sales
+) AS clean
+CROSS JOIN
+(
+    SELECT
+        SUM(sales) AS total_ventas,
+        SUM(quantity) AS total_cantidad,
+        SUM(discount) AS total_descuento,
+        SUM(profit) AS total_beneficio
+    FROM order_details
+) AS modelo;
+
