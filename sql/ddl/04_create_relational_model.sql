@@ -13,6 +13,7 @@ USE superstore_analytics;
 
 -- Eliminamos las tablas si existen para permitir reconstruir
 -- el modelo durante el desarrollo.
+DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS locations;
@@ -261,4 +262,72 @@ DESCRIBE products;
 -- Revisamos la clave primaria, la restricción única
 -- y la clave foránea.
 SHOW CREATE TABLE products;
+
+
+
+-- Creamos la tabla de pedidos
+
+-- Tabla: orders
+-- Almacena la información general de cada pedido.
+
+-- Se utiliza order_key como clave primaria interna porque
+-- algunos order_id del archivo original contienen líneas
+-- relacionadas con diferentes ubicaciones.
+CREATE TABLE orders
+(
+    order_key          INT UNSIGNED AUTO_INCREMENT,
+    source_order_id    VARCHAR(20) NOT NULL,
+    customer_id        VARCHAR(20) NOT NULL,
+    location_id        SMALLINT UNSIGNED NOT NULL,
+    ship_mode_id       TINYINT UNSIGNED,
+    order_date         DATE NOT NULL,
+    ship_date          DATE NOT NULL,
+
+    CONSTRAINT pk_orders
+        PRIMARY KEY (order_key),
+    -- Esta combinación permite distinguir los pedidos cuyo
+    -- identificador original fue reutilizado para más de
+    -- una ubicación.
+    CONSTRAINT uq_orders_source_customer_location
+        UNIQUE (
+            source_order_id,
+            customer_id,
+            location_id
+        ),
+
+    CONSTRAINT chk_orders_dates
+        CHECK (ship_date >= order_date),
+
+    INDEX idx_orders_customer_id (customer_id),
+    INDEX idx_orders_location_id (location_id),
+    INDEX idx_orders_ship_mode_id (ship_mode_id),
+    INDEX idx_orders_order_date (order_date),
+
+    CONSTRAINT fk_orders_customer
+        FOREIGN KEY (customer_id)
+        REFERENCES customers (customer_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_orders_location
+        FOREIGN KEY (location_id)
+        REFERENCES locations (location_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_orders_ship_mode
+        FOREIGN KEY (ship_mode_id)
+        REFERENCES ship_modes (ship_mode_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+-- Verificamos que la tabla haya sido creada.
+SHOW TABLES LIKE 'orders';
+
+-- Revisamos las columnas y tipos.
+DESCRIBE orders;
+
+-- Revisamos claves, índices y restricciones.
+SHOW CREATE TABLE orders;
 
