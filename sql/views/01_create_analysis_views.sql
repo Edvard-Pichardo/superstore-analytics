@@ -1881,3 +1881,482 @@ ORDER BY
     total_orders DESC;
 
 
+
+-- Vista de desempeño por categoría
+ 
+-- Vista: vw_category_performance
+-- Resume el desempeño comercial de cada categoría.
+
+-- Se utiliza vw_sales_detail porque un mismo pedido puede
+-- contener productos pertenecientes a varias categorías.
+CREATE OR REPLACE VIEW vw_category_performance AS
+SELECT
+    -- Clasificación principal.
+    vsd.category,
+    -- Periodo de actividad.
+    MIN(vsd.order_date) AS first_order_date,
+    MAX(vsd.order_date) AS last_order_date,
+    -- Actividad comercial.
+    COUNT(*) AS total_order_lines,
+    COUNT(DISTINCT vsd.order_key) AS total_orders,
+    COUNT(DISTINCT vsd.customer_id) AS distinct_customers,
+    COUNT(DISTINCT vsd.product_key) AS distinct_products,
+    COUNT(DISTINCT vsd.sub_category) AS distinct_subcategories,
+    -- Métricas comerciales conocidas.
+    SUM(vsd.sales) AS total_sales,
+    SUM(vsd.quantity) AS total_quantity,
+    SUM(vsd.profit) AS total_profit,
+
+    AVG(vsd.discount) AS average_line_discount,
+    -- Venta promedio por línea con valor conocido.
+    AVG(vsd.sales) AS average_known_line_sales,
+    -- Beneficio promedio por línea con valor conocido.
+    AVG(vsd.profit) AS average_known_line_profit,
+    -- Margen calculado únicamente con líneas donde
+    -- sales y profit están disponibles simultáneamente.
+    SUM(
+        CASE
+            WHEN vsd.sales IS NOT NULL
+             AND vsd.profit IS NOT NULL
+                THEN vsd.profit
+        END
+    )
+    /
+    NULLIF(
+        SUM(
+            CASE
+                WHEN vsd.sales IS NOT NULL
+                 AND vsd.profit IS NOT NULL
+                    THEN vsd.sales
+            END
+        ),
+        0
+    ) * 100 AS comparable_profit_margin_percentage,
+    -- Cobertura de información.
+    COUNT(*) - COUNT(vsd.sales)
+        AS unknown_sales_lines,
+
+    COUNT(*) - COUNT(vsd.quantity)
+        AS unknown_quantity_lines,
+
+    COUNT(*) - COUNT(vsd.profit)
+        AS unknown_profit_lines,
+    -- Líneas con beneficio conocido negativo.
+    SUM(
+        CASE
+            WHEN vsd.profit < 0 THEN 1
+            ELSE 0
+        END
+    ) AS loss_making_lines
+
+FROM vw_sales_detail AS vsd
+
+GROUP BY
+    vsd.category;
+
+
+-- Comparamos las categorías del catálogo con las filas
+-- generadas en la vista analítica.
+SELECT
+    (SELECT COUNT(*) FROM categories)
+        AS categorias_modelo,
+
+    (SELECT COUNT(*) FROM vw_category_performance)
+        AS categorias_vista,
+
+    (SELECT COUNT(*) FROM vw_category_performance)
+    -
+    (SELECT COUNT(*) FROM categories)
+        AS diferencia;
+
+
+-- Verificamos que ninguna categoría del catálogo haya
+-- quedado fuera de la vista.
+SELECT
+    c.category_id,
+    c.category_name
+FROM categories AS c
+
+LEFT JOIN vw_category_performance AS vcp
+    ON vcp.category = c.category_name
+
+WHERE vcp.category IS NULL;
+
+
+
+-- Comprobamos que la agrupación por categoría conserve
+-- todas las líneas y los totales comerciales.
+SELECT
+    detalle.total_lineas AS lineas_detalle,
+    categorias.total_lineas AS lineas_categorias,
+
+    categorias.total_lineas
+    -
+    detalle.total_lineas AS diferencia_lineas,
+
+    detalle.total_ventas AS ventas_detalle,
+    categorias.total_ventas AS ventas_categorias,
+
+    categorias.total_ventas
+    -
+    detalle.total_ventas AS diferencia_ventas,
+
+    detalle.total_cantidad AS cantidad_detalle,
+    categorias.total_cantidad AS cantidad_categorias,
+
+    categorias.total_cantidad
+    -
+    detalle.total_cantidad AS diferencia_cantidad,
+
+    detalle.total_beneficio AS beneficio_detalle,
+    categorias.total_beneficio AS beneficio_categorias,
+
+    categorias.total_beneficio
+    -
+    detalle.total_beneficio AS diferencia_beneficio
+
+FROM
+(
+    SELECT
+        COUNT(*) AS total_lineas,
+        SUM(sales) AS total_ventas,
+        SUM(quantity) AS total_cantidad,
+        SUM(profit) AS total_beneficio
+    FROM vw_sales_detail
+) AS detalle
+
+CROSS JOIN
+(
+    SELECT
+        SUM(total_order_lines) AS total_lineas,
+        SUM(total_sales) AS total_ventas,
+        SUM(total_quantity) AS total_cantidad,
+        SUM(total_profit) AS total_beneficio
+    FROM vw_category_performance
+) AS categorias;
+
+
+-- Consultamos resultados
+SELECT
+    category,
+    distinct_subcategories,
+    distinct_products,
+    distinct_customers,
+    total_orders,
+    total_order_lines,
+    total_sales,
+    total_quantity,
+    total_profit,
+    average_line_discount,
+    comparable_profit_margin_percentage,
+    loss_making_lines,
+    unknown_sales_lines,
+    unknown_profit_lines
+FROM vw_category_performance
+ORDER BY total_sales DESC;
+
+
+
+
+
+-- Vista ejecutiva del negocio
+
+-- Vista: vw_business_overview
+-- Presenta los principales indicadores generales del negocio.
+
+-- La vista contiene exactamente una fila y utiliza
+-- vw_order_summary para conservar el nivel de pedido.
+CREATE OR REPLACE VIEW vw_business_overview AS
+SELECT
+    -- Periodo analizado.
+    MIN(vos.order_date) AS first_order_date,
+    MAX(vos.order_date) AS last_order_date,
+
+    DATEDIFF(
+        MAX(vos.order_date),
+        MIN(vos.order_date)
+    ) + 1 AS analysis_period_days,
+    -- Tamaño general del modelo.
+    COUNT(*) AS total_orders,
+
+    COUNT(DISTINCT vos.customer_id)
+        AS total_customers,
+
+    (
+        SELECT COUNT(*)
+        FROM products
+    ) AS total_products,
+
+    (
+        SELECT COUNT(*)
+        FROM categories
+    ) AS total_categories,
+
+    (
+        SELECT COUNT(*)
+        FROM sub_categories
+    ) AS total_subcategories,
+
+    (
+        SELECT COUNT(*)
+        FROM locations
+    ) AS total_locations,
+
+    (
+        SELECT COUNT(*)
+        FROM regions
+    ) AS total_regions,
+
+    SUM(vos.total_order_lines)
+        AS total_order_lines,
+    -- Métricas comerciales conocidas.
+    SUM(vos.total_sales)
+        AS total_sales,
+
+    SUM(vos.total_quantity)
+        AS total_quantity,
+
+    SUM(vos.total_profit)
+        AS total_profit,
+    -- Promedios calculados únicamente con pedidos
+    -- cuya métrica se encuentra completamente disponible.
+    AVG(
+        CASE
+            WHEN vos.unknown_sales_lines = 0
+                THEN vos.total_sales
+        END
+    ) AS average_complete_order_value,
+
+    AVG(
+        CASE
+            WHEN vos.unknown_profit_lines = 0
+                THEN vos.total_profit
+        END
+    ) AS average_complete_order_profit,
+    -- Margen calculado solo con pedidos donde ventas
+    -- y beneficios se encuentran completos.
+    SUM(
+        CASE
+            WHEN vos.unknown_sales_lines = 0
+             AND vos.unknown_profit_lines = 0
+                THEN vos.total_profit
+        END
+    )
+    /
+    NULLIF(
+        SUM(
+            CASE
+                WHEN vos.unknown_sales_lines = 0
+                 AND vos.unknown_profit_lines = 0
+                    THEN vos.total_sales
+            END
+        ),
+        0
+    ) * 100 AS comparable_profit_margin_percentage,
+    -- Actividad promedio por cliente.
+    COUNT(*)
+    /
+    NULLIF(
+        COUNT(DISTINCT vos.customer_id),
+        0
+    ) AS average_orders_per_customer,
+    -- Desempeño logístico.
+    AVG(vos.shipping_days)
+        AS average_shipping_days,
+
+    MIN(vos.shipping_days)
+        AS minimum_shipping_days,
+
+    MAX(vos.shipping_days)
+        AS maximum_shipping_days,
+    -- Valores desconocidos a nivel de línea.
+    SUM(vos.unknown_sales_lines)
+        AS unknown_sales_lines,
+
+    SUM(vos.unknown_quantity_lines)
+        AS unknown_quantity_lines,
+
+    SUM(vos.unknown_profit_lines)
+        AS unknown_profit_lines,
+    -- Cobertura porcentual de las métricas.
+    100.0
+    *
+    (
+        SUM(vos.total_order_lines)
+        -
+        SUM(vos.unknown_sales_lines)
+    )
+    /
+    NULLIF(
+        SUM(vos.total_order_lines),
+        0
+    ) AS sales_coverage_percentage,
+
+    100.0
+    *
+    (
+        SUM(vos.total_order_lines)
+        -
+        SUM(vos.unknown_quantity_lines)
+    )
+    /
+    NULLIF(
+        SUM(vos.total_order_lines),
+        0
+    ) AS quantity_coverage_percentage,
+
+    100.0
+    *
+    (
+        SUM(vos.total_order_lines)
+        -
+        SUM(vos.unknown_profit_lines)
+    )
+    /
+    NULLIF(
+        SUM(vos.total_order_lines),
+        0
+    ) AS profit_coverage_percentage,
+    -- Pedidos con información incompleta.
+    SUM(
+        CASE
+            WHEN vos.unknown_sales_lines > 0 THEN 1
+            ELSE 0
+        END
+    ) AS orders_with_unknown_sales,
+
+    SUM(
+        CASE
+            WHEN vos.unknown_quantity_lines > 0 THEN 1
+            ELSE 0
+        END
+    ) AS orders_with_unknown_quantity,
+
+    SUM(
+        CASE
+            WHEN vos.unknown_profit_lines > 0 THEN 1
+            ELSE 0
+        END
+    ) AS orders_with_unknown_profit,
+
+    SUM(
+        CASE
+            WHEN vos.ship_mode IS NULL THEN 1
+            ELSE 0
+        END
+    ) AS orders_with_unknown_ship_mode,
+    -- Pedidos con beneficio completo cuyo resultado
+    -- comercial fue negativo.
+    SUM(
+        CASE
+            WHEN vos.unknown_profit_lines = 0
+             AND vos.total_profit < 0
+                THEN 1
+            ELSE 0
+        END
+    ) AS complete_loss_making_orders
+
+FROM vw_order_summary AS vos;
+
+
+-- Verificamos que la vista represente un único
+-- resumen ejecutivo del negocio.
+SELECT COUNT(*) AS total_filas
+FROM vw_business_overview;
+
+
+-- Comparamos los indicadores principales con
+-- vw_order_summary.
+SELECT
+    resumen.total_pedidos AS pedidos_resumen,
+    ejecutivo.total_orders AS pedidos_ejecutivo,
+
+    ejecutivo.total_orders
+    -
+    resumen.total_pedidos AS diferencia_pedidos,
+
+    resumen.total_lineas AS lineas_resumen,
+    ejecutivo.total_order_lines AS lineas_ejecutivo,
+
+    ejecutivo.total_order_lines
+    -
+    resumen.total_lineas AS diferencia_lineas,
+
+    resumen.total_ventas AS ventas_resumen,
+    ejecutivo.total_sales AS ventas_ejecutivo,
+
+    ejecutivo.total_sales
+    -
+    resumen.total_ventas AS diferencia_ventas,
+
+    resumen.total_cantidad AS cantidad_resumen,
+    ejecutivo.total_quantity AS cantidad_ejecutivo,
+
+    ejecutivo.total_quantity
+    -
+    resumen.total_cantidad AS diferencia_cantidad,
+
+    resumen.total_beneficio AS beneficio_resumen,
+    ejecutivo.total_profit AS beneficio_ejecutivo,
+
+    ejecutivo.total_profit
+    -
+    resumen.total_beneficio AS diferencia_beneficio
+
+FROM
+(
+    SELECT
+        COUNT(*) AS total_pedidos,
+        SUM(total_order_lines) AS total_lineas,
+        SUM(total_sales) AS total_ventas,
+        SUM(total_quantity) AS total_cantidad,
+        SUM(total_profit) AS total_beneficio
+    FROM vw_order_summary
+) AS resumen
+
+CROSS JOIN vw_business_overview AS ejecutivo;
+
+
+-- Comprobamos los conteos generales del modelo.
+SELECT
+    total_orders,
+    total_customers,
+    total_products,
+    total_categories,
+    total_subcategories,
+    total_locations,
+    total_regions,
+    total_order_lines
+FROM vw_business_overview;
+
+-- Consultamos
+SELECT
+    first_order_date,
+    last_order_date,
+    analysis_period_days,
+
+    total_orders,
+    total_customers,
+    total_products,
+    total_locations,
+
+    total_sales,
+    total_quantity,
+    total_profit,
+
+    average_complete_order_value,
+    average_complete_order_profit,
+    comparable_profit_margin_percentage,
+    average_orders_per_customer,
+
+    average_shipping_days,
+    sales_coverage_percentage,
+    quantity_coverage_percentage,
+    profit_coverage_percentage,
+
+    complete_loss_making_orders,
+    orders_with_unknown_sales,
+    orders_with_unknown_profit,
+    orders_with_unknown_ship_mode
+
+FROM vw_business_overview;
