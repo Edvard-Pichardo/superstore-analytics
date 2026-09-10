@@ -1,5 +1,5 @@
 /*
-Archivo: 02_create_staging_tables
+Archivo: 02_create_staging_table
 Proyecto: superstore-analytics
 Autor: Cristian Eduardo Pichardo Rico
 Descripción: Creación de la tabla raw_sales para almacenar
