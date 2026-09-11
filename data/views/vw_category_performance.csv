@@ -1,0 +1,4 @@
+category,first_order_date,last_order_date,total_order_lines,total_orders,distinct_customers,distinct_products,distinct_subcategories,total_sales,total_quantity,total_profit,average_line_discount,average_known_line_sales,average_known_line_profit,comparable_profit_margin_percentage,unknown_sales_lines,unknown_quantity_lines,unknown_profit_lines,loss_making_lines
+Furniture,2023-01-06,2026-12-30,2201,1821,713,383,4,706380.740100,14306,-20902.806200,0.177756,340.5885921408,-10.0882269305,-3.6481525936,127,56,129,688
+"Office Supplies",2023-01-03,2026-12-30,6128,3814,793,1098,9,695172.852600,40997,70212.851600,0.159799,118.5492586289,11.9735422237,9.5489669868,264,102,264,893
+Technology,2023-01-06,2026-12-30,1865,1560,687,413,4,755221.503100,12993,97577.972000,0.136810,422.3833909955,55.4420295455,10.1585529404,77,30,105,274
