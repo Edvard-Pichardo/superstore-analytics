@@ -117,7 +117,7 @@ FROM (
     HAVING COUNT(*) > 1
 ) AS duplicados
 
--- Existen 509 datos que están duplicados
+-- Existen 509 filas que están duplicadas
 
 
 --Ahora, vamos a identificar la cantidad de valores diferentes en cada columna
