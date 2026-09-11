@@ -106,4 +106,4 @@ ORDER BY constraint_type, constraint_name;
 -- La tabla no tiene ningún registro por el momento.
 -- Podemos verificarlo. 
 SELECT count(*) AS 'Registros Totales'
-FROM raw_sales;
+FROM clean_sales;
