@@ -29,7 +29,7 @@ CREATE TABLE raw_sales (
     region          VARCHAR(100),
     product_id      VARCHAR(50),
     category        VARCHAR(100),
-    subcategory     VARCHAR(100),
+    sub_category     VARCHAR(100),
     product_name    VARCHAR(255),
     sales           VARCHAR(50),
     quantity        VARCHAR(50),
