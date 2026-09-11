@@ -1,0 +1,6 @@
+ship_mode,is_unknown_ship_mode,first_order_date,last_order_date,total_orders,distinct_customers,total_order_lines,total_product_references,total_sales,total_quantity,total_profit,average_complete_order_value,average_complete_order_profit,comparable_profit_margin_percentage,average_shipping_days,minimum_shipping_days,maximum_shipping_days,unknown_sales_lines,unknown_quantity_lines,unknown_profit_lines,orders_with_unknown_sales,orders_with_unknown_quantity,orders_with_unknown_profit,complete_loss_making_orders
+Unknown,1,2023-01-05,2026-12-30,274,227,280,280,55844.943400,2019,8154.661800,216.2137651163,31.0063186312,14.2169866743,3.9672,0,7,16,8,11,16,8,11,42
+"First Class",0,2023-01-06,2026-12-29,756,480,1509,1508,313731.122900,9347,24415.206500,424.0368135569,33.9434316788,3.9825355657,2.1852,1,4,74,28,73,70,28,71,150
+"Same Day",0,2023-02-18,2026-12-27,247,210,528,528,122710.823100,3920,2537.055600,505.3187995633,-16.2752779817,2.6926429510,0.0445,0,1,19,11,33,18,10,29,55
+"Second Class",0,2023-01-06,2026-12-29,926,536,1922,1919,434381.582100,14750,13323.568700,457.9023236471,12.0575395238,1.3727436445,3.2300,1,5,80,31,91,76,31,86,160
+"Standard Class",0,2023-01-03,2026-12-30,2910,776,5955,5948,1230106.624300,38260,98457.524800,421.9030405907,36.6366714827,6.6425841565,4.9887,3,11,279,110,290,269,106,273,558
