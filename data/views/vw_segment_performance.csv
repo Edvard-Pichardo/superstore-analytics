@@ -1,0 +1,4 @@
+segment,first_order_date,last_order_date,total_orders,distinct_customers,total_order_lines,total_product_references,total_sales,total_quantity,total_profit,average_complete_order_value,average_complete_order_profit,comparable_profit_margin_percentage,average_shipping_days,minimum_shipping_days,maximum_shipping_days,unknown_sales_lines,unknown_quantity_lines,unknown_profit_lines,orders_with_unknown_sales,orders_with_unknown_quantity,orders_with_unknown_profit,complete_loss_making_orders
+Consumer,2023-01-03,2026-12-30,2628,412,5281,5277,1082032.376300,34103,70618.977700,408.1069969583,28.7918229803,5.3567751111,3.9273,0,7,235,91,253,228,89,239,518
+Corporate,2023-01-06,2026-12-30,1554,239,3090,3088,647467.160000,19338,50038.252800,421.5563591199,31.3940008481,5.2432673714,4.0142,0,11,152,61,146,145,59,139,287
+"Home Office",2023-01-04,2026-12-30,931,149,1823,1818,427275.559500,14855,26230.786900,458.9749861988,25.4957824791,4.9122831868,3.9731,0,7,81,36,99,76,35,92,160
