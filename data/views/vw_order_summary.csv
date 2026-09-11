@@ -1,0 +1,335 @@
+order_key,order_id,order_date,order_year,order_month,order_year_month,ship_date,shipping_days,ship_mode,customer_id,customer_name,segment,country,state,city,postal_code,region,total_order_lines,distinct_products,total_sales,total_quantity,average_line_discount,total_profit,unknown_sales_lines,unknown_quantity_lines,unknown_profit_lines
+1,CA-2023-100867,2023-10-19,2023,10,2023-10,2023-10-24,5,"Standard Class",EH-14125,"Eugene Hildebrand","Home Office",Canada,"British Columbia",Vancouver,V6G,West,1,1,32.700000,3,0.000000,8.500000,0,0,0
+2,CA-2023-107153,2023-09-28,2023,9,2023-09,2023-10-03,5,"Standard Class",GZ-14545,"George Zrebassa",Corporate,Canada,Quebec,Montreal,H1A,East,1,1,10.688000,2,0.200000,3.740800,0,0,0
+3,CA-2023-115238,2023-01-21,2023,1,2023-01,2023-01-24,3,"Standard Class",JW-15220,"Jane Waco",Corporate,Canada,Ontario,Toronto,M7A,East,5,5,281.160000,22,0.000000,89.200000,0,0,0
+4,CA-2023-115777,2023-08-19,2023,8,2023-08,2023-08-24,5,"Standard Class",DO-13645,"Doug O'Connell",Consumer,Canada,Quebec,Montreal,H1B,East,1,1,387.990000,1,0.000000,NULL,0,0,1
+5,CA-2023-117964,2023-12-02,2023,12,2023-12,2023-12-06,4,"Standard Class",MK-19560,"Michael Knudson",Corporate,Canada,"New Brunswick",Moncton,E1A,East,2,2,56.424000,12,0.400000,-18.535400,0,0,0
+6,CA-2023-119508,2023-12-04,2023,12,2023-12,2023-12-09,5,"Standard Class",TZ-21580,"Tracy Zic",Consumer,Canada,"British Columbia",Vancouver,V6B,West,2,2,41.980000,11,0.000000,15.280000,0,0,0
+7,CA-2023-123625,2023-12-29,2023,12,2023-12,2024-01-02,4,"Standard Class",BG-18435,"Bruce Galang",Consumer,Canada,Quebec,"Quebec City",G1B,East,4,2,257.640000,17,0.137500,88.094400,0,0,0
+8,CA-2023-123664,2023-12-02,2023,12,2023-12,2023-12-06,4,"Standard Class",NC-19470,"Neil Cohen","Home Office",Canada,"Nova Scotia",Halifax,B3H,East,1,1,58.360000,5,0.600000,-24.803000,0,0,0
+9,CA-2023-125388,2023-10-19,2023,10,2023-10,2023-10-23,4,"Standard Class",MP-17965,"Michael Paige",Corporate,Canada,Quebec,Montreal,H1A,East,2,2,174.136000,7,0.100000,26.463200,0,0,0
+10,CA-2023-126438,2023-09-10,2023,9,2023-09,2023-09-13,3,"First Class",AR-10345,"Alex Russell",Corporate,Canada,Quebec,Montreal,H1C,East,1,1,14.880000,2,0.000000,3.720000,0,0,0
+11,CA-2023-126634,2023-12-20,2023,12,2023-12,2023-12-22,2,"Second Class",AB-10165,"Alan Barnes",Consumer,Canada,"British Columbia",Vancouver,V5K,West,1,1,94.200000,5,0.000000,39.560000,0,0,0
+12,CA-2023-129322,2023-08-08,2023,8,2023-08,2023-08-10,2,"Second Class",DB-13405,"Denny Blanton",Consumer,Canada,Ontario,Toronto,M5H,East,3,3,601.440000,11,0.000000,255.430000,0,0,0
+13,CA-2023-131807,2023-10-05,2023,10,2023-10,2023-10-10,5,"Standard Class",GG-14650,"Greg Guthrie",Corporate,Canada,Alberta,Calgary,T1Y,West,2,2,450.070000,9,0.100000,-52.990000,0,0,0
+14,CA-2023-131807,2023-10-05,2023,10,2023-10,2023-10-10,5,"Standard Class",GG-14650,"Greg Guthrie",Corporate,Canada,Alberta,Edmonton,T5A,West,4,4,303.040000,13,0.100000,38.940000,0,0,0
+15,CA-2023-132339,2023-08-19,2023,8,2023-08,2023-08-23,4,"Standard Class",JB-15400,"Jennifer Braxton",Corporate,Canada,Quebec,Montreal,H1B,East,1,1,19.440000,3,0.000000,9.330000,0,0,0
+16,CA-2023-139675,2023-03-13,2023,3,2023-03,2023-03-18,5,"Second Class",NF-18595,"Nicole Fjeld","Home Office",Canada,Alberta,Calgary,T2C,West,2,2,1242.900000,12,0.100000,102.950000,0,0,1
+17,CA-2023-141531,2023-12-29,2023,12,2023-12,2024-01-02,4,"Standard Class",BG-18435,"Bruce Galang",Consumer,Canada,Quebec,"Quebec City",G1B,East,2,2,19.600000,7,0.000000,30.142000,1,0,0
+18,CA-2023-143500,2023-12-30,2023,12,2023-12,2024-01-03,4,"Standard Class",HO-15230,"Harry Olson",Consumer,Canada,"Prince Edward Island",Charlottetown,C0A,East,1,1,NULL,3,0.200000,-0.604800,1,0,0
+19,CA-2023-146626,2023-12-29,2023,12,2023-12,2024-01-05,7,"Standard Class",JP-11135,"James Peterman",Corporate,Canada,"Newfoundland and Labrador","St. John's",A0A,East,1,1,19.600000,5,0.000000,9.604000,0,0,0
+20,CA-2023-151799,2023-12-14,2023,12,2023-12,2023-12-18,4,"Standard Class",BF-11170,"Ben Ferrer","Home Office",Canada,Ontario,Toronto,M3C,East,5,5,1843.400000,14,0.060000,432.350000,0,0,0
+21,CA-2023-152443,2023-05-21,2023,5,2023-05,2023-05-26,5,"Standard Class",FG-14260,"Frank Gastineau","Home Office",Canada,Quebec,Montreal,H1A,East,3,3,711.680000,9,0.000000,297.088400,0,1,0
+22,CA-2023-153623,2023-11-24,2023,11,2023-11,2023-12-05,11,"Standard Class",JP-11135,"James Peterman",Corporate,Canada,"Newfoundland and Labrador","St. John's",A0A,East,2,1,198.240000,16,0.275000,70.828800,0,0,0
+23,CA-2023-153738,2023-09-20,2023,9,2023-09,2023-09-22,2,NULL,AG-10270,"Alejandro Grove",Consumer,Canada,Ontario,Toronto,M2N,East,1,1,37.680000,6,0.000000,16.960000,0,0,0
+24,CA-2023-160325,2023-09-24,2023,9,2023-09,2023-09-24,0,"Same Day",BP-11095,"Bart Pistole",Corporate,Canada,Quebec,Montreal,H1C,East,2,2,829.830000,5,0.000000,-2079.500000,0,0,0
+25,CA-2023-166086,2023-05-07,2023,5,2023-05,2023-05-12,5,"Standard Class",CT-11995,"Carol Triggs",Consumer,Canada,Ontario,Toronto,M3C,East,4,4,1091.350000,12,0.075000,213.308200,0,0,1
+26,CA-2023-166695,2023-05-20,2023,5,2023-05,2023-05-24,4,"Standard Class",CC-12430,"Chuck Clark","Home Office",Canada,"British Columbia",Vancouver,V6Z,West,3,3,868.450000,10,0.133333,-55.220000,0,0,0
+27,CA-2023-184712,2023-06-18,2023,6,2023-06,2023-06-20,2,"Second Class",NC-19470,"Neil Cohen","Home Office",Canada,"Nova Scotia",Halifax,B3H,East,1,1,74.352000,3,0.200000,23.235000,0,0,0
+28,CA-2024-112224,2024-12-02,2024,12,2024-12,2024-12-06,4,"Standard Class",NC-19470,"Neil Cohen","Home Office",Canada,"Nova Scotia",Halifax,B3H,East,1,1,58.360000,5,0.600000,-24.803000,0,0,0
+29,CA-2024-115238,2024-01-21,2024,1,2024-01,2024-01-24,3,"Standard Class",JW-15220,"Jane Waco",Corporate,Canada,Ontario,Toronto,M7A,East,5,5,281.160000,22,0.110000,89.200000,0,0,0
+30,CA-2024-119508,2024-12-04,2024,12,2024-12,2024-12-09,5,"Standard Class",TZ-21580,"Tracy Zic",Consumer,Canada,"British Columbia",Vancouver,V6B,West,2,2,401.724000,6,0.050000,78.722800,0,0,0
+31,CA-2024-129322,2024-08-08,2024,8,2024-08,2024-08-10,2,"Second Class",DB-13405,"Denny Blanton",Consumer,Canada,Ontario,Toronto,M5H,East,3,3,158.672000,3,0.200000,15.819000,0,1,0
+32,CA-2024-132548,2024-05-07,2024,5,2024-05,2024-05-12,5,"Standard Class",CT-11995,"Carol Triggs",Consumer,Canada,Ontario,Toronto,M3C,East,4,4,115.260000,20,0.150000,11.464000,0,0,0
+33,CA-2024-139675,2024-03-13,2024,3,2024-03,2024-03-18,5,"Second Class",NF-18595,"Nicole Fjeld","Home Office",Canada,Alberta,Calgary,T2C,West,2,2,1242.896000,12,0.100000,194.725600,0,0,0
+34,CA-2024-145154,2024-12-02,2024,12,2024-12,2024-12-06,4,"Standard Class",MK-19560,"Michael Knudson",Corporate,Canada,"New Brunswick",Moncton,E1A,East,1,1,39.960000,5,0.600000,-20.976000,0,0,0
+35,CA-2024-150547,2024-03-21,2024,3,2024-03,2024-03-26,5,"Standard Class",FG-14260,"Frank Gastineau","Home Office",Canada,Quebec,Montreal,H1A,East,1,1,9.480000,1,0.000000,3.790000,0,0,0
+36,CA-2024-152681,2024-01-17,2024,1,2024-01,2024-01-22,5,"Standard Class",SC-20260,"Scott Cohen",Corporate,Canada,Quebec,Montreal,H1A,East,1,1,6.680000,2,0.000000,2.004000,0,0,0
+37,CA-2024-153071,2024-09-08,2024,9,2024-09,2024-09-12,4,"Standard Class",GZ-14545,"George Zrebassa",Corporate,Canada,Quebec,Montreal,H1A,East,1,1,6.680000,2,0.000000,2.000000,0,0,0
+38,CA-2024-153738,2024-09-20,2024,9,2024-09,2024-09-22,2,"First Class",AG-10270,"Alejandro Grove",Consumer,Canada,Ontario,Toronto,M2N,East,1,1,24.448000,2,0.200000,8.862400,0,0,0
+39,CA-2024-154124,2024-12-02,2024,12,2024-12,2024-12-06,4,"Standard Class",MK-19560,"Michael Knudson",Corporate,Canada,"New Brunswick",Moncton,E1A,East,1,1,16.464000,7,0.200000,2.440600,0,0,0
+40,CA-2024-154231,2024-10-19,2024,10,2024-10,2024-10-24,5,"Standard Class",EH-14125,"Eugene Hildebrand","Home Office",Canada,"British Columbia",Vancouver,V6G,West,1,1,2.210000,1,0.000000,0.600000,0,0,0
+41,CA-2024-155586,2024-12-12,2024,12,2024-12,2024-12-16,4,"Second Class",XP-21865,"Xylona Preis",Consumer,Canada,Alberta,Calgary,T2C,West,3,3,74.328000,12,0.066667,30.278400,0,0,0
+42,CA-2024-158792,2024-12-26,2024,12,2024-12,2025-01-02,7,NULL,BD-11605,"Brian Dahlen",Consumer,Canada,Quebec,Montreal,H1A,East,1,1,22.200000,5,0.000000,10.434000,0,0,0
+43,CA-2025-108735,2025-04-17,2025,4,2025-04,2025-04-21,4,"Standard Class",JM-15535,"Jessica Myrick",Consumer,Canada,"British Columbia",Vancouver,V6E,West,1,1,79.120000,5,0.200000,13.846000,0,0,0
+44,CA-2025-111254,2025-12-02,2025,12,2025-12,2025-12-06,4,"Standard Class",MK-19560,"Michael Knudson",Corporate,Canada,"New Brunswick",Moncton,E1A,East,1,1,16.464000,7,0.200000,NULL,0,0,1
+45,CA-2025-112109,2025-07-08,2025,7,2025-07,2025-07-12,4,"Standard Class",JE-15715,"Joe Elijah",Consumer,Canada,Manitoba,Winnipeg,R0H,Central,4,4,227.312000,16,0.200000,127.004800,0,0,0
+46,CA-2025-115238,2025-01-21,2025,1,2025-01,2025-01-24,3,"Standard Class",JW-15220,"Jane Waco",Corporate,Canada,Ontario,Toronto,M7A,East,5,5,281.160000,22,0.000000,89.200000,0,0,0
+47,CA-2025-115483,2025-03-19,2025,3,2025-03,2025-03-21,2,"Second Class",JT-12540,"Jill Trafton",Consumer,Canada,Quebec,"Quebec City",G1B,East,1,1,72.294000,1,0.700000,-98.801800,0,0,0
+48,CA-2025-119508,2025-12-04,2025,12,2025-12,2025-12-09,5,"Standard Class",TZ-21580,"Tracy Zic",Consumer,Canada,"British Columbia",Vancouver,V6B,West,2,2,41.980000,11,0.000000,15.280000,0,0,0
+49,CA-2025-121465,2025-06-12,2025,6,2025-06,2025-06-17,5,"Standard Class",HO-15230,"Harry Olson",Consumer,Canada,"Prince Edward Island",Charlottetown,C0A,East,4,4,540.934000,16,0.100000,165.281300,0,0,0
+50,CA-2025-124574,2025-12-02,2025,12,2025-12,2025-12-06,4,"Standard Class",MK-19560,"Michael Knudson",Corporate,Canada,"New Brunswick",Moncton,E1A,East,1,1,39.960000,5,0.600000,-20.976000,0,0,0
+51,CA-2025-124626,2025-12-10,2025,12,2025-12,2025-12-15,5,"Standard Class",JP-11135,"James Peterman",Corporate,Canada,"Newfoundland and Labrador","St. John's",A0A,East,1,1,NULL,8,0.000000,35.414400,1,0,0
+52,CA-2025-125724,2025-09-22,2025,9,2025-09,2025-09-27,5,"Standard Class",SM-20950,"Suzanne McNair",Corporate,Canada,Saskatchewan,Regina,S0G,West,1,1,63.968000,2,0.200000,19.990000,0,0,0
+53,CA-2025-126627,2025-10-10,2025,10,2025-10,2025-10-12,2,"First Class",WB-21850,"William Brown",Consumer,Canada,Manitoba,Winnipeg,R3R,Central,2,2,39.784000,2,0.200000,10.589700,0,0,0
+54,CA-2025-129322,2025-08-08,2025,8,2025-08,2025-08-10,2,"Second Class",DB-13405,"Denny Blanton",Consumer,Canada,Ontario,Toronto,M5H,East,3,3,601.440000,11,0.000000,255.430000,0,0,0
+55,CA-2025-133541,2025-12-02,2025,12,2025-12,2025-12-06,4,"Standard Class",NC-19470,"Neil Cohen","Home Office",Canada,"Nova Scotia",Halifax,B3H,East,1,1,58.360000,5,0.600000,-24.803000,0,0,0
+56,CA-2025-135480,2025-12-15,2025,12,2025-12,2025-12-22,7,"Standard Class",BG-18435,"Bruce Galang",Consumer,Canada,Quebec,"Quebec City",G1B,East,2,2,88.060000,7,0.000000,30.142000,0,0,0
+57,CA-2025-136547,2025-06-18,2025,6,2025-06,2025-06-22,4,"Standard Class",FG-14260,"Frank Gastineau","Home Office",Canada,Quebec,Montreal,H1A,East,1,1,14.000000,4,0.550000,-6.300000,0,0,0
+58,CA-2025-139675,2025-03-13,2025,3,2025-03,2025-03-18,5,"Second Class",NF-18595,"Nicole Fjeld","Home Office",Canada,Alberta,Calgary,T2C,West,2,2,1242.900000,12,0.100000,91.770000,0,0,1
+59,CA-2025-141082,2025-12-09,2025,12,2025-12,2025-12-13,4,"Standard Class",FM-14380,"Fred McMath",Consumer,Canada,Quebec,Montreal,H1A,East,2,2,79.974000,5,0.550000,-29.323800,1,0,1
+60,CA-2025-153738,2025-09-20,2025,9,2025-09,2025-09-22,2,"First Class",AG-10270,"Alejandro Grove",Consumer,Canada,Ontario,Toronto,M2N,East,1,1,37.680000,6,0.000000,16.960000,0,0,0
+61,CA-2025-155412,2025-01-17,2025,1,2025-01,2025-01-22,5,NULL,SC-20260,"Scott Cohen",Corporate,Canada,Quebec,Montreal,H1A,East,1,1,6.680000,2,0.000000,2.000000,0,0,0
+62,CA-2025-155586,2025-12-12,2025,12,2025-12,2025-12-16,4,"Second Class",XP-21865,"Xylona Preis",Consumer,Canada,Alberta,Calgary,T2C,West,3,3,54.170000,9,0.000000,24.450000,0,0,0
+63,CA-2025-158792,2025-12-26,2025,12,2025-12,2026-01-02,7,NULL,BD-11605,"Brian Dahlen",Consumer,Canada,Quebec,Montreal,H1A,East,1,1,22.200000,5,0.000000,10.430000,0,0,0
+64,CA-2025-169856,2025-05-07,2025,5,2025-05,2025-05-12,5,"Standard Class",CT-11995,"Carol Triggs",Consumer,Canada,Ontario,Toronto,M3C,East,4,4,55.110000,12,0.175000,14.550000,0,0,0
+65,CA-2025-174514,2025-10-19,2025,10,2025-10,2025-10-24,5,"Standard Class",EH-14125,"Eugene Hildebrand","Home Office",Canada,"British Columbia",Vancouver,V6G,West,1,1,6.480000,1,0.000000,3.110000,0,0,0
+66,CA-2025-187423,2025-06-28,2025,6,2025-06,2025-07-03,5,"Standard Class",GZ-14545,"George Zrebassa",Corporate,Canada,Quebec,Montreal,H1A,East,1,1,37.680000,6,0.000000,16.960000,0,0,0
+67,CA-2025-192314,2025-09-26,2025,9,2025-09,2025-10-01,5,"Second Class",JS-13215,"Jennifer Sheldon",Corporate,Canada,Quebec,"Quebec City",G1B,East,1,1,9.990000,1,0.000000,4.495500,0,0,0
+68,CA-2026-105471,2026-12-02,2026,12,2026-12,2026-12-06,4,"Standard Class",NC-19470,"Neil Cohen","Home Office",Canada,"Nova Scotia",Halifax,B3H,East,1,1,58.360000,5,0.600000,-24.803000,0,0,0
+69,CA-2026-106541,2026-12-02,2026,12,2026-12,2026-12-06,4,"Standard Class",MK-19560,"Michael Knudson",Corporate,Canada,"New Brunswick",Moncton,E1A,East,1,1,39.960000,5,0.600000,-20.976000,0,0,0
+70,CA-2026-107004,2026-10-19,2026,10,2026-10,2026-10-24,5,"Standard Class",EH-14125,"Eugene Hildebrand","Home Office",Canada,"British Columbia",Vancouver,V6G,West,1,1,19.440000,3,0.000000,9.330000,0,0,0
+71,CA-2026-108735,2026-04-17,2026,4,2026-04,2026-04-21,4,"Standard Class",JM-15535,"Jessica Myrick",Consumer,Canada,"British Columbia",Vancouver,V6E,West,1,1,257.500000,3,0.200000,24.240000,0,0,0
+72,CA-2026-112109,2026-07-08,2026,7,2026-07,2026-07-12,4,"Standard Class",JE-15715,"Joe Elijah",Consumer,Canada,Manitoba,Winnipeg,R0H,Central,4,4,62.200000,16,0.450000,55.140000,1,0,1
+73,CA-2026-115238,2026-01-21,2026,1,2026-01,2026-01-24,3,"Standard Class",JW-15220,"Jane Waco",Corporate,Canada,Ontario,Toronto,M7A,East,5,5,281.160000,22,0.000000,76.010000,0,0,1
+74,CA-2026-115483,2026-03-19,2026,3,2026-03,2026-03-21,2,"Second Class",JT-12540,"Jill Trafton",Consumer,Canada,Quebec,"Quebec City",G1B,East,1,1,72.294000,1,0.700000,-98.801800,0,0,0
+75,CA-2026-115777,2026-08-19,2026,8,2026-08,2026-08-24,5,"Standard Class",DO-13645,"Doug O'Connell",Consumer,Canada,Quebec,Montreal,H1B,East,1,1,387.990000,1,0.000000,182.355300,0,0,0
+76,CA-2026-119508,2026-12-04,2026,12,2026-12,2026-12-09,5,"Standard Class",TZ-21580,"Tracy Zic",Consumer,Canada,"British Columbia",Vancouver,V6B,West,2,2,41.980000,11,0.000000,-84.500000,0,0,1
+77,CA-2026-121451,2026-01-17,2026,1,2026-01,2026-01-22,5,"Standard Class",SC-20260,"Scott Cohen",Corporate,Canada,Quebec,Montreal,H1A,East,1,1,6.680000,2,0.000000,2.000000,0,0,0
+78,CA-2026-124626,2026-12-10,2026,12,2026-12,2026-12-15,5,NULL,JP-11135,"James Peterman",Corporate,Canada,"Newfoundland and Labrador","St. John's",A0A,East,1,1,99.120000,8,0.000000,35.414400,0,0,0
+79,CA-2026-125388,2026-10-19,2026,10,2026-10,2026-10-23,4,"Standard Class",MP-17965,"Michael Paige",Corporate,Canada,Quebec,Montreal,H1A,East,2,2,41.048000,5,0.200000,1.861900,0,0,0
+80,CA-2026-125724,2026-09-22,2026,9,2026-09,2026-09-27,5,NULL,SM-20950,"Suzanne McNair",Corporate,Canada,Saskatchewan,Regina,S0G,West,1,1,NULL,7,0.200000,8.550000,1,0,0
+81,CA-2026-126438,2026-09-10,2026,9,2026-09,2026-09-13,3,"First Class",AR-10345,"Alex Russell",Corporate,Canada,Quebec,Montreal,H1C,East,1,1,2.780000,1,0.000000,1.362200,0,0,0
+82,CA-2026-126627,2026-10-10,2026,10,2026-10,2026-10-12,2,"First Class",WB-21850,"William Brown",Consumer,Canada,Manitoba,Winnipeg,R3R,Central,2,2,30.392000,6,0.700000,-32.530000,0,0,0
+83,CA-2026-126634,2026-12-20,2026,12,2026-12,2026-12-22,2,"Second Class",AB-10165,"Alan Barnes",Consumer,Canada,"British Columbia",Vancouver,V5K,West,1,1,15.072000,1,0.200000,2.357100,0,0,0
+84,CA-2026-129322,2026-08-08,2026,8,2026-08,2026-08-10,2,"Second Class",DB-13405,"Denny Blanton",Consumer,Canada,Ontario,Toronto,M5H,East,3,3,601.440000,11,0.183333,255.430000,0,0,0
+85,CA-2026-130494,2026-03-16,2026,3,2026-03,2026-03-21,5,"Standard Class",HO-15230,"Harry Olson",Consumer,Canada,"Prince Edward Island",Charlottetown,C0A,East,4,4,400.264000,16,0.100000,165.281300,1,0,0
+86,CA-2026-131807,2026-10-05,2026,10,2026-10,2026-10-10,5,"Standard Class",GG-14650,"Greg Guthrie",Corporate,Canada,Alberta,Calgary,T1Y,West,2,2,5421.342000,6,0.050000,1354.449400,0,0,0
+87,CA-2026-131807,2026-10-05,2026,10,2026-10,2026-10-10,5,"Standard Class",GG-14650,"Greg Guthrie",Corporate,Canada,Alberta,Edmonton,T5A,West,4,4,275.704000,8,0.150000,62.144400,1,1,0
+88,CA-2026-132339,2026-08-19,2026,8,2026-08,2026-08-23,4,"Standard Class",JB-15400,"Jennifer Braxton",Corporate,Canada,Quebec,Montreal,H1B,East,1,1,19.440000,3,0.000000,9.331200,0,0,0
+89,CA-2026-135471,2026-05-18,2026,5,2026-05,2026-05-25,7,"Standard Class",GZ-14545,"George Zrebassa",Corporate,Canada,Quebec,Montreal,H1A,East,1,1,19.440000,3,0.000000,9.330000,0,0,0
+90,CA-2026-135480,2026-12-15,2026,12,2026-12,2026-12-22,7,"Standard Class",BG-18435,"Bruce Galang",Consumer,Canada,Quebec,"Quebec City",G1B,East,2,2,88.060000,5,0.000000,9.604000,0,1,1
+91,CA-2026-139675,2026-03-13,2026,3,2026-03,2026-03-18,5,"Second Class",NF-18595,"Nicole Fjeld","Home Office",Canada,Alberta,Calgary,T2C,West,2,2,1242.900000,12,0.100000,194.720000,0,0,0
+92,CA-2026-141082,2026-12-09,2026,12,2026-12,2026-12-13,4,"Standard Class",FM-14380,"Fred McMath",Consumer,Canada,Quebec,Montreal,H1A,East,2,2,125.810000,5,0.000000,57.910000,0,0,0
+93,CA-2026-141531,2026-12-29,2026,12,2026-12,2027-01-02,4,"Standard Class",BG-18435,"Bruce Galang",Consumer,Canada,Quebec,"Quebec City",G1B,East,2,2,88.060000,7,0.000000,30.142000,0,0,0
+94,CA-2026-143500,2026-12-30,2026,12,2026-12,2027-01-03,4,"Standard Class",HO-15230,"Harry Olson",Consumer,Canada,"Prince Edward Island",Charlottetown,C0A,East,1,1,3.024000,3,0.200000,-0.604800,0,0,0
+95,CA-2026-145612,2026-12-02,2026,12,2026-12,2026-12-06,4,"Standard Class",MK-19560,"Michael Knudson",Corporate,Canada,"New Brunswick",Moncton,E1A,East,1,1,16.464000,7,0.200000,2.440600,0,0,0
+96,CA-2026-146626,2026-12-29,2026,12,2026-12,2027-01-05,7,"Standard Class",JP-11135,"James Peterman",Corporate,Canada,"Newfoundland and Labrador","St. John's",A0A,East,1,1,99.120000,8,0.000000,35.414400,0,0,0
+97,CA-2026-151799,2026-12-14,2026,12,2026-12,2026-12-18,4,"Standard Class",BF-11170,"Ben Ferrer","Home Office",Canada,Ontario,Toronto,M3C,East,5,5,152.190000,28,0.100000,-12.972600,1,1,1
+98,CA-2026-153738,2026-09-20,2026,9,2026-09,2026-09-22,2,"First Class",AG-10270,"Alejandro Grove",Consumer,Canada,Ontario,Toronto,M2N,East,1,1,37.680000,6,0.000000,16.960000,0,0,0
+99,CA-2026-154121,2026-11-14,2026,11,2026-11,2026-11-18,4,NULL,SC-20260,"Scott Cohen",Corporate,Canada,Quebec,Montreal,H1A,East,1,1,6.680000,2,0.000000,2.000000,0,0,0
+100,CA-2026-158740,2026-05-05,2026,5,2026-05,2026-05-10,5,"Standard Class",FG-14260,"Frank Gastineau","Home Office",Canada,Quebec,Montreal,H1A,East,1,1,6.480000,1,0.550000,3.110000,0,0,0
+101,CA-2026-160325,2026-09-24,2026,9,2026-09,2026-09-24,0,"Same Day",BP-11095,"Bart Pistole",Corporate,Canada,Quebec,Montreal,H1C,East,2,2,79.000000,10,0.000000,17.806600,0,0,1
+102,CA-2026-166695,2026-05-20,2026,5,2026-05,2026-05-24,4,"Standard Class",CC-12430,"Chuck Clark","Home Office",Canada,"British Columbia",Vancouver,V6Z,West,3,3,868.452000,10,0.133333,-55.215600,0,0,0
+103,CA-2026-184712,2026-06-18,2026,6,2026-06,2026-06-20,2,NULL,NC-19470,"Neil Cohen","Home Office",Canada,"Nova Scotia",Halifax,B3H,East,1,1,74.352000,3,0.200000,23.235000,0,0,0
+104,CA-2026-192314,2026-09-26,2026,9,2026-09,2026-10-01,5,"Second Class",JS-13215,"Jennifer Sheldon",Corporate,Canada,Quebec,"Quebec City",G1B,East,1,1,9.990000,1,0.000000,4.495500,0,0,0
+105,US-2023-100006,2023-09-07,2023,9,2023-09,2023-09-13,6,"Standard Class",DK-13375,"Dennis Kane",Consumer,"United States","New York","New York City",10024,East,1,1,377.970000,3,0.000000,109.611300,0,0,0
+106,US-2023-100090,2023-07-08,2023,7,2023-07,2023-07-12,4,"Standard Class",EB-13705,"Ed Braxton",Corporate,"United States",California,"San Francisco",94122,West,2,2,699.192000,9,0.200000,-2443.593600,0,0,0
+107,US-2023-100279,2023-03-10,2023,3,2023-03,2023-03-14,4,"Standard Class",SW-20275,"Scott Williamson",Consumer,"United States",Michigan,"Royal Oak",48073,Central,1,1,NULL,2,0.000000,10.742400,1,0,0
+108,US-2023-100293,2023-03-14,2023,3,2023-03,2023-03-18,4,"Standard Class",NF-18475,"Neil Französisch","Home Office","United States",Florida,Jacksonville,32216,South,1,1,91.056000,6,0.200000,31.869600,0,0,0
+109,US-2023-100328,2023-01-28,2023,1,2023-01,2023-02-03,6,"Standard Class",JC-15340,"Jasper Cacioppo",Consumer,"United States","New York","New York City",10024,East,1,1,3.928000,1,0.200000,1.325700,0,0,0
+110,US-2023-100363,2023-04-08,2023,4,2023-04,2023-04-15,7,"Standard Class",JM-15655,"Jim Mitchum",Corporate,"United States",Arizona,Glendale,85301,West,2,2,21.376000,5,0.200000,7.719200,0,0,0
+111,US-2023-100391,2023-05-25,2023,5,2023-05,2023-05-29,4,"Standard Class",BW-11065,"Barry Weirich",Consumer,"United States","New York","New York City",10035,East,1,1,14.620000,2,0.000000,6.725200,0,0,0
+112,US-2023-100678,2023-04-18,2023,4,2023-04,2023-04-22,4,"Standard Class",KM-16720,"Kunst Miller",Consumer,"United States",Texas,Houston,77095,Central,4,4,697.074000,11,0.225000,61.793700,0,0,0
+113,US-2023-100706,2023-12-16,2023,12,2023-12,2023-12-18,2,"Second Class",LE-16810,"Laurel Elliston",Consumer,"United States",Virginia,Springfield,22153,South,2,2,129.440000,8,0.000000,17.720200,0,0,0
+114,US-2023-100762,2023-11-24,2023,11,2023-11,2023-11-29,5,"Standard Class",NG-18355,"Nat Gilpin",Corporate,"United States",Michigan,Jackson,49201,Central,4,4,508.620000,11,0.000000,219.077400,0,0,0
+115,US-2023-100853,2023-09-14,2023,9,2023-09,2023-09-19,5,"Standard Class",JB-15400,"Jennifer Braxton",Corporate,"United States",Illinois,Chicago,60623,Central,2,2,52.448000,6,0.500000,-124.568000,1,0,0
+116,US-2023-100860,2023-03-26,2023,3,2023-03,2023-03-30,4,"Second Class",CS-12505,"Cindy Stewart",Consumer,"United States",California,Pomona,91767,West,1,1,18.750000,5,0.000000,9.000000,0,0,0
+117,US-2023-100867,2023-10-19,2023,10,2023-10,2023-10-24,5,"Standard Class",EH-14125,"Eugene Hildebrand","Home Office","United States",California,Lakewood,90712,West,1,1,321.552000,6,0.200000,20.097000,0,0,0
+118,US-2023-100881,2023-03-28,2023,3,2023-03,2023-04-01,4,"Standard Class",DR-12940,"Daniel Raglin","Home Office","United States","New Mexico",Albuquerque,87105,West,1,1,302.376000,3,0.200000,22.678200,0,0,0
+119,US-2023-100895,2023-06-02,2023,6,2023-06,2023-06-06,4,"Standard Class",SV-20785,"Stewart Visinsky",Consumer,"United States",Georgia,Roswell,30076,South,3,3,605.470000,7,0.000000,176.927200,0,0,0
+120,US-2023-100916,2023-10-21,2023,10,2023-10,2023-10-26,5,"Standard Class",FH-14275,"Frank Hawley",Corporate,"United States",Virginia,"Newport News",23602,South,3,3,788.860000,326,0.000000,122.966200,0,0,0
+121,US-2023-100972,2023-11-19,2023,11,2023-11,2023-11-24,5,"Second Class",DB-13360,"Dennis Bolton","Home Office","United States",Utah,"Salt Lake City",84106,West,1,1,166.440000,3,0.000000,79.891200,0,0,0
+122,US-2023-101147,2023-12-02,2023,12,2023-12,2023-12-04,2,"First Class",MC-17575,"Matt Collins",Consumer,"United States",Illinois,Chicago,60623,Central,1,1,2.394000,1,0.800000,-6.344100,0,0,0
+123,US-2023-101175,2023-12-09,2023,12,2023-12,2023-12-14,5,"Standard Class",DM-12955,"Dario Medina",Corporate,"United States",Arizona,Mesa,85204,West,1,1,100.704000,6,0.200000,-1.258800,0,0,0
+124,US-2023-101266,2023-08-27,2023,8,2023-08,2023-08-30,3,"Second Class",MM-17920,"Michael Moore",Consumer,"United States",Virginia,Springfield,22153,South,1,1,13.360000,2,0.000000,6.412800,0,0,0
+125,US-2023-101364,2023-12-22,2023,12,2023-12,2023-12-26,4,"Standard Class",TW-21025,"Tamara Willingham","Home Office","United States","New York","New York City",10011,East,1,1,296.712000,13,0.200000,100.140300,0,0,0
+126,US-2023-101392,2023-12-07,2023,12,2023-12,2023-12-13,6,NULL,AS-10630,"Ann Steele","Home Office","United States",Washington,Seattle,98103,West,1,1,269.360000,7,0.000000,70.033600,0,0,0
+127,US-2023-101427,2023-12-26,2023,12,2023-12,2023-12-30,4,"Standard Class",AY-10555,"Andy Yotov",Corporate,"United States",Pennsylvania,Philadelphia,19140,East,1,1,8.016000,3,0.200000,1.102200,0,0,0
+128,US-2023-101462,2023-04-20,2023,4,2023-04,2023-04-25,5,NULL,BP-11230,"Benjamin Patterson",Consumer,"United States",California,"Los Angeles",90045,West,1,1,59.920000,4,0.000000,27.563200,0,0,0
+129,US-2023-101476,2023-09-12,2023,9,2023-09,2023-09-13,1,"First Class",SD-20485,"Shirley Daniels","Home Office","United States","New York","New Rochelle",10801,East,1,1,69.990000,1,0.000000,30.095700,0,0,0
+130,US-2023-101560,2023-11-28,2023,11,2023-11,2023-12-01,3,"Second Class",CS-12250,"Chris Selesnick",Corporate,"United States","South Carolina",Columbia,29203,South,4,4,542.340000,19,0.000000,110.840200,0,0,0
+131,US-2023-101602,2023-12-15,2023,12,2023-12,2023-12-18,3,"First Class",MC-18100,"Mick Crebagga",Consumer,"United States",Texas,"El Paso",79907,Central,2,2,803.960000,8,0.250000,-30.961000,0,0,0
+132,US-2023-101770,2023-03-31,2023,3,2023-03,2023-04-04,4,"Standard Class",KB-16240,"Karen Bern",Corporate,"United States",Florida,Miami,33180,South,1,1,1.869000,1,0.700000,-1.308300,0,0,0
+133,US-2023-101833,2023-11-17,2023,11,2023-11,2023-11-22,5,"Second Class",FG-14260,"Frank Gastineau","Home Office","United States","New York","New York City",10024,East,1,1,34.440000,3,0.000000,17.220000,0,0,0
+134,US-2023-101931,2023-10-28,2023,10,2023-10,2023-10-31,3,"First Class",TS-21370,"Todd Sumrall",Corporate,"United States",California,"Los Angeles",90049,West,5,5,1252.602000,15,0.070000,18.614000,0,1,0
+135,US-2023-102008,2023-09-30,2023,9,2023-09,2023-10-04,4,"Standard Class",RA-19915,"Russell Applegate",Consumer,"United States","New York","New York City",10011,East,1,1,48.940000,1,0.000000,24.470000,0,0,0
+136,US-2023-102071,2023-05-09,2023,5,2023-05,2023-05-15,6,"Standard Class",PG-18820,"Patrick Gardner",Consumer,"United States",California,"San Francisco",94110,West,2,2,235.770000,7,0.000000,44.380800,0,0,0
+137,US-2023-102085,2023-10-04,2023,10,2023-10,2023-10-09,5,"Standard Class",JD-16015,"Joy Daniels",Consumer,"United States",Washington,Seattle,98115,West,1,1,29.240000,4,0.000000,13.742800,0,0,0
+138,US-2023-102274,2023-11-21,2023,11,2023-11,2023-11-26,5,"Standard Class",DH-13075,"Dave Hallsten",Corporate,"United States",Kentucky,Richmond,40475,South,4,4,860.040000,10,0.000000,313.139700,1,1,1
+139,US-2023-102295,2023-11-24,2023,11,2023-11,2023-11-26,2,"Second Class",EH-13990,"Erica Hackney",Consumer,"United States",California,Sacramento,95823,West,1,1,120.712000,1,0.200000,-18.106800,0,0,0
+140,US-2023-102330,2023-12-29,2023,12,2023-12,2024-01-03,5,"Standard Class",AI-10855,"Arianne Irving",Consumer,"United States",California,Brentwood,94513,West,2,2,408.768000,10,0.100000,80.396400,0,0,0
+141,US-2023-102631,2023-12-13,2023,12,2023-12,2023-12-17,4,"Standard Class",EB-13840,"Ellis Ballard",Corporate,"United States",Illinois,Chicago,60623,Central,1,1,94.428000,3,0.600000,-42.492600,0,0,0
+142,US-2023-102645,2023-01-23,2023,1,2023-01,2023-01-28,5,"Standard Class",IM-15055,"Ionia McGrath",Consumer,"United States",Nevada,"Las Vegas",89115,West,1,1,40.080000,6,0.000000,19.238400,0,0,0
+143,US-2023-102652,2023-04-06,2023,4,2023-04,2023-04-12,6,"Standard Class",AY-10555,"Andy Yotov",Corporate,"United States",California,"Los Angeles",90049,West,4,4,199.990000,13,0.000000,64.507700,0,0,0
+144,US-2023-102673,2023-11-01,2023,11,2023-11,2023-11-05,4,"Standard Class",KH-16630,"Ken Heidel",Corporate,"United States","North Carolina",Charlotte,28205,South,4,4,65.600000,29,0.287500,17.846400,1,0,1
+145,US-2023-102715,2023-04-11,2023,4,2023-04,2023-04-13,2,"Second Class",JK-15370,"Jay Kimmel",Consumer,"United States",Florida,Miami,33180,South,4,4,730.288000,15,0.200000,129.549500,1,0,0
+146,US-2023-102869,2023-09-09,2023,9,2023-09,2023-09-14,5,"Second Class",LC-17140,"Logan Currie",Consumer,"United States",Pennsylvania,Philadelphia,19140,East,4,4,233.244000,13,0.250000,5.613600,0,0,1
+147,US-2023-102988,2023-04-05,2023,4,2023-04,2023-04-09,4,"Second Class",GM-14695,"Greg Maxwell",Corporate,"United States",Virginia,Alexandria,22304,South,5,5,4251.920000,22,0.000000,105.615300,0,0,1
+148,US-2023-103058,2023-07-23,2023,7,2023-07,2023-07-24,1,"First Class",AG-10270,"Alejandro Grove",Consumer,"United States","New York","New York City",10011,East,1,1,99.980000,2,0.000000,7.998400,0,0,0
+149,US-2023-103086,2023-10-17,2023,10,2023-10,2023-10-19,2,"Second Class",EB-14170,"Evan Bailliet",Consumer,"United States",Texas,Houston,77095,Central,1,1,5.312000,2,0.600000,-1.593600,0,0,0
+150,US-2023-103100,2023-12-20,2023,12,2023-12,2023-12-23,3,"First Class",AB-10105,"Adrian Barton",Consumer,"United States",Indiana,Indianapolis,46203,Central,2,2,1107.660000,4,0.000000,498.520800,0,0,0
+151,US-2023-103191,2023-09-22,2023,9,2023-09,2023-09-27,5,"Standard Class",VG-21805,"Vivek Grady",Corporate,"United States",Illinois,Chicago,60653,Central,1,1,NULL,3,0.200000,-82.884000,1,0,0
+152,US-2023-103219,2023-11-09,2023,11,2023-11,2023-11-13,4,NULL,BF-11215,"Benjamin Farhat","Home Office","United States","New York","New York City",10035,East,1,1,56.520000,9,0.000000,21.477600,0,0,0
+153,US-2023-103310,2023-05-10,2023,5,2023-05,2023-05-15,5,"Standard Class",GM-14680,"Greg Matthias",Consumer,"United States",California,"San Jose",95123,West,4,4,1769.784000,409,0.100000,187.659600,0,0,0
+154,US-2023-103317,2023-07-05,2023,7,2023-07,2023-07-08,3,"First Class",DM-13525,"Don Miller",Corporate,"United States",Florida,"Palm Coast",32137,South,3,3,232.736000,10,0.366667,14.492200,1,0,0
+155,US-2023-103331,2023-08-26,2023,8,2023-08,2023-09-01,6,"Standard Class",KB-16315,"Karl Braun",Consumer,"United States",Delaware,Newark,19711,East,3,3,31.400000,87,0.000000,14.109800,0,0,0
+156,US-2023-103338,2023-03-11,2023,3,2023-03,2023-03-15,4,"Standard Class",RB-19435,"Richard Bierner",Consumer,"United States",California,Roseville,95661,West,1,1,7.980000,3,0.000000,2.074800,0,0,0
+157,US-2023-103366,2023-01-15,2023,1,2023-01,2023-01-17,2,"First Class",EH-13990,"Erica Hackney",Consumer,"United States",Georgia,Roswell,30076,South,1,1,149.950000,5,0.000000,65.978000,0,0,0
+158,US-2023-103373,2023-05-18,2023,5,2023-05,2023-05-24,6,"Standard Class",BS-11755,"Bruce Stewart",Consumer,"United States",Ohio,Cleveland,44105,East,1,1,779.796000,2,0.400000,-168.955800,0,0,0
+159,US-2023-103401,2023-11-21,2023,11,2023-11,2023-11-26,5,"Standard Class",GR-14560,"Georgia Rosenberg",Corporate,"United States",California,"San Francisco",94110,West,1,1,12.960000,2,0.000000,6.220800,0,0,0
+160,US-2023-103429,2023-05-30,2023,5,2023-05,2023-06-01,2,"First Class",LW-16825,"Laurel Workman",Corporate,"United States","New York","New York City",10024,East,4,4,765.494000,14,0.050000,239.359900,0,0,0
+161,US-2023-103492,2023-10-10,2023,10,2023-10,2023-10-15,5,"Standard Class",CM-12715,"Craig Molinari",Corporate,"United States",Texas,Huntsville,77340,Central,4,4,756.842000,19,0.500000,117.400800,2,0,0
+162,US-2023-103527,2023-09-09,2023,9,2023-09,2023-09-14,5,"Second Class",CC-12220,"Chris Cortes",Consumer,"United States",Illinois,Chicago,60653,Central,1,1,10.896000,3,0.200000,3.405000,0,0,0
+163,US-2023-103590,2023-11-30,2023,11,2023-11,2023-12-04,4,"Standard Class",JL-15505,"Jeremy Lonsdale",Consumer,"United States","New York","Mount Vernon",10550,East,1,1,62.280000,4,0.000000,29.271600,0,0,0
+164,US-2023-103660,2023-08-25,2023,8,2023-08,2023-08-30,5,"Standard Class",MW-18220,"Mitch Webber",Consumer,"United States",Washington,Seattle,98103,West,1,1,1007.944000,7,0.200000,75.595800,0,0,0
+165,US-2023-103702,2023-09-12,2023,9,2023-09,2023-09-17,5,"Standard Class",AF-10885,"Art Foster",Consumer,"United States",Ohio,Fairfield,45014,East,1,1,63.924000,7,0.700000,-46.877600,0,0,0
+166,US-2023-103744,2023-02-23,2023,2,2023-02,2023-02-27,4,"Standard Class",MG-17875,"Michael Grace","Home Office","United States",Texas,"El Paso",79907,Central,2,2,11.364000,6,0.500000,-4.522500,0,0,0
+167,US-2023-103800,2023-01-03,2023,1,2023-01,2023-01-07,4,"Standard Class",DP-13000,"Darren Powers",Consumer,"United States",Texas,Houston,77095,Central,1,1,16.448000,2,0.200000,5.551200,0,0,0
+168,US-2023-103807,2023-12-02,2023,12,2023-12,2023-12-09,7,"Standard Class",EM-13825,"Elizabeth Moffitt",Corporate,"United States",Georgia,"Sandy Springs",30328,South,2,2,21.190000,4,0.000000,7.995800,0,0,0
+169,US-2023-103849,2023-05-11,2023,5,2023-05,2023-05-16,5,"Standard Class",PG-18895,"Paul Gonzalez",Consumer,"United States",Texas,"Fort Worth",76106,Central,3,3,225.016000,7,0.333333,-70.729300,0,0,0
+170,US-2023-103905,2023-07-14,2023,7,2023-07,2023-07-20,6,"Standard Class",AW-10930,"Arthur Wiediger","Home Office","United States",Illinois,Aurora,60505,Central,2,2,68.204000,11,0.500000,-42.567400,0,0,0
+171,US-2023-103940,2023-09-17,2023,9,2023-09,2023-09-21,4,"Standard Class",BN-11515,"Bradley Nguyen",Consumer,"United States",Washington,Seattle,98103,West,4,4,260.790000,12,0.050000,77.179300,0,0,0
+172,US-2023-103989,2023-03-19,2023,3,2023-03,2023-03-21,2,"First Class",MC-17605,"Matt Connell",Corporate,"United States",Florida,Lakeland,33801,South,7,7,590.762000,23,0.271429,42.302500,0,0,0
+173,US-2023-104178,2023-08-25,2023,8,2023-08,2023-08-29,4,"Standard Class",JM-15265,"Janet Molinari",Corporate,"United States",California,"Los Angeles",90036,West,4,4,176.140000,14,0.000000,58.698000,0,0,0
+174,US-2023-104269,2023-03-01,2023,3,2023-03,2023-03-06,5,NULL,DB-13060,"Dave Brooks",Consumer,"United States",Washington,Seattle,98115,West,1,1,457.568000,2,0.200000,51.476400,0,0,0
+175,US-2023-104283,2023-06-27,2023,6,2023-06,2023-07-01,4,"Standard Class",LM-17065,"Liz MacKendrick",Consumer,"United States",Mississippi,Southaven,38671,South,3,3,616.140000,10,0.000000,76.105200,0,0,0
+176,US-2023-104402,2023-06-17,2023,6,2023-06,2023-06-23,6,"Standard Class",DB-13660,"Duane Benoit",Consumer,"United States",Delaware,Newark,19711,East,1,1,65.970000,3,0.000000,31.005900,0,0,0
+177,US-2023-104472,2023-06-02,2023,6,2023-06,2023-06-07,5,"Standard Class",CK-12325,"Christine Kargatis","Home Office","United States",Utah,Orem,84057,West,2,2,133.128000,9,0.100000,41.433600,0,0,0
+178,US-2023-104563,2023-03-07,2023,3,2023-03,2023-03-12,5,"Standard Class",CM-12715,"Craig Molinari",Corporate,"United States",Washington,Seattle,98103,West,4,4,1143.822000,18,0.100000,85.510600,0,0,0
+179,US-2023-104738,2023-12-30,2023,12,2023-12,2024-01-01,2,"Second Class",SP-20620,"Stefania Perrino",Corporate,"United States",Texas,Laredo,78041,Central,5,5,596.630000,13,0.390000,-191.064400,1,0,0
+180,US-2023-104759,2023-03-31,2023,3,2023-03,2023-04-04,4,"Standard Class",DD-13570,"Dorothy Dickinson",Consumer,"United States",Illinois,Chicago,60610,Central,2,2,88.118000,2,0.500000,0.169400,0,1,0
+181,US-2023-104773,2023-12-08,2023,12,2023-12,2023-12-13,5,"Standard Class",TB-21175,"Thomas Boland",Corporate,"United States",Texas,Houston,77041,Central,1,1,60.416000,2,0.200000,6.041600,0,0,0
+182,US-2023-104780,2023-05-21,2023,5,2023-05,2023-05-25,4,"Standard Class",BT-11530,"Bradley Talbott","Home Office","United States",California,"San Diego",92037,West,1,1,31.840000,8,0.000000,10.507200,0,0,0
+183,US-2023-104808,2023-02-04,2023,2,2023-02,2023-02-08,4,"Second Class",MH-17440,"Mark Haberlin",Corporate,"United States",California,Escondido,92025,West,1,1,17.248000,2,0.200000,6.036800,0,0,0
+184,US-2023-104829,2023-11-18,2023,11,2023-11,2023-11-21,3,"Second Class",JG-15805,"John Grady",Corporate,"United States",Utah,Provo,84604,West,1,1,21.980000,7,0.000000,9.891000,0,0,0
+185,US-2023-104976,2023-12-09,2023,12,2023-12,2023-12-16,7,"Standard Class",CK-12760,"Cyma Kinney",Corporate,"United States",California,"San Francisco",94122,West,1,1,34.680000,6,0.000000,16.993200,0,0,0
+186,US-2023-105137,2023-10-10,2023,10,2023-10,2023-10-10,0,"Same Day",RB-19435,"Richard Bierner",Consumer,"United States",Ohio,Columbus,43229,East,2,2,120.258000,4,0.700000,-84.789400,0,0,0
+187,US-2023-105151,2023-03-30,2023,3,2023-03,2023-03-31,1,"First Class",SG-20890,"Susan Gilcrest",Corporate,"United States","New York","New York City",10009,East,1,1,10.500000,5,0.000000,2.940000,0,0,0
+188,US-2023-105165,2023-09-07,2023,9,2023-09,2023-09-10,3,"First Class",SZ-20035,"Sam Zeldin","Home Office","United States",Texas,Houston,77036,Central,5,5,265.328000,13,0.340000,-12.372900,2,0,0
+189,US-2023-105172,2023-04-04,2023,4,2023-04,2023-04-09,5,NULL,PK-18910,"Paul Knutson","Home Office","United States",California,"San Francisco",94109,West,1,1,18.900000,6,0.000000,9.072000,0,0,0
+190,US-2023-105249,2023-11-28,2023,11,2023-11,2023-11-28,0,"Same Day",DH-13675,"Duane Huffman","Home Office","United States",California,"San Francisco",94122,West,3,3,7.360000,2,0.050000,15.180000,2,2,0
+191,US-2023-105270,2023-11-11,2023,11,2023-11,2023-11-18,7,"Standard Class",AP-10915,"Arthur Prichep",Consumer,"United States",California,"Los Angeles",90008,West,2,2,143.128000,4,0.100000,19.189600,0,0,0
+192,US-2023-105340,2023-11-22,2023,11,2023-11,2023-11-25,3,"First Class",EH-14185,"Evan Henry",Consumer,"United States",Texas,Pasadena,77506,Central,1,1,6.928000,1,0.800000,-11.084800,0,0,0
+193,US-2023-105417,2023-01-07,2023,1,2023-01,2023-01-12,5,"Standard Class",VS-21820,"Vivek Sundaresam",Consumer,"United States",Texas,Huntsville,77340,Central,2,2,10.430000,10,0.700000,-71.962100,1,0,0
+194,US-2023-105648,2023-03-03,2023,3,2023-03,2023-03-07,4,"Standard Class",EJ-14155,"Eva Jacobs",Consumer,"United States",California,"San Diego",92037,West,1,1,626.352000,3,0.200000,-23.488200,0,0,0
+195,US-2023-105767,2023-05-23,2023,5,2023-05,2023-05-27,4,"Standard Class",AR-10510,"Andrew Roberts",Consumer,"United States",Pennsylvania,Philadelphia,19134,East,3,3,79.638000,13,0.433333,-10.362000,0,0,0
+196,US-2023-105872,2023-05-30,2023,5,2023-05,2023-06-06,7,"Standard Class",JG-15160,"James Galang",Consumer,"United States","New York","New York City",10024,East,1,1,70.368000,4,0.200000,26.388000,0,0,0
+197,US-2023-105893,2023-11-11,2023,11,2023-11,2023-11-18,7,NULL,PK-19075,"Pete Kriz",Consumer,"United States",Wisconsin,Madison,53711,Central,1,1,665.880000,6,0.000000,13.317600,0,0,0
+198,US-2023-105984,2023-11-24,2023,11,2023-11,2023-11-24,0,"Same Day",MY-18295,"Muhammed Yedwab",Corporate,"United States",Ohio,Columbus,43229,East,2,2,1661.028000,8,0.350000,-244.911600,0,0,0
+199,US-2023-106054,2023-01-06,2023,1,2023-01,2023-01-07,1,"First Class",JO-15145,"Jack O'Briant",Corporate,"United States",Georgia,Athens,30605,South,1,1,12.780000,3,0.000000,5.239800,0,0,0
+200,US-2023-106229,2023-06-07,2023,6,2023-06,2023-06-11,4,"Second Class",NR-18550,"Nick Radford",Consumer,"United States",Illinois,Aurora,60505,Central,1,1,268.935000,3,0.500000,-209.769300,0,0,0
+201,US-2023-106264,2023-12-26,2023,12,2023-12,2023-12-30,4,"Standard Class",CK-12595,"Clytie Kelty",Consumer,"United States",California,Encinitas,92024,West,2,2,15.390000,5,0.000000,1.232700,0,0,0
+202,US-2023-106299,2023-08-02,2023,8,2023-08,2023-08-08,6,"Standard Class",NZ-18565,"Nick Zandusky","Home Office","United States",Missouri,Springfield,65807,Central,3,3,886.280000,9,0.000000,248.027600,0,0,0
+203,US-2023-106334,2023-12-27,2023,12,2023-12,2024-01-02,6,"Standard Class",JF-15490,"Jeremy Farry",Consumer,"United States",California,"San Francisco",94122,West,2,2,243.120000,6,0.100000,28.806000,0,0,0
+204,US-2023-106376,2023-12-05,2023,12,2023-12,2023-12-10,5,"Standard Class",BS-11590,"Brendan Sweed",Corporate,"United States",Arizona,Gilbert,85234,West,2,2,1280.992000,12,0.200000,174.290400,0,0,0
+205,US-2023-106439,2023-10-31,2023,10,2023-10,2023-11-04,4,"Standard Class",GG-14650,"Greg Guthrie",Corporate,"United States",California,"Los Angeles",90049,West,9,9,1007.936000,45,0.105556,92.115700,0,0,1
+206,US-2023-106572,2023-09-05,2023,9,2023-09,2023-09-10,5,"Standard Class",NP-18700,"Nora Preis",Consumer,"United States",Ohio,"Bowling Green",43402,East,1,1,264.320000,NULL,0.200000,19.824000,0,1,0
+207,US-2023-106719,2023-08-24,2023,8,2023-08,2023-08-24,0,NULL,RB-19645,"Robert Barroso",Corporate,"United States",Montana,Billings,59102,West,1,1,8.288000,2,0.200000,2.693600,0,0,0
+208,US-2023-106726,2023-12-06,2023,12,2023-12,2023-12-08,2,"First Class",RS-19765,"Roland Schwarz",Corporate,"United States",California,"Los Angeles",90008,West,1,1,1261.330000,7,0.000000,327.945800,0,0,0
+209,US-2023-106803,2023-12-29,2023,12,2023-12,2024-01-02,4,"Standard Class",DC-13285,"Debra Catini",Consumer,"United States",Minnesota,"Cottage Grove",55016,Central,2,2,144.360000,6,0.000000,54.796800,0,0,0
+210,US-2023-106810,2023-05-14,2023,5,2023-05,2023-05-20,6,"Standard Class",AJ-10795,"Anthony Johnson",Corporate,"United States",Florida,"Saint Petersburg",33710,South,1,1,310.880000,2,0.200000,23.316000,0,0,0
+211,US-2023-106971,2023-09-02,2023,9,2023-09,2023-09-08,6,"Standard Class",BM-11785,"Bryan Mills",Consumer,"United States",Illinois,"Buffalo Grove",60089,Central,1,1,475.944000,7,0.200000,95.188800,0,0,0
+212,US-2023-106992,2023-09-19,2023,9,2023-09,2023-09-21,2,"Second Class",SB-20290,"Sean Braxton",Corporate,"United States",Texas,Houston,77036,Central,2,2,3059.982000,10,0.400000,-761.992800,1,0,0
+213,US-2023-107139,2023-07-05,2023,7,2023-07,2023-07-11,6,"Standard Class",DP-13390,"Dennis Pardue","Home Office","United States",California,"Los Angeles",90004,West,1,1,180.960000,6,0.200000,67.860000,0,0,0
+214,US-2023-107153,2023-09-28,2023,9,2023-09,2023-10-03,5,"Standard Class",GZ-14545,"George Zrebassa",Corporate,"United States",Massachusetts,Lawrence,1841,East,1,1,46.260000,3,0.000000,12.490200,0,0,0
+215,US-2023-107181,2023-02-04,2023,2,2023-02,2023-02-08,4,"Standard Class",DB-13270,"Deborah Brumfield","Home Office","United States",California,Encinitas,92024,West,2,2,117.136000,7,0.100000,45.106400,0,0,0
+216,US-2023-107398,2023-08-25,2023,8,2023-08,2023-08-30,5,"Standard Class",BS-11590,"Brendan Sweed",Corporate,"United States",Ohio,Columbus,43229,East,3,3,9.390000,331,0.700000,-6.859200,1,0,1
+217,US-2023-107405,2023-03-21,2023,3,2023-03,2023-03-25,4,"Standard Class",TS-21205,"Thomas Seio",Corporate,"United States","North Carolina",Asheville,28806,South,1,1,16.272000,1,0.200000,-3.864600,0,0,0
+218,US-2023-107454,2023-11-02,2023,11,2023-11,2023-11-06,4,"Standard Class",RD-19720,"Roger Demir",Consumer,"United States","New York","New York City",10024,East,2,2,124.200000,13,0.000000,40.157400,0,0,0
+219,US-2023-107524,2023-03-02,2023,3,2023-03,2023-03-08,6,"Standard Class",KN-16705,"Kristina Nunn","Home Office","United States","New York","New York City",10009,East,2,2,47.760000,7,0.000000,22.811200,0,0,0
+220,US-2023-107573,2023-12-12,2023,12,2023-12,2023-12-17,5,"Standard Class",PB-19150,"Philip Brown",Consumer,"United States",Florida,Miami,33178,South,1,1,23.472000,3,0.200000,7.628400,0,0,0
+221,US-2023-107594,2023-07-02,2023,7,2023-07,2023-07-06,4,"Standard Class",EH-13945,"Eric Hoffmann",Consumer,"United States","New Jersey",Plainfield,7060,East,2,2,79.560000,3,0.000000,22.150800,0,0,0
+222,US-2023-107699,2023-05-19,2023,5,2023-05,2023-05-23,4,"Standard Class",JH-15820,"John Huston",Consumer,"United States",Michigan,Midland,48640,Central,1,1,57.420000,9,0.000000,26.413200,0,0,0
+223,US-2023-107706,2023-02-14,2023,2,2023-02,2023-02-19,5,NULL,ST-20530,"Shui Tom",Consumer,"United States",Texas,Houston,77095,Central,1,1,16.176000,3,0.200000,6.066000,0,0,0
+224,US-2023-107755,2023-02-07,2023,2,2023-02,2023-02-12,5,"Standard Class",CK-12760,"Cyma Kinney",Corporate,"United States","New Jersey",Linden,7036,East,1,1,115.360000,7,0.000000,49.604800,0,0,0
+225,US-2023-107769,2023-10-28,2023,10,2023-10,2023-11-01,4,"Standard Class",BT-11395,"Bill Tyler",Corporate,"United States",Kansas,"Garden City",67846,Central,1,1,257.980000,2,0.000000,74.814200,0,0,0
+226,US-2023-107811,2023-04-29,2023,4,2023-04,2023-05-03,4,"Standard Class",LA-16780,"Laura Armstrong",Corporate,"United States",Tennessee,Memphis,38109,South,2,2,661.504000,7,0.200000,68.949000,0,0,0
+227,US-2023-107818,2023-09-08,2023,9,2023-09,2023-09-14,6,"Standard Class",MC-17275,"Marc Crier",Consumer,"United States",Washington,Pasco,99301,West,4,4,1771.520000,21,0.050000,235.223200,0,0,0
+228,US-2023-107916,2023-08-24,2023,8,2023-08,2023-08-26,2,"First Class",JP-15460,"Jennifer Patt",Corporate,"United States","New York",Oceanside,11572,East,2,2,25.952000,5,0.100000,10.809600,0,0,0
+229,US-2023-107993,2023-11-25,2023,11,2023-11,2023-11-30,5,"Standard Class",SE-20110,"Sanjit Engle",Consumer,"United States",Oregon,Springfield,97477,West,1,1,51.016000,7,0.200000,8.290100,0,0,0
+230,US-2023-108147,2023-06-08,2023,6,2023-06,2023-06-13,5,"Standard Class",RD-19480,"Rick Duston",Consumer,"United States","New York","Long Beach",11561,East,2,2,1745.360000,8,0.100000,109.524000,0,0,0
+231,US-2023-108182,2023-02-06,2023,2,2023-02,2023-02-10,4,"Second Class",DL-13315,"Delfina Latchford",Consumer,"United States",Illinois,Romeoville,60441,Central,1,1,NULL,2,0.800000,NULL,1,0,1
+232,US-2023-108189,2023-10-02,2023,10,2023-10,2023-10-05,3,"First Class",ES-14080,"Erin Smith",Corporate,"United States",Arizona,Tempe,85281,West,7,7,598.144000,18,0.200000,133.763200,0,0,0
+233,US-2023-108273,2023-12-16,2023,12,2023-12,2023-12-21,5,"Standard Class",EJ-13720,"Ed Jacobs",Consumer,"United States",Texas,Huntsville,77340,Central,2,2,92.856000,9,0.400000,-62.251800,0,0,0
+234,US-2023-108609,2023-10-31,2023,10,2023-10,2023-11-02,2,"Second Class",AJ-10780,"Anthony Jacobs",Corporate,"United States",Ohio,Lorain,44052,East,1,1,1421.664000,8,0.400000,-734.526400,0,0,0
+235,US-2023-108707,2023-10-24,2023,10,2023-10,2023-10-29,5,"Standard Class",DB-12910,"Daniel Byrd","Home Office","United States",Florida,"Fort Lauderdale",33311,South,1,1,10.368000,2,0.200000,3.628800,0,0,0
+236,US-2023-108861,2023-05-28,2023,5,2023-05,2023-06-01,4,NULL,MM-17260,"Magdelene Morse",Consumer,"United States",Washington,Seattle,98105,West,1,1,136.960000,4,0.200000,51.360000,0,0,0
+237,US-2023-108903,2023-10-03,2023,10,2023-10,2023-10-03,0,"Same Day",DO-13435,"Denny Ordway",Consumer,"United States",Ohio,Columbus,43229,East,3,3,212.952000,10,0.200000,5.523600,0,0,0
+238,US-2023-109036,2023-12-20,2023,12,2023-12,2023-12-25,5,"Standard Class",KH-16510,"Keith Herrera",Consumer,"United States",Washington,Seattle,98103,West,1,1,31.050000,3,0.000000,14.904000,0,0,0
+239,US-2023-109043,2023-08-15,2023,8,2023-08,2023-08-17,2,"First Class",CS-12355,"Christine Sundaresam",Consumer,"United States",Florida,Hollywood,33021,South,2,2,243.600000,10,0.200000,46.819000,0,0,0
+240,US-2023-109127,2023-12-21,2023,12,2023-12,2023-12-25,4,"Standard Class",JC-15775,"John Castell",Consumer,"United States",Delaware,Newark,19711,East,1,1,17.280000,6,0.000000,7.948800,0,0,0
+241,US-2023-109134,2023-11-05,2023,11,2023-11,2023-11-10,5,NULL,DE-13255,"Deanra Eno","Home Office","United States",California,"Los Angeles",90008,West,1,1,20.040000,6,0.000000,8.817600,0,0,0
+242,US-2023-109162,2023-06-08,2023,6,2023-06,2023-06-12,4,"Standard Class",KE-16420,"Katrina Edelman",Corporate,"United States",Tennessee,Bristol,37620,South,1,1,170.352000,3,0.200000,10.647000,0,0,0
+243,US-2023-109218,2023-06-30,2023,6,2023-06,2023-07-03,3,"Second Class",AR-10825,"Anthony Rawles",Corporate,"United States",California,"Los Angeles",90004,West,1,1,32.400000,5,0.000000,10.368000,0,0,0
+244,US-2023-109232,2023-01-13,2023,1,2023-01,2023-01-16,3,"Second Class",ND-18370,"Natalie DeCherney",Consumer,"United States","South Carolina","Mount Pleasant",29464,South,1,1,545.940000,6,0.000000,87.350400,0,0,0
+245,US-2023-109302,2023-08-12,2023,8,2023-08,2023-08-16,4,"Standard Class",CS-12175,"Charles Sheldon",Corporate,"United States","New Jersey",Lakewood,8701,East,1,1,196.210000,7,0.000000,98.105000,0,0,0
+246,US-2023-109456,2023-10-16,2023,10,2023-10,2023-10-17,1,"Same Day",LS-17245,"Lynn Smith",Consumer,"United States",California,"San Francisco",94110,West,2,2,194.322000,6,0.100000,86.385600,0,0,1
+247,US-2023-109491,2023-02-20,2023,2,2023-02,2023-02-26,6,"Standard Class",LC-16930,"Linda Cazamias",Corporate,"United States",Indiana,Richmond,47374,Central,2,2,82.630000,7,0.000000,29.340400,0,0,0
+248,US-2023-109680,2023-10-06,2023,10,2023-10,2023-10-09,3,"First Class",VP-21760,"Victoria Pisteka",Corporate,"United States",Indiana,Indianapolis,46203,Central,1,1,386.340000,2,0.000000,54.087600,0,0,0
+249,US-2023-109855,2023-09-01,2023,9,2023-09,2023-09-05,4,"Standard Class",LH-16900,"Lena Hernandez",Consumer,"United States","New York","New York City",10009,East,2,2,380.744000,5,0.100000,65.430400,0,0,0
+250,US-2023-109890,2023-07-21,2023,7,2023-07,2023-07-27,6,"Standard Class",PG-18820,"Patrick Gardner",Consumer,"United States",Nebraska,Omaha,68104,Central,1,1,35.980000,2,0.000000,10.074400,0,0,0
+251,US-2023-109897,2023-08-12,2023,8,2023-08,2023-08-16,4,"Standard Class",BW-11200,"Ben Wallace",Consumer,"United States",California,"San Francisco",94122,West,2,2,891.776000,11,0.100000,82.008800,0,0,0
+252,US-2023-109904,2023-07-14,2023,7,2023-07,2023-07-17,3,"Second Class",BF-10975,"Barbara Fisher",Corporate,"United States","New York","New York City",10009,East,1,1,17.940000,3,0.000000,4.485000,0,0,0
+253,US-2023-109918,2023-09-07,2023,9,2023-09,2023-09-12,5,"Second Class",LR-17035,"Lisa Ryan",Corporate,"United States",California,"Santa Clara",95051,West,3,3,131.840000,11,0.066667,38.857200,0,0,1
+254,US-2023-109932,2023-12-09,2023,12,2023-12,2023-12-11,2,"First Class",VP-21760,"Victoria Pisteka",Corporate,"United States",Texas,Brownsville,78521,Central,2,2,247.784000,5,0.200000,24.486700,0,0,0
+255,US-2023-110030,2023-12-06,2023,12,2023-12,2023-12-08,2,"Second Class",LF-17185,"Luke Foster",Consumer,"United States",Texas,Houston,77095,Central,1,1,23.976000,3,0.600000,NULL,0,0,1
+256,US-2023-110065,2023-08-05,2023,8,2023-08,2023-08-11,6,"Standard Class",SP-20650,"Stephanie Phelps",Corporate,"United States","New York","New York City",10009,East,2,2,151.950000,8,0.000000,43.739700,0,0,0
+257,US-2023-110072,2023-10-22,2023,10,2023-10,2023-10-28,6,"Standard Class",MG-17680,"Maureen Gastineau","Home Office","United States",Ohio,Newark,43055,East,1,1,93.888000,4,0.200000,12.909600,0,0,0
+258,US-2023-110100,2023-04-25,2023,4,2023-04,2023-04-29,4,"Standard Class",LC-16885,"Lena Creighton",Consumer,"United States","North Carolina",Wilmington,28403,South,1,1,302.376000,240,0.200000,37.797000,0,0,0
+259,US-2023-110184,2023-07-12,2023,7,2023-07,2023-07-16,4,"Standard Class",BF-11170,"Ben Ferrer","Home Office","United States",California,"Los Angeles",90036,West,2,2,505.686000,17,0.100000,73.747800,0,0,0
+260,US-2023-110219,2023-05-05,2023,5,2023-05,2023-05-08,3,NULL,EB-13870,"Emily Burns",Consumer,"United States",Texas,"San Antonio",78207,Central,1,1,127.869000,3,0.300000,-9.133500,0,0,0
+261,US-2023-110352,2023-11-23,2023,11,2023-11,2023-11-29,6,"Standard Class",ED-13885,"Emily Ducich","Home Office","United States",Texas,Houston,77036,Central,1,1,23.680000,2,0.200000,8.880000,0,0,0
+262,US-2023-110408,2023-10-18,2023,10,2023-10,2023-10-20,2,"Second Class",AS-10225,"Alan Schoenberger",Corporate,"United States",Alabama,Montgomery,36116,South,3,3,821.850000,14,0.000000,444.690200,1,0,0
+263,US-2023-110422,2023-01-21,2023,1,2023-01,2023-01-23,2,NULL,TB-21400,"Tom Boeckenhauer",Consumer,"United States",Florida,Miami,33180,South,1,1,25.248000,3,0.200000,4.102800,0,0,0
+264,US-2023-110527,2023-08-09,2023,8,2023-08,2023-08-16,7,"Standard Class",ED-13885,"Emily Ducich","Home Office","United States",California,"San Diego",92037,West,1,1,20.880000,8,0.000000,9.604800,0,0,0
+265,US-2023-110555,2023-04-11,2023,4,2023-04,2023-04-18,7,"Standard Class",MM-18055,"Michelle Moray",Consumer,"United States",Montana,"Great Falls",59405,West,3,3,410.104000,15,0.066667,124.945800,0,0,0
+266,US-2023-110611,2023-10-06,2023,10,2023-10,2023-10-13,7,"Standard Class",JD-16015,"Joy Daniels",Consumer,"United States",Pennsylvania,Philadelphia,19120,East,1,1,83.920000,5,0.200000,-13.637000,0,0,0
+267,US-2023-110639,2023-08-23,2023,8,2023-08,2023-08-23,0,"Same Day",RH-19495,"Rick Hansen",Consumer,"United States","New York","New York City",10009,East,2,2,71.840000,8,0.000000,34.942400,0,0,0
+268,US-2023-110674,2023-02-12,2023,2,2023-02,2023-02-18,6,"Standard Class",SC-20095,"Sanjit Chand",Consumer,"United States",California,Concord,94521,West,1,1,129.568000,2,0.200000,-24.294000,0,0,0
+269,US-2023-110786,2023-12-29,2023,12,2023-12,2024-01-02,4,"Standard Class",AJ-10795,"Anthony Johnson",Corporate,"United States",California,"San Francisco",94110,West,7,7,597.678000,36,0.085714,479.949600,1,0,0
+270,US-2023-110849,2023-04-18,2023,4,2023-04,2023-04-23,5,"Standard Class",JL-15835,"John Lee",Consumer,"United States",California,"Los Angeles",90049,West,4,4,323.458000,11,0.050000,108.143700,0,1,0
+271,US-2023-111003,2023-06-01,2023,6,2023-06,2023-06-06,5,"Standard Class",CR-12625,"Corey Roper","Home Office","United States","New Jersey",Lakewood,8701,East,2,2,334.680000,9,0.000000,104.788800,0,0,0
+272,US-2023-111059,2023-02-03,2023,2,2023-02,2023-02-06,3,"Second Class",TB-21400,"Tom Boeckenhauer",Consumer,"United States",Washington,Seattle,98105,West,2,2,83.840000,5,0.200000,31.561400,1,0,0
+273,US-2023-111150,2023-12-31,2023,12,2023-12,2024-01-04,4,"Standard Class",RW-19630,"Rob Williams",Corporate,"United States",Missouri,Columbia,65203,Central,2,2,77.210000,14,0.000000,27.735400,0,0,0
+274,US-2023-111157,2023-03-02,2023,3,2023-03,2023-03-06,4,"Standard Class",NH-18610,"Nicole Hansen",Corporate,"United States",Pennsylvania,Philadelphia,19120,East,2,2,154.624000,4,0.200000,33.200000,0,0,0
+275,US-2023-111171,2023-12-26,2023,12,2023-12,2023-12-31,5,"Standard Class",CA-12265,"Christina Anderson",Consumer,"United States",Illinois,Chicago,60610,Central,1,1,8.690000,400,0.800000,-14.773000,0,0,0
+276,US-2023-111192,2023-07-30,2023,7,2023-07,2023-08-05,6,"Standard Class",TS-21430,"Tom Stivers",Corporate,"United States",Washington,Seattle,98103,West,1,1,1367.840000,8,0.000000,259.889600,0,0,0
+277,US-2023-111353,2023-11-29,2023,11,2023-11,2023-12-06,7,"Standard Class",PB-19150,"Philip Brown",Consumer,"United States","New York","New York City",10009,East,1,1,25.060000,2,0.000000,11.778200,0,0,0
+278,US-2023-111360,2023-11-24,2023,11,2023-11,2023-11-30,6,"Standard Class",AT-10435,"Alyssa Tate","Home Office","United States",Ohio,Akron,44312,East,1,1,5.742000,3,0.700000,-4.593600,0,0,0
+279,US-2023-111451,2023-12-26,2023,12,2023-12,2023-12-28,2,"First Class",KL-16555,"Kelly Lampkin",Corporate,"United States",Colorado,"Colorado Springs",80906,West,5,5,855.272000,22,0.300000,20.869200,0,0,0
+280,US-2023-111500,2023-08-17,2023,8,2023-08,2023-08-21,4,"Standard Class",DJ-13510,"Don Jones",Corporate,"United States",Arkansas,"Little Rock",72209,South,4,4,484.790000,20,0.137500,187.740400,0,0,0
+281,US-2023-111773,2023-06-29,2023,6,2023-06,2023-07-03,4,"Standard Class",JK-15625,"Jim Karlsson",Consumer,"United States","New York","New York City",10024,East,1,1,13.920000,3,0.200000,4.872000,0,0,0
+282,US-2023-111857,2023-04-23,2023,4,2023-04,2023-04-26,3,"Second Class",NM-18445,"Nathan Mautz","Home Office","United States",California,"San Francisco",94109,West,1,1,48.910000,1,0.000000,22.987700,0,0,0
+283,US-2023-111871,2023-03-18,2023,3,2023-03,2023-03-21,3,"Second Class",EK-13795,"Eileen Kiefer","Home Office","United States",California,"San Francisco",94110,West,1,1,1198.330000,10,0.150000,70.490000,0,0,0
+284,US-2023-111899,2023-05-04,2023,5,2023-05,2023-05-05,1,"First Class",NC-18340,"Nat Carroll",Consumer,"United States",Texas,Houston,77036,Central,2,2,43.312000,8,0.200000,1.846800,0,0,1
+285,US-2023-111934,2023-05-05,2023,5,2023-05,2023-05-07,2,"First Class",GD-14590,"Giulietta Dortch",Corporate,"United States",Virginia,Arlington,22204,South,2,2,47.320000,3,0.000000,22.002800,0,0,0
+286,US-2023-111962,2023-09-29,2023,9,2023-09,2023-10-04,5,"Standard Class",EB-14170,"Evan Bailliet",Consumer,"United States",Washington,Seattle,98115,West,2,2,817.798000,7,0.100000,156.612500,0,0,0
+287,US-2023-112158,2023-12-02,2023,12,2023-12,2023-12-04,2,"First Class",DP-13165,"David Philippe",Consumer,"United States","New York","New York City",10035,East,3,3,1050.600000,17,0.133333,-41.939600,0,0,0
+288,US-2023-112200,2023-11-22,2023,11,2023-11,2023-11-28,6,"Standard Class",TC-21475,"Tony Chapman","Home Office","United States",Illinois,Bolingbrook,60440,Central,1,1,9.980000,5,0.800000,-16.467000,0,0,0
+289,US-2023-112291,2023-04-03,2023,4,2023-04,2023-04-08,5,"Standard Class",KE-16420,"Katrina Edelman",Corporate,"United States",California,"Los Angeles",90008,West,3,3,233.450000,7,0.000000,85.604400,0,0,0
+290,US-2023-112326,2023-01-04,2023,1,2023-01,2023-01-08,4,"Standard Class",PO-19195,"Phillina Ober","Home Office","United States",Illinois,Naperville,60540,Central,3,3,288.060000,8,0.400000,-60.503100,0,0,1
+291,US-2023-112403,2023-03-31,2023,3,2023-03,2023-03-31,0,"Same Day",JO-15280,"Jas O'Carroll",Consumer,"United States",Pennsylvania,Philadelphia,19120,East,1,1,0.852000,1,0.700000,-0.596400,0,0,0
+292,US-2023-112564,2023-04-23,2023,4,2023-04,2023-04-24,1,"First Class",TS-21160,"Theresa Swint",Corporate,"United States",Pennsylvania,Philadelphia,19134,East,1,1,2.502000,3,0.700000,-1.751400,0,0,0
+293,US-2023-112718,2023-12-16,2023,12,2023-12,2023-12-21,5,"Standard Class",KN-16450,"Kean Nguyen",Corporate,"United States",Florida,Jacksonville,32216,South,1,1,NULL,1,0.700000,-0.855800,1,0,0
+294,US-2023-112795,2023-08-23,2023,8,2023-08,2023-08-28,5,NULL,CR-12625,"Corey Roper","Home Office","United States",Michigan,"Grand Rapids",49505,Central,1,1,19.440000,3,0.000000,9.525600,0,0,0
+295,US-2023-112837,2023-09-11,2023,9,2023-09,2023-09-16,5,"Standard Class",LW-17125,"Liz Willingham",Consumer,"United States",California,Oxnard,93030,West,1,1,127.950000,3,0.000000,21.751500,0,0,0
+296,US-2023-112851,2023-09-17,2023,9,2023-09,2023-09-21,4,"Standard Class",NR-18550,"Nick Radford",Consumer,"United States",California,"Chula Vista",91911,West,1,1,182.940000,3,0.000000,85.981800,0,0,0
+297,US-2023-112872,2023-12-06,2023,12,2023-12,2023-12-11,5,"Second Class",RC-19960,"Ryan Crowe",Consumer,"United States",Oregon,Springfield,97477,West,2,2,328.914000,4,0.350000,-166.129200,0,0,0
+298,US-2023-112914,2023-09-25,2023,9,2023-09,2023-09-30,5,"Standard Class",MT-18070,"Michelle Tran","Home Office","United States",Texas,Houston,77041,Central,4,4,337.588800,12,0.380000,-89.928000,1,1,0
+299,US-2023-112949,2023-06-20,2023,6,2023-06,2023-06-27,7,"Standard Class",Co-12640,Corey-Lock,Consumer,"United States",Oklahoma,Lawton,73505,Central,2,2,475.420000,8,0.000000,157.416600,0,0,0
+300,US-2023-112991,2023-12-10,2023,12,2023-12,2023-12-14,4,"Standard Class",SH-19975,"Sally Hughsby",Corporate,"United States",Idaho,Caldwell,83605,West,3,3,455.632000,11,0.066667,58.696600,0,0,0
+301,US-2023-113047,2023-10-24,2023,10,2023-10,2023-10-24,0,"Same Day",AP-10915,"Arthur Prichep",Consumer,"United States","South Carolina","Rock Hill",29730,South,1,1,11.850000,3,0.000000,3.792000,0,0,0
+302,US-2023-113124,2023-03-30,2023,3,2023-03,2023-04-05,6,"Standard Class",NC-18340,"Nat Carroll",Consumer,"United States",Minnesota,"Apple Valley",55124,Central,1,1,129.300000,160,0.000000,6.465000,0,0,0
+303,US-2023-113166,2023-12-24,2023,12,2023-12,2023-12-26,2,"First Class",LF-17185,"Luke Foster",Consumer,"United States",Florida,Miami,33180,South,1,1,NULL,2,0.200000,3.468400,1,0,0
+304,US-2023-113257,2023-12-16,2023,12,2023-12,2023-12-18,2,"Second Class",SC-20305,"Sean Christensen",Consumer,"United States",Texas,Beaumont,77705,Central,2,2,328.592000,11,0.400000,93.403200,0,0,0
+305,US-2023-113271,2023-07-09,2023,7,2023-07,2023-07-14,5,"Standard Class",DS-13030,"Darrin Sayre","Home Office","United States",California,"San Francisco",94122,West,4,4,172.097000,14,0.087500,24.825000,0,0,1
+306,US-2023-113320,2023-12-12,2023,12,2023-12,2023-12-15,3,"Second Class",LH-17155,"Logan Haushalter",Consumer,"United States",California,Oakland,94601,West,3,3,30.720000,9,0.000000,9.575400,0,0,0
+307,US-2023-113362,2023-09-14,2023,9,2023-09,2023-09-19,5,"Standard Class",AJ-10960,"Astrea Jones",Consumer,"United States","New York",Rochester,14609,East,2,2,460.220000,8,0.000000,14.075200,0,0,0
+308,US-2023-113383,2023-09-10,2023,9,2023-09,2023-09-13,3,"First Class",SF-20065,"Sandra Flanagan",Consumer,"United States","New Jersey",Clifton,7011,East,2,2,336.820000,9,0.000000,98.588400,0,0,0
+309,US-2023-113579,2023-12-13,2023,12,2023-12,2023-12-15,2,"Second Class",KD-16345,"Katherine Ducich",Consumer,"United States",California,"Los Angeles",90049,West,1,1,90.240000,6,0.000000,41.510400,0,0,0
+310,US-2023-113768,2023-05-13,2023,5,2023-05,2023-05-19,6,"Standard Class",AH-10030,"Aaron Hawkins",Corporate,"United States",California,"Los Angeles",90004,West,2,2,287.456000,8,0.100000,24.799200,0,0,0
+311,US-2023-113859,2023-09-13,2023,9,2023-09,2023-09-17,4,"Standard Class",BC-11125,"Becky Castell","Home Office","United States",Texas,Odessa,79762,Central,1,1,340.116000,6,0.300000,-9.717600,0,0,0
+312,US-2023-113880,2023-03-01,2023,3,2023-03,2023-03-05,4,"Standard Class",VF-21715,"Vicky Freymann","Home Office","United States",Illinois,Elmhurst,60126,Central,2,2,651.588000,9,0.250000,-166.438800,0,0,0
+313,US-2023-113887,2023-04-05,2023,4,2023-04,2023-04-07,2,"First Class",TH-21550,"Tracy Hopkins","Home Office","United States","New York","New York City",10035,East,1,1,55.480000,1,0.000000,26.630400,0,0,0
+314,US-2023-113929,2023-06-16,2023,6,2023-06,2023-06-21,5,"Standard Class",CK-12205,"Chloris Kastensmidt",Consumer,"United States","New York",Hempstead,11550,East,3,3,80.952000,12,0.066667,44.295600,1,0,0
+315,US-2023-113964,2023-09-23,2023,9,2023-09,2023-09-30,7,"Standard Class",JP-16135,"Julie Prescott","Home Office","United States","New York","New York City",10011,East,1,1,18.464000,4,0.200000,NULL,0,0,1
+316,US-2023-114125,2023-07-09,2023,7,2023-07,2023-07-13,4,"Standard Class",GH-14410,"Gary Hansen","Home Office","United States",California,"Los Angeles",90049,West,3,3,68.704000,11,0.250000,19.620200,0,0,0
+317,US-2023-114181,2023-05-10,2023,5,2023-05,2023-05-14,4,"Second Class",AF-10885,"Art Foster",Consumer,"United States",Pennsylvania,Philadelphia,19134,East,2,2,372.285000,12,0.350000,-211.677300,0,0,0
+318,US-2023-114188,2023-05-20,2023,5,2023-05,2023-05-22,2,"Second Class",RF-19345,"Randy Ferguson",Corporate,"United States","New Hampshire",Dover,3820,East,3,3,178.380000,20,0.000000,81.399400,1,0,0
+319,US-2023-114195,2023-11-01,2023,11,2023-11,2023-11-03,2,"First Class",EA-14035,"Erin Ashbrook",Corporate,"United States",Ohio,Mason,45040,East,3,3,91.132000,5,0.533333,-4.235200,1,1,0
+320,US-2023-114251,2023-11-05,2023,11,2023-11,2023-11-10,5,"Standard Class",MD-17350,"Maribeth Dona",Consumer,"United States",Pennsylvania,Philadelphia,19143,East,5,5,1203.266000,15,0.300000,-127.150800,1,1,0
+321,US-2023-114314,2023-10-11,2023,10,2023-10,2023-10-15,4,"Standard Class",DB-13555,"Dorothy Badders",Corporate,"United States",Arkansas,Fayetteville,72701,South,2,2,16.230000,5,0.000000,7.360500,0,0,0
+322,US-2023-114321,2023-08-20,2023,8,2023-08,2023-08-25,5,"Standard Class",NC-18535,"Nick Crebassa",Corporate,"United States",Virginia,Hampton,23666,South,3,3,917.110000,16,0.000000,566.654900,1,0,1
+323,US-2023-114335,2023-09-28,2023,9,2023-09,2023-10-03,5,"Standard Class",XP-21865,"Xylona Preis",Consumer,"United States",Florida,Hollywood,33021,South,1,1,337.088000,4,0.200000,16.854400,0,0,0
+324,US-2023-114377,2023-11-05,2023,11,2023-11,2023-11-05,0,"Same Day",BG-11035,"Barry Gonzalez",Consumer,"United States",Virginia,Hampton,23666,South,1,1,149.900000,5,0.000000,40.473000,0,0,0
+325,US-2023-114433,2023-05-13,2023,5,2023-05,2023-05-17,4,"Standard Class",NP-18325,"Naresj Patel",Consumer,"United States",California,Oakland,94601,West,1,1,149.970000,3,0.000000,52.489500,0,0,0
+326,US-2023-114510,2023-03-14,2023,3,2023-03,2023-03-19,5,"Standard Class",JF-15295,"Jason Fortune-",Consumer,"United States",Utah,Logan,84321,West,5,5,280.276000,21,0.080000,46.963200,0,0,0
+327,US-2023-114517,2023-12-23,2023,12,2023-12,2023-12-27,4,"Standard Class",TH-21235,"Tiffany House",Corporate,"United States","New York","New York City",10024,East,2,2,109.836000,5,0.200000,-3.723600,0,0,0
+328,US-2023-114643,2023-06-13,2023,6,2023-06,2023-06-17,4,"Standard Class",FM-14215,"Filia McAdams",Corporate,"United States",California,"Los Angeles",90032,West,1,1,14.520000,3,0.000000,4.791600,0,0,0
+329,US-2023-114790,2023-03-11,2023,3,2023-03,2023-03-13,2,"Second Class",FM-14215,"Filia McAdams",Corporate,"United States",Kentucky,Richmond,40475,South,4,4,782.630000,11,0.000000,223.983800,0,0,0
+330,US-2023-115049,2023-09-26,2023,9,2023-09,2023-10-01,5,"Standard Class",MM-17920,"Michael Moore",Consumer,"United States",Illinois,Chicago,60623,Central,1,1,153.824000,11,0.200000,38.456000,0,0,0
+331,US-2023-115056,2023-05-02,2023,5,2023-05,2023-05-02,0,"Same Day",AR-10510,"Andrew Roberts",Consumer,"United States",Ohio,Columbus,43229,East,1,1,26.136000,3,0.200000,1.960200,0,0,0
+332,US-2023-115084,2023-10-18,2023,10,2023-10,2023-10-22,4,"Standard Class",LS-17200,"Luke Schmidt",Corporate,"United States",Arkansas,Texarkana,71854,South,1,1,605.340000,6,0.550000,145.281600,0,0,0
+333,US-2023-115133,2023-09-26,2023,9,2023-09,2023-09-30,4,"Standard Class",DA-13450,"Dianna Arnett","Home Office","United States",Ohio,Lancaster,43130,East,3,3,36.048000,12,0.200000,12.355200,1,0,1
+334,US-2023-115161,2023-01-31,2023,1,2023-01,2023-02-02,2,"First Class",LC-17050,"Liz Carlisle",Consumer
