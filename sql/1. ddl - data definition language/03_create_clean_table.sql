@@ -42,14 +42,14 @@ CREATE TABLE clean_sales(
         PRIMARY KEY (row_id),
     -- Restricción sobre la fecha de orden vs la fecha de envío    
     CONSTRAINT chk_clean_sales_date
-        CHECK (ship_date > order_date),
+        CHECK (ship_date >= order_date),
     -- Restricción sobre los segmentos permitidos. 
     CONSTRAINT chk_clean_sales_segment
         CHECK   (
             segment IN (
                 'Consumer',
-                'Corporate'
-                'Home Office'
+                'Corporate',
+                'Home Office' 
             )
         ),
     -- Restricción sobre las categorías pemitidas.
@@ -66,7 +66,7 @@ CREATE TABLE clean_sales(
         CHECK (
             ship_mode IS NULL
             OR ship_mode IN (
-                'Satandar Class',
+                'Standard Class',
                 'Second Class',
                 'First Class',
                 'Same Day'
