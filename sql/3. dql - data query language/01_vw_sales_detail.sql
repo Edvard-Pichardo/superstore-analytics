@@ -96,3 +96,6 @@ SELECT
 FROM vw_sales_detail
 ORDER BY source_row_id
 LIMIT 20;
+
+-- Revisamos la vista completa.
+SELECT * FROM vw_sales_detail;
