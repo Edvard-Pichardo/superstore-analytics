@@ -1,5 +1,5 @@
 /*
-Archivo      : 06_vw_geographic_performance.sql
+Archivo      : 06_vw_geographic_performance
 Proyecto     : superstore-analytics
 Autor        : Cristian Eduardo Pichardo Rico
 Descripción  : Vista de desempeño geográfico:
