@@ -1,5 +1,5 @@
 /*
-Archivo      : 03_monthly_trends.sql
+Archivo      : 03_monthly_trends
 Proyecto     : superstore-analytics
 Autor        : Cristian Eduardo Pichardo Rico
 Descripción  : Análisis de la evolución mensual del negocio, incluyendo ventas, pedidos, clientes, beneficios
