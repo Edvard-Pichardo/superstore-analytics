@@ -1,5 +1,5 @@
 /*
-Archivo      : 02_sp_category_performance_by_period.sql
+Archivo      : 02_sp_category_performance_by_period
 Proyecto     : superstore-analytics
 Autor        : Cristian Eduardo Pichardo Rico
 Descripción  : Procedimiento almacenado para consultar el rendimiento de categorías y subcategorías
