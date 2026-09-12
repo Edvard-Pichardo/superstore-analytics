@@ -29,7 +29,7 @@ CREATE TABLE audit_log(
     changed_at DATETIME(6) NOT NULL
         DEFAULT CURRENT_TIMESTAMP(6),
     
-    change_by VARCHAR(288)NOT NULL,
+    changed_by VARCHAR(288)NOT NULL,
     connection_id BIGINT UNSIGNED NOT NULL,
     old_data JSON,
     new_data JSON,
