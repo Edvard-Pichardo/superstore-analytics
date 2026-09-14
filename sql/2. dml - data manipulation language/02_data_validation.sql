@@ -224,6 +224,8 @@ CASE
     THEN 'YYYY-MM-DD HH:MM:SS'
     WHEN order_date REGEXP '^[0-9]{2}-[A-Za-z]{3}-[0-9]{4}$' 
     THEN 'DD-MMM-YYYY'
+    WHEN order_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$' 
+    THEN 'YYYY-MM-DD'
     WHEN order_date REGEXP '^[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}$' 
     THEN 'DD.MM.YYYY'
     WHEN order_date REGEXP '^[0-9]{8}$'
