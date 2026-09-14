@@ -214,7 +214,7 @@ Se validaron **17 subcategorías**:
   <em>Figura: Registros de la columna Subcategory.</em>
 </p>
 
-### Fechas
+### Dates
 
 `Order Date` y `Ship Date` tenían diferentes formatos de fecha. Se normalizaron a tipos de fecha consistentes.
 
