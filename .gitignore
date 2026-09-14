@@ -261,7 +261,3 @@ desktop.ini
 .mypy_cache/
 .dmypy.json
 dmypy.json
-
-# Archivos de Jupyter Notebook (opcional, si usas)
-.ipynb_checkpoints/
-*.ipynb
