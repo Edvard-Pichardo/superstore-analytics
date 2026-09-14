@@ -12,28 +12,28 @@ Proyecto integral de análisis de datos con el conjunto Superstore. Incluye limp
 </div>
 
 <p align="center">
-
+  
 La proyecto se divide en dos capas principales:
 
+<div align="center">
 ```text
-                    SuperStore Analytics
+                  SuperStore Analytics
                            │
              ┌─────────────┴─────────────┐
              │                           │
-            SQL                         Python
+            SQL                        Python
              │                           │
-   Ingeniería y análisis        EDA, estadística y
-   de datos                     visualización
+   Ingeniería y análisis          EDA, estadística y
+         de datos                   visualización
              │                           │
              └─────────────┬─────────────┘
                            │
                     Business Insights
 ```
 
+</div>
 
----
-
-## 1. Objetivo
+<p align="center">
 
 ---
 
