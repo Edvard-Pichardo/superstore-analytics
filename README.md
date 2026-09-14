@@ -12,8 +12,10 @@ Proyecto integral de análisis de datos con el conjunto Superstore. Incluye limp
 </div>
 
 <p align="center">
-  
-La proyecto se divide en dos capas principales:
+
+---
+
+El proyecto se divide en dos capas principales:
 
 ```text
                   SuperStore Analytics
@@ -90,6 +92,47 @@ Los registros están dentro del periodo:
 
 ```text
 2023-01-03 → 2026-12-30
+```
+
+---
+
+## 3. Estructura del repositorio
+
+```text
+superstore-analytics/
+│
+├── data/
+│   ├── raw/
+│   │   └── sales_superstore_raw.csv
+│   │
+│   └── views/
+│       ├── vw_business_overview.csv
+│       ├── vw_category_performance.csv
+│       ├── vw_customer_performance.csv
+│       ├── vw_geographic_performance.csv
+│       ├── vw_monthly_performance.csv
+│       ├── vw_order_summary.csv
+│       ├── vw_product_performance.csv
+│       ├── vw_sales_detail.csv
+│       ├── vw_segment_performance.csv
+│       ├── vw_ship_mode_performance.csv
+│       └── vw_subcategory_performance.csv
+│
+├── sql/
+│   ├── 1. ddl - data definition language/
+│   ├── 2. dml - data manipulation language/
+│   ├── 3. dql - data query language/
+│   ├── 4. analysis/
+│   ├── 5. procedures/
+│   └── 6. triggers/
+│
+├── python/
+│   ├── superstore_analysis.ipynb
+│   └── superstore_analysis.html
+│
+├── images/
+│
+└── README.md
 ```
 
 ---
