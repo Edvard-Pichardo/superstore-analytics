@@ -15,7 +15,6 @@ Proyecto integral de análisis de datos con el conjunto Superstore. Incluye limp
   
 La proyecto se divide en dos capas principales:
 
-<div align="center">
 ```text
                   SuperStore Analytics
                            │
@@ -30,10 +29,6 @@ La proyecto se divide en dos capas principales:
                            │
                     Business Insights
 ```
-
-</div>
-
-<p align="center">
 
 ---
 
