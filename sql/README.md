@@ -150,7 +150,7 @@ Y varias entidades de referencia, entre ellas clientes, ubicaciones, productos, 
 
 
 <p align="center">
-  <img src="images/relational_model.png" width="600">
+  <img src="../images/relational_model.png" width="600">
   <br>
   <em>Figura: Modelo relacional del dataset. Fuente: MySQL Workbench.</em>
 </p>
@@ -173,8 +173,8 @@ Esto es especialmente importante para métricas comerciales como `Sales`, `Quant
 Se normalizaron variantes y errores tipográficos de la columna `segments` hasta quedarse con los tres segmentos de la empresa:
 
 <p align="center">
-  <img src="images/sql/01_validacion_segment1.png">
-  <img src="images/sql/01_normalizacion_segment.png">
+  <img src="../images/sql/01_validacion_segment1.png">
+  <img src="../images/sql/01_normalizacion_segment.png">
   <br>
   <em>Figura: Registros de la columna Segment antes y después de su normalización.</em>
 </p>
@@ -184,8 +184,8 @@ Se normalizaron variantes y errores tipográficos de la columna `segments` hasta
 Se corrigieron diferencias de formato relacionadas a espacios en blanco hasta terminar con las tres categorías de la empresa:
 
 <p align="center">
-  <img src="images/sql/02_val_category.png">
-  <img src="images/sql/02_nor_category.png">
+  <img src="../images/sql/02_val_category.png">
+  <img src="../images/sql/02_nor_category.png">
   <br>
   <em>Figura: Registros de la columna Category antes y después de su normalización.</em>
 </p>
@@ -195,8 +195,8 @@ Se corrigieron diferencias de formato relacionadas a espacios en blanco hasta te
 Se validaron **17 subcategorías**:
 
 <p align="center">
-  <img src="images/sql/03_val_subcat.png">
-  <img src="images/sql/03_val_subcat2.png">
+  <img src="../images/sql/03_val_subcat.png">
+  <img src="../images/sql/03_val_subcat2.png">
   <br>
   <em>Figura: Registros de la columna Subcategory.</em>
 </p>
@@ -206,8 +206,8 @@ Se validaron **17 subcategorías**:
 `Order Date` y `Ship Date` tenían diferentes formatos de fecha. Se normalizaron a tipos de fecha consistentes.
 
 <p align="center">
-  <img src="images/sql/04_val_dates.png">
-  <img src="images/sql/04_nor_dates.png">
+  <img src="../images/sql/04_val_dates.png">
+  <img src="../images/sql/04_nor_dates.png">
   <br>
   <em>Figura: Registros de la columna Order Date antes y después de su normalización.</em>
 </p>
@@ -225,7 +225,7 @@ HO-15230
 ```
 
 <p align="center">
-  <img src="images/sql/06_harry.png">
+  <img src="../images/sql/06_harry.png">
   <br>
   <em>Figura: Duplicados en los IDs de clientes.</em>
 </p>
@@ -239,7 +239,7 @@ United States + 92024 → Encinitas
 ```
 
 <p align="center">
-  <img src="images/sql/07_california.png">
+  <img src="../images/sql/07_california.png">
   <br>
   <em>Figura: Incosistencia de un código postal.</em>
 </p>
@@ -265,7 +265,7 @@ El dataset original contenía **10,703 filas** y, después de la eliminación co
 Por tanto:
 
 <p align="center">
-  <img src="images/sql/05_duplicados.png">
+  <img src="../images/sql/05_duplicados.png">
   <br>
   <em>Figura: Duplicados de registros en el dataset.</em>
 </p>
