@@ -295,7 +295,7 @@ Proporciona una vista a nivel de **línea de pedido**, adecuada para:
 - beneficios.
 
 <p align="center">
-  <img src="images/sql/08_view_sales.png">
+  <img src="../images/sql/08_view_sales.png">
   <br>
   <em>Figura: Porción de la vista sales_detail.</em>
 </p>
@@ -314,7 +314,7 @@ Proporciona una vista a nivel de **pedido**, adecuada para:
 Esta separación evita un error muy importante: calcular métricas a nivel de pedido sobre una tabla que está multiplicada por sus líneas de detalle.
 
 <p align="center">
-  <img src="images/sql/08_view_order.png">
+  <img src="../images/sql/08_view_order.png">
   <br>
   <em>Figura: Porción de la vista order_detail.</em>
 </p>
