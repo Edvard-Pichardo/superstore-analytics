@@ -874,4 +874,21 @@ Validación integral
 ```
 
 La capa SQL queda así preparada para alimentar las siguientes etapas del proyecto, especialmente Excel/Power Query y Python, sin perder la trazabilidad de cómo se obtuvieron los datos y los indicadores.
+---
 
+# Licencia
+
+Este proyecto se distribuye bajo la licencia **MIT**.
+
+Consulta el archivo **LICENSE** para más información.
+
+
+
+# Autor
+
+## Edvard Pichardo
+
+**Licenciado en Física**  
+Universidad Nacional Autónoma de México (UNAM)
+
+---
