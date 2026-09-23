@@ -1129,7 +1129,7 @@ Consulta el archivo **LICENSE** para más información.
 
 # Autor
 
-## Eduardo Pichardo
+## Edvard Pichardo
 
 **Licenciado en Física**  
 Universidad Nacional Autónoma de México (UNAM)
