@@ -16,18 +16,18 @@ Proyecto integral de análisis de datos con el conjunto Superstore. Incluye limp
 El proyecto se divide en dos capas principales:
 
 ```text
-                  SuperStore Analytics
-                           │
-             ┌─────────────┴─────────────┐
-             │                           │
-            SQL                        Python
-             │                           │
-   Ingeniería y análisis          EDA, estadística y
-         de datos                   visualización
-             │                           │
-             └─────────────┬─────────────┘
-                           │
-                    Business Insights
+                               SuperStore Analytics
+                                         │
+             ┌───────────────────────────┴──────────────────────────┐
+             │                           │                          │
+            SQL                        Python                    Power BI
+             │                           │                          │
+   Ingeniería y análisis          EDA, estadística y       Diseño y presentación
+         de datos                   visualización          mediante un dashboard
+             │                           │                          │
+             └───────────────────────────┬──────────────────────────┘
+                                         │
+                                 Business Insights
 ```
 ---
 
@@ -120,6 +120,10 @@ superstore-analytics/
 │   ├── superstore_analysis.ipynb
 │   └── superstore_analysis.html
 │
+├── power bi
+│   ├── superstore_dashboard.pbix
+│   └── superstore_dashboard.pdf
+│
 ├── images/
 │
 └── README.md
@@ -146,13 +150,13 @@ Carga + limpieza + normalización
            │
            └──────── CSV de Views
                           |
-                        Python
-                          |
-                    EDA + Estadística
-                          |
-                     Visualización
-                          |
-                       Insights
+                        Python                      Power BI
+                          |                             |
+                    EDA + Estadística          Dashboard interactivo
+                          |                             |
+                     Visualización              Exploración visual
+                          |                             |
+                          └──────────── Insights ───────┘
 ```
 
 ---
@@ -921,6 +925,63 @@ Estos resultados son ejemplos de la clase de insights que el proyecto permite ob
 
 ---
 
+# Power BI - Dashboard
+
+Como cierre del proyecto, los resultados del análisis se llevaron a un dashboard interactivo en Power BI, construido sobre las mismas dos views que usa Python:
+- vw_sales_detail
+- vw_order_summary
+
+El archivo puede encontrarse en: powerbi/superstore_dashboard.pbix
+[![Abrir dashboard](https://github.com/Edvard-Pichardo/superstore-analytics/tree/main/power%20bi)
+
+Junto a una exportación en PDF, para quien no tenga Power BI Desktop instalado.
+
+
+## Modelo de datos
+
+Se construyó una tabla `Calendario` como tabla de fechas, relacionada con `vw_order_summary` por `order_date`, y esta a su vez relacionada con `vw_sales_detail` por `order_key`. Un solo camino de filtros evita relaciones ambiguas dentro del modelo.
+
+## Resumen ejecutivo
+
+Primera página del dashboard: ventas, beneficio, margen, pedidos y clientes, junto con la evolución mensual y la estacionalidad que ya se identificó en el análisis de Python.
+
+<p align="center">
+  <img src="images/powerbi/page1.png">
+  <br>
+  <em>Figura: Resumen ejecutivo.</em>
+</p>
+
+## Productos y descuentos
+
+Esta página reproduce, de forma interactiva, el hallazgo central del análisis SQL y Python: los descuentos superiores al 30% generan pérdidas en la mayoría de las líneas de pedido.
+
+<p align="center">
+  <img src="images/powerbi/page2.png">
+  <br>
+  <em>Figura: Beneficio por banda de descuento y productos con mayor pérdida.</em>
+</p>
+
+## Clientes y geografía
+
+Distribución geográfica de las ventas y desempeño por segmento de cliente.
+
+<p align="center">
+  <img src="images/powerbi/page3.png">
+  <br>
+  <em>Figura: Ventas por estado y por segmento de cliente.</em>
+</p>
+
+## Logística
+
+Desempeño de envío por modo y por región, con un mapa de calor que cruza ambas dimensiones para detectar combinaciones lentas.
+
+<p align="center">
+  <img src="images/powerbi/page4.png">
+  <br>
+  <em>Figura: Días de envío promedio por región y modo de envío.</em>
+</p>
+
+---
 # Ejecución del proyecto
 
 ## SQL
@@ -1002,6 +1063,8 @@ Jupyter Notebook
 Google Colab
 Git
 GitHub
+Power BI Desktop
+DAX
 ```
 
 ---
