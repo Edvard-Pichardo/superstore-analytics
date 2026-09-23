@@ -936,7 +936,7 @@ El archivo puede encontrarse en: powerbi/superstore_dashboard.pbix
 
 Junto a una exportación en PDF, para quien no tenga Power BI Desktop instalado: 
 
-[![Ver dashboard en PDF](https://img.shields.io/badge/Ver%20Dashboard-PDF-F2C811?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://github.com/Edvard-Pichardo/superstore-analytics/blob/main/powerbi/superstore_dashboard.pdf)
+[![Ver dashboard en PDF](https://img.shields.io/badge/Ver%20Dashboard-PDF-F2C811?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://github.com/Edvard-Pichardo/superstore-analytics/blob/main/power%20bi/superstore_dashboard.pdf)
 
 
 ## Modelo de datos
