@@ -5,6 +5,7 @@
 Proyecto integral de análisis de datos con el conjunto Superstore. Incluye limpieza de datos, diseño de bases de datos relacionales, automatización con SQL (procedimientos, triggers y auditoría) y análisis con Python.
 
 ![MySQL](https://img.shields.io/badge/MySQL-8.0%2B-blue?style=for-the-badge)
+![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Stable-success?style=for-the-badge)
@@ -932,9 +933,10 @@ Como cierre del proyecto, los resultados del análisis se llevaron a un dashboar
 - vw_order_summary
 
 El archivo puede encontrarse en: powerbi/superstore_dashboard.pbix
-[![Abrir dashboard](https://github.com/Edvard-Pichardo/superstore-analytics/tree/main/power%20bi)
 
-Junto a una exportación en PDF, para quien no tenga Power BI Desktop instalado.
+Junto a una exportación en PDF, para quien no tenga Power BI Desktop instalado: 
+
+[![Ver dashboard en PDF](https://img.shields.io/badge/Ver%20Dashboard-PDF-F2C811?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://github.com/Edvard-Pichardo/superstore-analytics/blob/main/powerbi/superstore_dashboard.pdf)
 
 
 ## Modelo de datos
