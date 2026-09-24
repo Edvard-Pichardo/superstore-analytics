@@ -818,6 +818,7 @@ Abre `powerbi/superstore_dashboard.pbix` y, si cambias la ubicación de los CSV,
 **Cristian Eduardo Pichardo Rico**
 
 Egresado de la Licenciatura en Física, Facultad de Ciencias, UNAM
-[LinkedIn](https://www.linkedin.com/in/edvard-pichardo) · GitHub: [@Edvard-Pichardo](https://github.com/Edvard-Pichardo)
+
+Linkedin: [Edvard Pichardo](https://www.linkedin.com/in/edvard-pichardo) · GitHub: [@Edvard-Pichardo](https://github.com/Edvard-Pichardo)
 
 Distribuido bajo la licencia **MIT**. Consulta el archivo [LICENSE](LICENSE) para más información.
