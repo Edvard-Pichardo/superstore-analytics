@@ -2,19 +2,99 @@
 
 # SuperStore Analytics
 
-Proyecto integral de análisis de datos con el conjunto Superstore. Incluye limpieza de datos, diseño de bases de datos relacionales, automatización con SQL (procedimientos, triggers y auditoría) y análisis con Python.
+**Del CSV crudo al dashboard:** limpieza de datos, modelo relacional en MySQL, SQL analítico con automatización y auditoría, EDA en Python y un dashboard interactivo en Power BI.
 
-![MySQL](https://img.shields.io/badge/MySQL-8.0%2B-blue?style=for-the-badge)
-![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
+![MySQL](https://img.shields.io/badge/MySQL-8.0%2B-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Stable-success?style=for-the-badge)
+
+[![Ver dashboard en PDF](https://img.shields.io/badge/Ver%20Dashboard-PDF-F2C811?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://github.com/Edvard-Pichardo/superstore-analytics/blob/main/powerbi/superstore_dashboard.pdf)
+[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Edvard-Pichardo/superstore-analytics/blob/main/python/superstore_analytics.ipynb)
+
+<img src="images/powerbi/page1.png" alt="Resumen ejecutivo del dashboard de Power BI" width="800">
 
 </div>
 
 ---
 
-El proyecto se divide en dos capas principales:
+## Contenido
+
+- [Resumen](#resumen)
+- [Hallazgos clave](#hallazgos-clave)
+- [Qué demuestra este proyecto](#qué-demuestra-este-proyecto)
+- [Arquitectura](#arquitectura)
+- [Dataset](#dataset)
+- [Estructura del repositorio](#estructura-del-repositorio)
+- SQL: [Limpieza](#sql-limpieza-y-normalización) · [Modelo relacional](#sql-modelo-relacional) · [Views](#sql-views-analíticas) · [Análisis](#sql-análisis-de-negocio) · [Procedures](#sql-stored-procedures) · [Triggers y auditoría](#sql-triggers-y-auditoría)
+- [Python: análisis](#python-análisis)
+- [Power BI: dashboard](#power-bi-dashboard)
+- [Cómo reproducir el proyecto](#cómo-reproducir-el-proyecto)
+- [Decisiones de diseño y limitaciones](#decisiones-de-diseño-y-limitaciones)
+- [Tecnologías](#tecnologías)
+- [Autor](#autor)
+
+---
+
+## Resumen
+
+Este proyecto transforma un dataset transaccional con problemas reales de calidad en una solución analítica reproducible. Parte de un CSV crudo de **10,703 filas**, lo limpia y lo normaliza en MySQL, lo modela como base de datos relacional, expone views analíticas y automatiza consultas con procedimientos almacenados, triggers y una tabla de auditoría. Después, Python (pandas) reproduce y amplía el análisis, y Power BI lo presenta en un dashboard interactivo.
+
+Preguntas de negocio que responde:
+
+- ¿Cuánto vende el negocio y cuánto beneficio genera? ¿Cómo evolucionan ventas, beneficio y margen?
+- ¿Qué categorías, subcategorías y productos tienen mejor (y peor) desempeño?
+- ¿Qué clientes generan mayor valor observado?
+- ¿Dónde se concentra geográficamente el negocio y cómo se comporta la logística?
+- ¿Qué relación existe entre descuentos y rentabilidad?
+- ¿Qué patrones, outliers y segmentos pueden detectarse con Python?
+
+**Indicadores globales** (datos ya limpios, calculados sobre valores conocidos):
+
+| Ventas | Beneficio | Margen | Unidades | Ticket promedio |
+|:---:|:---:|:---:|:---:|:---:|
+| $2,156,775 | $146,888 | 6.81 % | 68,296 | $421.99 |
+
+| Líneas de pedido | Pedidos | Clientes | Productos | Categorías | Subcategorías |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 10,194 | 5,113 <sup>1</sup> | 800 | 1,894 | 3 | 17 |
+
+<sup>1</sup> `vw_order_summary` tiene 5,113 pedidos y 5,111 `order_id` distintos, (ver [limitaciones](#decisiones-de-diseño-y-limitaciones)). El ticket promedio usa los 5,111 `order_id`.
+
+---
+
+## Hallazgos clave
+
+- **El negocio es poco rentable y depende de pocas líneas.** El margen global es de solo 6.81 %. *Technology* ($97.6k) y *Office Supplies* ($70.2k) generan todo el beneficio, mientras que *Furniture* pierde $20.9k (margen −2.96 %) pese a vender casi lo mismo que *Technology*.
+- **Los descuentos altos destruyen rentabilidad.** Con 0–10 % de descuento el margen es de 25.5 %; con 10–20 % cae a 1.1 %; desde 20 % es negativo, y con 50 % o más se pierden unos $0.68 por cada dólar vendido (margen −68.1 %). La correlación descuento–beneficio es débil (−0.12), pero es la más negativa de la matriz.
+- **Vender más no implica ganar más.** En 2025 las ventas subieron 23.9 %, pero el beneficio cayó 46.8 % (margen de 3.14 %). En 2026 el margen se recuperó a 9.97 % y el beneficio se multiplicó casi por cuatro.
+- **Estacionalidad marcada, pero el mes que más vende casi no deja beneficio.** Septiembre, noviembre y diciembre concentran el 43.3 % de las ventas. Noviembre vende $327.5k y deja solo $2.2k de beneficio (0.68 %). Febrero es el más débil al tener menos de la mitad de un mes típico.
+- **Las pérdidas se concentran en pocas subcategorías y productos.** Tables (−$25.7k), Bookcases (−$14.0k), Machines (−$9.3k), Binders (−$5.9k) y Supplies (−$1.2k) suman −$56.1k. Un solo producto, el Ibico EPK-21, pierde $21.0k (≈14 % del beneficio total). En contraste, *Copiers* opera con 48 % de margen.
+- **Los clientes que más venden no siempre son rentables.** El cliente con más ventas (Sean Miller, $25.0k) tiene pérdidas de $2.0k.
+- **Geografía.** El 98.7 % de las ventas está en EE. UU., y California y Nueva York sostienen el beneficio. Texas, Illinois, Pennsylvania, Ohio y Carolina del Norte, entre otros, venden con margen negativo. *West* lidera en ventas, pero *East* genera más beneficio (margen de 8.24 % contra 6.33 %).
+- **Logística.** *Standard Class* concentra el 56.9 % de los pedidos con 8.0 % de margen. *Same Day* pierde dinero en East (−4.6 %) y South (−8.5 %), y *Second Class* en West (−3.8 %). Los días de envío son casi iguales entre regiones para un mismo modo, así que el problema es de rentabilidad, no de velocidad.
+
+---
+
+## Qué demuestra este proyecto
+
+| Área | Evidencia en el repositorio |
+|---|---|
+| **Calidad de datos** | Perfilado inicial, normalización, eliminación de 509 duplicados, recuperación de datos solo con evidencia y `NULL` cuando hay ambigüedad |
+| **Modelado relacional** | 7 tablas con PK/FK y restricciones; resolución de IDs de producto reutilizados con `product_key` |
+| **SQL analítico** | 9 scripts de análisis de negocio y 11 views exportadas |
+| **SQL programable** | 6 stored procedures parametrizados, 6 triggers y `audit_log` con estados en JSON |
+| **Validación** | Pruebas de triggers dentro de transacciones con `ROLLBACK` |
+| **Python** | EDA con pandas: análisis temporal, correlaciones, outliers (IQR), cuadrantes de productos y RFM |
+| **BI** | Modelo de datos en Power BI con tabla de calendario, medidas en DAX y dashboard de 4 páginas |
+| **Reproducibilidad** | Scripts numerados en orden de ejecución y notebook ejecutable en Google Colab |
+
+---
+
+## Arquitectura
+
+El proyecto tiene tres capas que comparten las mismas views como fuente de verdad:
 
 ```text
                                SuperStore Analytics
@@ -30,62 +110,61 @@ El proyecto se divide en dos capas principales:
                                          │
                                  Business Insights
 ```
----
 
-## Objetivo
+Flujo de datos:
 
-El proyecto busca transformar un dataset transaccional en una solución analítica reproducible capaz de responder preguntas como:
-
-- ¿Cuánto vende el negocio y cuánto beneficio genera?
-- ¿Cómo evolucionan ventas, beneficio y margen?
-- ¿Qué categorías, subcategorías y productos tienen mejor desempeño?
-- ¿Qué clientes generan mayor valor observado?
-- ¿Dónde se concentra geográficamente el negocio?
-- ¿Cómo se comporta la logística?
-- ¿Qué relación existe entre descuentos y rentabilidad?
-- ¿Qué tan concentradas están las ventas?
-- ¿Qué patrones, outliers y segmentos pueden detectarse con Python?
-
-El proyecto combina ingeniería de datos, modelado relacional, SQL analítico, auditoría, análisis exploratorio y visualización.
+```text
+      CSV original
+           │
+         MySQL
+           │
+Carga + limpieza + normalización
+           │
+    Modelo relacional
+           │
+    Views analíticas
+           │
+           ├───────── Análisis SQL
+           │
+           └──────── CSV de views
+                          │
+                        Python                      Power BI
+                          │                             │
+                    EDA + estadística          Dashboard interactivo
+                          │                             │
+                     Visualización              Exploración visual
+                          │                             │
+                          └────────── Insights ─────────┘
+```
 
 ---
 
 ## Dataset
 
-Para la base de datos, se utilizó el dataset [Superstore Sales | EDA, Outliers & Data Cleaning](https://www.kaggle.com/datasets/franciscozc/superstore-sales-eda-outliers-and-data-cleaning?resource=download) en la plataforma Kaggle.
+| | |
+|---|---|
+| **Fuente** | [Superstore Sales \| EDA, Outliers & Data Cleaning](https://www.kaggle.com/datasets/franciscozc/superstore-sales-eda-outliers-and-data-cleaning?resource=download) (Kaggle) |
+| **Archivo** | `data/raw/sales_superstore_raw.csv` |
+| **Tamaño original** | 10,703 filas × 21 columnas |
+| **Periodo** | 2023-01-03 → 2026-12-30 |
+| **Naturaleza** | Dataset público con fines de práctica; no corresponde a una empresa real |
 
-Este archivo se peude encontrar en la ruta:
-
-```text
-data/raw/sales_superstore_raw.csv
-```
-
-El dataset original contiene **10,703 filas y 21 columnas** relacionadas con pedidos, clientes, productos, geografía, ventas, cantidades, descuentos, beneficios y logística.
-
-Las variables principales son:
+Variables principales:
 
 ```text
-Row ID,
-Order ID, Order Date
-Ship Date, Ship Mode
-Customer ID, Customer Name
-Segment
+Row ID
+Order ID, Order Date, Ship Date, Ship Mode
+Customer ID, Customer Name, Segment
 Country/Region, City, State/Province, Postal Code, Region
 Product ID, Category, Sub-Category, Product Name
 Sales, Quantity, Discount, Profit
-```
-
-Los registros del dataset están dentro del periodo de tiempo:
-
-```text
-2023-01-03 → 2026-12-30
 ```
 
 ---
 
 ## Estructura del repositorio
 
-Se tiene la siguiente estructura del repositorio, en la que los datasets, tanto el original (en raw), el limpio (en clean) y los trabajados para el análisis (en views) se pueden acceder desde la carpeta `data`. Todo el proyecto relacionado a **SQL** y a **python** están en sus respectivas carpetas. 
+Los datasets original (`raw`), limpio (`clean`) y las views para análisis (`views`) están en `data/`. Todo lo de **SQL**, **Python** y **Power BI** vive en su propia carpeta.
 
 ```text
 superstore-analytics/
@@ -93,9 +172,8 @@ superstore-analytics/
 ├── data/
 │   ├── raw/
 │   │   └── sales_superstore_raw.csv
-│   ├── clean
+│   ├── clean/
 │   │   └── sales_superstore_clean.csv
-│   │
 │   └── views/
 │       ├── vw_business_overview.csv
 │       ├── vw_category_performance.csv
@@ -118,235 +196,174 @@ superstore-analytics/
 │   └── 6. triggers/
 │
 ├── python/
-│   ├── superstore_analysis.ipynb
-│   └── superstore_analysis.html
+│   ├── superstore_analytics.ipynb
+│   └── superstore_analytics.html
 │
-├── power bi
+├── powerbi/
 │   ├── superstore_dashboard.pbix
 │   └── superstore_dashboard.pdf
 │
 ├── images/
-│
+├── LICENSE
 └── README.md
 ```
 
 ---
 
-# Arquitectura
+## SQL: limpieza y normalización
 
-El flujo del proyecto completo es:
+Toda la limpieza se hace sobre una tabla de *staging* (`stg_sales`), con los scripts `04_data_cleaning_1` a `04_data_cleaning_7`. Las modificaciones se ejecutan, en general, dentro de transacciones y van precedidas de una consulta de validación.
 
-```text
-      CSV original
-           |
-         MySQL
-           |
-Carga + limpieza + normalización
-           |
-    Modelo relacional
-           |
-    Views analíticas
-           |
-           ├───────── Analysis SQL
-           │
-           └──────── CSV de Views
-                          |
-                        Python                      Power BI
-                          |                             |
-                    EDA + Estadística          Dashboard interactivo
-                          |                             |
-                     Visualización              Exploración visual
-                          |                             |
-                          └──────────── Insights ───────┘
-```
+### Perfilado inicial
 
----
-
-# SQL — Ingeniería y limpieza de datos
-
-## Perfilado inicial
-
-Antes de modificar los registros se revisó la calidad de los datos del dataset original, esto incluyó:
+Antes de modificar cualquier registro se revisó la calidad del dataset original:
 
 - cantidad de filas y columnas;
-- valores NULL y cadenas vacías;
-- cardinalidad;
-- duplicados;
-- formatos de fecha;
-- consistencia de clientes;
-- consistencia de productos;
-- consistencia geográfica;
-- rangos de `Discount`;
-- coherencia entre `Order Date` y `Ship Date`.
+- valores `NULL` y cadenas vacías;
+- cardinalidad y duplicados;
+- formatos de fecha y coherencia entre `Order Date` y `Ship Date`;
+- consistencia de clientes, productos, pedidos y geografía;
+- rangos de `Discount`.
 
-Esto se hizo con la idea de detectar los problemas que existían en cada columna de datos antes de definir reglas para su transformación.
+**Criterio general:** un dato solo se modifica o recupera cuando existe evidencia suficiente en otras partes del dataset. Si no la hay, se conserva como `NULL`. Así se evita introducir información artificial en las métricas económicas.
 
-La lógica detrás de cada cambio es que debía haber información suficiente para poder modificar, transformar o recuperar los datos cuando fuese exclusivamente necesario, es decir, cuando hubiera un antescedente o una necesidad para hacerlo. En caso de los datos recuperados, se necesitaban otros datos para calcularlo o evidencia de otras partes del dataset para inducir el resultado, en estos casos, cuando no existía evidencia suficiente, se conservaba **`NULL`**. Esto evitó introducir información artificial en métricas económicas.
+### Resumen de problemas encontrados
 
-## Normalización
+| Columna / tema | Problema detectado | Tratamiento |
+|---|---|---|
+| Duplicados | Registros completos repetidos | 10,703 → **10,194** filas (**509** eliminados) |
+| Texto | Espacios sobrantes y cadenas vacías | `TRIM` + `NULLIF`: las cadenas vacías pasan a `NULL` |
+| `Segment` | Variantes y errores tipográficos (por ejemplo `consumr`, `corp.`, `homeoffice`) | Normalizado a 3 segmentos: Consumer, Corporate y Home Office |
+| `Category` | Diferencias de formato por espacios en blanco | Normalizado a las 3 categorías del negocio |
+| `Sub-Category` | Validación de valores | 17 subcategorías confirmadas |
+| `Order Date` | 5 formatos de fecha distintos | Convertidos a `YYYY-MM-DD` con `REGEXP` y `STR_TO_DATE` |
+| `Ship Date` | Formato ya consistente; sin envíos anteriores al pedido | Validado; días de envío de 0 a 11 (promedio 3.96) |
+| `Discount` | 101 registros con el valor anómalo `5.5` | Normalizado a `0.55` (55 %), interpretándolo como error de escala |
+| `Ship Mode` | 1,019 valores vacíos | 739 recuperados desde otra línea del mismo pedido; 280 permanecen `NULL` |
+| `Sales` | 1,529 valores vacíos | 1,061 recuperados; 468 permanecen `NULL` |
+| `Quantity` | 509 valores vacíos | 321 recuperados; 188 permanecen `NULL` |
+| `Profit` | 1,019 valores vacíos | 521 recuperados; 498 permanecen `NULL` |
+| `Product ID` | 32 IDs compartidos por productos distintos | ID nuevo con sufijo (`-1`, `-2`…) para los menos frecuentes y clave sustituta `product_key` en el modelo |
+| `Customer ID` | `Harry Olson` con 5 identificadores distintos | ID canónico `HO-15230` (el de primera aparición) |
+| Geografía | Código postal `92024` asociado a `Encinitas` y `San Diego` | Referencia canónica `United States + 92024 → Encinitas` (Encinitas pertenece al condado de San Diego) |
+| Pedidos | 2 `order_id` con dos ciudades y dos códigos postales dentro del mismo pedido | Se conservan sin modificar: no hay evidencia para decidir cuál es correcto |
 
-### Segment
-
-Se normalizaron variantes y errores tipográficos de la columna `segments` hasta quedarse con los tres segmentos de la empresa:
-
-<p align="center">
-  <img src="images/sql/01_validacion_segment1.png">
-  <img src="images/sql/01_normalizacion_segment.png">
-  <br>
-  <em>Figura: Registros de la columna Segment antes y después de su normalización.</em>
-</p>
-
-### Category
-
-Se corrigieron diferencias de formato relacionadas a espacios en blanco hasta terminar con las tres categorías de la empresa:
-
-<p align="center">
-  <img src="images/sql/02_val_category.png">
-  <img src="images/sql/02_nor_category.png">
-  <br>
-  <em>Figura: Registros de la columna Category antes y después de su normalización.</em>
-</p>
-
-
-### Sub-Category
-
-Se validaron **17 subcategorías**:
-
-<p align="center">
-  <img src="images/sql/03_val_subcat.png">
-  <img src="images/sql/03_val_subcat2.png">
-  <br>
-  <em>Figura: Registros de la columna Subcategory.</em>
-</p>
-
-### Dates
-
-`Order Date` y `Ship Date` tenían diferentes formatos de fecha. Se normalizaron a tipos de fecha consistentes.
-
-<p align="center">
-  <img src="images/sql/04_val_dates.png">
-  <img src="images/sql/04_nor_dates.png">
-  <br>
-  <em>Figura: Registros de la columna Order Date antes y después de su normalización.</em>
-</p>
-
-### Discount
-
-Para los descuentos se detectó un valor anómalo ($5.5$) y se normalizó a $0.55$ interpretándolo como 55%. 
-
-### IDs de clientes
-
-Se detectó el caso de `Harry Olson`, asociado a cinco identificadores diferentes. Se estableció un identificador canónico:
-
-```text
-HO-15230
-```
-
-<p align="center">
-  <img src="images/sql/06_harry.png">
-  <br>
-  <em>Figura: Duplicados en los IDs de clientes.</em>
-</p>
-
-### Geografía
-
-Se detectó una inconsistencia para el código postal `92024`, asociado a dos ciudades. Se estableció como referencia canónica:
-
-```text
-United States + 92024 → Encinitas
-```
-
-<p align="center">
-  <img src="images/sql/07_california.png">
-  <br>
-  <em>Figura: Incosistencia de un código postal.</em>
-</p>
-
-### Duplicados
-
-Se pasó de: **10,703 filas** a: **10,194 filas**, ya que se eliminaron **509 duplicados**. El análisis se realizó a nivel de registro completo y antes de determinadas normalizaciones.
-
-<p align="center">
-  <img src="images/sql/05_duplicados.png">
-  <br>
-  <em>Figura: Duplicados de registros en el dataset.</em>
-</p>
+Antes de la recuperación, solo 7,420 de 10,194 registros (72.8 %) tenían `Sales`, `Quantity` y `Profit` completos. En 8 registros faltaban las tres métricas y no había forma de recuperar ninguna.
 
 ### Valores faltantes
 
-Los campos vacíos no se trataron todos de la misma manera. Se distinguieron:
+Los campos vacíos no se trataron todos igual. Se distinguieron tres casos:
 
 ```text
 Dato observado
 Dato recuperable con evidencia
-Dato no recuperable
+Dato no recuperable  ->  permanece NULL
 ```
 
-Los valores no recuperables permanecieron `NULL`.
+**Ship Mode.** Se recupera desde otra línea del mismo `order_id`, solo cuando el pedido tiene un único modo de envío conocido.
 
-#### Recuperación de Sales
-
-Se calculó:
+**Sales.** Se calcula un precio unitario de referencia por `Product ID + Discount`, aceptándolo únicamente cuando esa combinación tiene un solo precio unitario en todo el dataset:
 
 ```text
 Unit Price = Sales / Quantity
+Sales      = Quantity × Reference Unit Price
 ```
 
-La referencia se construyó usando:
-
-```text
-Product ID + Discount
-```
-
-Cuando faltaba `Sales` pero existían una cantidad conocida y una referencia inequívoca:
-
-```text
-Sales = Quantity × Reference Unit Price
-```
-
-#### Recuperación de Quantity
-
-Cuando faltaba `Quantity`:
+**Quantity.** Se recupera con el mismo precio de referencia y solo se acepta un resultado positivo y prácticamente entero:
 
 ```text
 Quantity = Sales / Unit Price
 ```
 
-Solo se aceptaron resultados prácticamente enteros.
-
-#### Recuperación de Profit
-
-Se utilizó:
+**Profit.** Se usa un margen de referencia por `Product ID + Discount`, aceptado solo si hay al menos dos registros completos y todos comparten el mismo margen. Los casos ambiguos quedan como `NULL`:
 
 ```text
 Profit Margin = Profit / Sales
+Profit        = Sales × Reference Profit Margin
 ```
 
-y, cuando existía evidencia suficiente:
+<details>
+<summary><b>Ver evidencia (capturas de validación y normalización)</b></summary>
 
-```text
-Profit = Sales x Reference Profit Margin
-```
+<br>
 
-Los valores ambiguos permanecieron como `NULL`.
+**Segment**
+
+<p align="center">
+  <img src="images/sql/01_validacion_segment1.png" alt="Valores de Segment antes de normalizar">
+  <img src="images/sql/01_normalizacion_segment.png" alt="Valores de Segment después de normalizar">
+  <br>
+  <em>Figura: Registros de la columna Segment antes y después de su normalización.</em>
+</p>
+
+**Category**
+
+<p align="center">
+  <img src="images/sql/02_val_category.png" alt="Valores de Category antes de normalizar">
+  <img src="images/sql/02_nor_category.png" alt="Valores de Category después de normalizar">
+  <br>
+  <em>Figura: Registros de la columna Category antes y después de su normalización.</em>
+</p>
+
+**Sub-Category**
+
+<p align="center">
+  <img src="images/sql/03_val_subcat.png" alt="Validación de subcategorías, parte 1">
+  <img src="images/sql/03_val_subcat2.png" alt="Validación de subcategorías, parte 2">
+  <br>
+  <em>Figura: Registros de la columna Sub-Category (17 valores).</em>
+</p>
+
+**Fechas**
+
+<p align="center">
+  <img src="images/sql/04_val_dates.png" alt="Formatos de fecha antes de normalizar">
+  <img src="images/sql/04_nor_dates.png" alt="Fechas después de normalizar">
+  <br>
+  <em>Figura: Registros de la columna Order Date antes y después de su normalización.</em>
+</p>
+
+**IDs de clientes**
+
+<p align="center">
+  <img src="images/sql/06_harry.png" alt="Cinco IDs distintos para el cliente Harry Olson">
+  <br>
+  <em>Figura: Duplicados en los IDs de clientes.</em>
+</p>
+
+**Geografía**
+
+<p align="center">
+  <img src="images/sql/07_california.png" alt="Código postal 92024 asociado a dos ciudades">
+  <br>
+  <em>Figura: Inconsistencia de un código postal.</em>
+</p>
+
+**Duplicados**
+
+<p align="center">
+  <img src="images/sql/05_duplicados.png" alt="Registros duplicados en el dataset">
+  <br>
+  <em>Figura: Duplicados de registros en el dataset.</em>
+</p>
+
+</details>
+
+### Verificación final
+
+El último script (`04_data_cleaning_7`) comprueba en una sola consulta el volumen, la unicidad de `Row ID`, los identificadores sin `NULL`, las fechas válidas, los envíos posteriores al pedido, los valores válidos de segmento, categoría y modo de envío, los descuentos en rango, las cantidades enteras y positivas, y la ausencia de filas duplicadas.
 
 ---
 
-# SQL — Modelo relacional
+## SQL: modelo relacional
 
-El modelo separó las entidades principales:
+El modelo separa las entidades principales:
 
 ```text
-customers
-locations
-ship_modes
-categories
-products
-orders
-order_details
+customers · locations · ship_modes · categories · products · orders · order_details
 ```
 
-Relaciones principales:
+Relaciones:
 
 ```text
 CUSTOMERS  1 ───── N  ORDERS
@@ -357,243 +374,118 @@ PRODUCTS   1 ───── N  ORDER_DETAILS
 CATEGORIES 1 ───── N  PRODUCTS
 ```
 
-Una decisión importante fue `Product ID`: algunos identificadores estaban reutilizados para productos diferentes. Por  lo que se utilizó `product_key` como clave sustituta para identificar de forma inequívoca cada producto real.
-
+**Decisión importante:** algunos `Product ID` estaban reutilizados para productos diferentes. Tras reasignarles un ID único en *staging*, el modelo usa `product_key`, una clave sustituta que identifica de forma inequívoca a cada producto real. Todos los análisis agrupan por `product_key`.
 
 <p align="center">
-  <img src="images/relational_model.png" width="600">
+  <img src="images/relational_model.png" alt="Diagrama del modelo relacional" width="600">
   <br>
   <em>Figura: Modelo relacional del dataset. Fuente: MySQL Workbench.</em>
 </p>
 
 ---
 
-# SQL — Views analíticas
+## SQL: views analíticas
 
-Las principales views fueron:
+Hay dos views principales, con distinto nivel de detalle. Separarlas evita confundir líneas con pedidos.
 
-```text
-vw_sales_detail
-vw_order_summary
-```
-
-## `vw_sales_detail`
-
-Esta view trabaja a nivel de `línea de pedido` y fue útil para analizar:
-
-- Productos
-- Categorías
-- Subcategorías
-- Descuentos
-- Cantidades
-- Ventas
-- Beneficio
+| View | Nivel | Útil para analizar |
+|---|---|---|
+| `vw_sales_detail` | Línea de pedido | Productos, categorías, subcategorías, descuentos, cantidades, ventas y beneficio |
+| `vw_order_summary` | Pedido | Pedidos, clientes, ticket, logística, modo de envío, ventas y beneficio agregados |
 
 <p align="center">
-  <img src="images/sql/08_view_sales.png">
+  <img src="images/sql/08_view_sales.png" alt="Muestra de la view vw_sales_detail">
   <br>
-  <em>Figura: Porción de la vista sales_detail.</em>
+  <em>Figura: Porción de la view <code>vw_sales_detail</code>.</em>
 </p>
 
-## `vw_order_summary`
-
-Esta view trabaja a nivel de `pedido` y fue útil para analizar:
-
-- Pedidos
-- Clientes
-- Ticket
-- Logística
-- Ship Mode
-- Ventas agregadas
-- Beneficio agregado
-
 <p align="center">
-  <img src="images/sql/08_view_order.png">
+  <img src="images/sql/08_view_order.png" alt="Muestra de la view vw_order_summary">
   <br>
-  <em>Figura: Porción de la vista order_detail.</em>
+  <em>Figura: Porción de la view <code>vw_order_summary</code>.</em>
 </p>
 
-Esta separación evita confundir líneas con pedidos.
+Además de estas dos, se exportan otras 9 views agregadas a `data/views/`.
 
-# SQL — Análisis de negocio
+---
 
-La carpeta `sql/analysis/` contiene:
+## SQL: análisis de negocio
 
-```text
-01_business_overview.sql
-02_annual_performance.sql
-03_monthly_trends.sql
-04_category_analysis.sql
-05_subcategory_analysis.sql
-06_product_analysis.sql
-07_customer_analysis.sql
-08_geographic_analysis.sql
-09_logistics_analysis.sql
-```
+La carpeta `sql/4. analysis/` contiene nueve scripts:
 
-## Business Overview
+| Script | Qué analiza |
+|---|---|
+| `01_business_overview` | Línea base: periodo, pedidos, clientes, productos, ventas, beneficio, margen y logística, más indicadores de **cobertura de datos** (porcentaje de ventas, cantidad y beneficio conocidos, y pedidos con valores desconocidos) |
+| `02_annual_performance` | Ventas, beneficio, margen, pedidos y crecimiento interanual (el crecimiento de ventas nunca se interpreta de forma aislada) |
+| `03_monthly_trends` | Estacionalidad, meses fuertes y débiles, variación intra-anual |
+| `04_category_analysis` | *Furniture*, *Office Supplies* y *Technology* por ventas, beneficio y margen |
+| `05_subcategory_analysis` | 17 subcategorías; permite detectar problemas ocultos dentro de una categoría |
+| `06_product_analysis` | Ventas, beneficio, margen, pedidos, cantidad, descuentos y pérdidas por producto |
+| `07_customer_analysis` | Valor observado: ventas, pedidos, beneficio, frecuencia, ticket, margen y actividad (sin CLV predictivo) |
+| `08_geographic_analysis` | País, región, estado/provincia y ciudad |
+| `09_logistics_analysis` | Modo de envío y días de envío (Same Day, 1–2, 3–4, 5–7, 8+), variabilidad y geografía |
 
-Establece la línea base:
+<details>
+<summary><b>Ver resultados de cada análisis</b></summary>
 
-```text
-Sales
-Profit
-Margin
-Orders
-Customers
-Quantity
-```
-
-## Annual Performance
-
-Compara:
-
-```text
-ventas
-beneficio
-margen
-pedidos
-crecimiento interanual
-```
-
-El crecimiento de ventas nunca se interpreta de forma aislada.
+<br>
 
 <p align="center">
-  <img src="images/sql/09_an_anual.png">
+  <img src="images/sql/09_an_anual.png" alt="Indicadores por año">
   <br>
-  <em>Figura: Parte de los indicadores correspondientes a cada año disponible en el conjunto de datos.</em>
+  <em>Figura: Parte de los indicadores de cada año disponible en el dataset.</em>
 </p>
 
-## Monthly Trends
-
-Analiza:
-
-```text
-estacionalidad
-meses fuertes
-meses débiles
-variación intra-anual
-```
-
 <p align="center">
-  <img src="images/sql/09_an_month.png">
+  <img src="images/sql/09_an_month.png" alt="Ranking de mejores y peores meses">
   <br>
-  <em>Figura: Parte del ranking de mejores y peores meses según sus ventas conocidas, beneficio conocido y cantidad de pedidos.</em>
+  <em>Figura: Parte del ranking de mejores y peores meses según ventas conocidas, beneficio conocido y cantidad de pedidos.</em>
 </p>
 
-## Category Analysis
-
-Compara:
-
-```text
-Furniture
-Office Supplies
-Technology
-```
-por ventas, beneficio y margen.
-
 <p align="center">
-  <img src="images/sql/09_an_category.png">
+  <img src="images/sql/09_an_category.png" alt="Impacto de los descuentos en la rentabilidad de Furniture">
   <br>
   <em>Figura: Impacto negativo de los descuentos frente a la rentabilidad de la categoría Furniture.</em>
 </p>
 
-## Subcategory Analysis
-
-Profundiza en 17 subcategorías y permite detectar problemas ocultos dentro de una categoría.
-
 <p align="center">
-  <img src="images/sql/09_an_sub.png">
+  <img src="images/sql/09_an_sub.png" alt="Subcategorías con mayor proporción de líneas con pérdidas">
   <br>
   <em>Figura: Subcategorías con mayor proporción de líneas con pérdidas.</em>
 </p>
 
-## Product Analysis
-
-Evalúa:
-
-```text
-ventas
-beneficio
-margen
-pedidos
-cantidad
-descuentos
-pérdidas
-```
-
 <p align="center">
-  <img src="images/sql/09_an_product.png">
+  <img src="images/sql/09_an_product.png" alt="Productos con crecimiento de ventas y deterioro del margen">
   <br>
   <em>Figura: Productos con crecimiento de ventas y deterioro del margen.</em>
 </p>
 
-## Customer Analysis
-
-Analiza el valor observado:
-
-```text
-ventas
-pedidos
-beneficio
-frecuencia
-ticket
-margen
-actividad
-```
-
-No se presenta ni se intenta hacer un CLV predictivo.
-
 <p align="center">
-  <img src="images/sql/09_an_customer.png">
+  <img src="images/sql/09_an_customer.png" alt="Nuevos clientes por mes en 2023">
   <br>
-  <em>Figura: Cantidad de nuevos clientes incorporados cada mes durante el año 2023.</em>
+  <em>Figura: Cantidad de nuevos clientes incorporados cada mes durante 2023.</em>
 </p>
 
-## Geographic Analysis
-
-Analiza:
-
-```text
-país
-región
-estado/provincia
-ciudad
-```
-
 <p align="center">
-  <img src="images/sql/09_an_geo.png">
+  <img src="images/sql/09_an_geo.png" alt="Estados con mayor volumen de ventas">
   <br>
   <em>Figura: Estados con mayor volumen de ventas conocidas.</em>
 </p>
 
-## Logistics Analysis
-
-Analiza:
-
-```text
-Ship Mode
-Shipping Days
-Same Day
-1–2 días
-3–4 días
-5–7 días
-8+ días
-variabilidad
-geografía
-```
-
+<!-- OJO: antes esta figura usaba 09_an_geo.png (la misma de geografía). Verifica el nombre real del archivo de logística. -->
 <p align="center">
-  <img src="images/sql/09_an_geo.png">
+  <img src="images/sql/09_an_log.png" alt="Desempeño de un modo de envío entre regiones">
   <br>
-  <em>Figura: Parte de la comparación del desempeño de una misma modalidad de envío entre las distintas regiones del negocio.</em>
+  <em>Figura: Comparación del desempeño de una misma modalidad de envío entre las distintas regiones.</em>
 </p>
+
+</details>
 
 ---
 
-# SQL — Stored Procedures
+## SQL: stored procedures
 
-Se desarrollaron seis procedimientos:
+Seis procedimientos convierten consultas frecuentes en componentes reutilizables:
 
 ```text
 01_sp_sales_summary_by_period.sql
@@ -604,534 +496,328 @@ Se desarrollaron seis procedimientos:
 06_sp_logistics_performance_by_period.sql
 ```
 
-Su objetivo es reutilizar análisis mediante parámetros como:
-
-```text
-p_start_date
-p_end_date
-p_top_n
-p_category_name
-```
-
-Esto convierte consultas frecuentes en componentes reutilizables.
+Parámetros habituales: `p_start_date`, `p_end_date`, `p_top_n`, `p_category_name`.
 
 <p align="center">
-  <img src="images/sql/10_proc.png">
+  <img src="images/sql/10_proc.png" alt="Resultado de un stored procedure para la región West">
   <br>
-  <em>Figura: Información más relevante de la región West durante todo el periodo de cuatro años que incluye el dataset</em>
+  <em>Figura: Información más relevante de la región West durante los cuatro años del dataset.</em>
 </p>
 
 ---
 
-# SQL — Triggers y auditoría
+## SQL: triggers y auditoría
 
-La auditoría se implementó sobre:
-
-```text
-orders
-order_details
-```
-
-Se crearon seis triggers para:
+La auditoría cubre las tablas `orders` y `order_details` con **seis triggers** (`INSERT`, `UPDATE`, `DELETE` en cada tabla) y una tabla `audit_log`:
 
 ```text
-INSERT
-UPDATE
-DELETE
+audit_id · table_name · record_key · action_type · changed_at
+changed_by · connection_id · old_data · new_data
 ```
 
-y una tabla `audit_log` con:
+Qué se guarda en cada operación (los estados se almacenan en JSON):
 
-```text
-audit_id
-table_name
-record_key
-action_type
-changed_at
-changed_by
-connection_id
-old_data
-new_data
-```
+| Operación | Contenido |
+|---|---|
+| `INSERT` | Estado nuevo |
+| `UPDATE` | Estado anterior + estado nuevo |
+| `DELETE` | Estado eliminado |
 
-La semántica es:
+Se usa el operador `<=>` (comparación segura con `NULL`) para no registrar auditoría cuando un `UPDATE` no cambia realmente ningún valor.
 
-```text
-INSERT -> nuevo estado
-UPDATE -> estado anterior + estado nuevo
-DELETE -> estado eliminado
-```
-
-Cada uno de los estados se almacenan en JSON.
-
-Además, se utilizó el operador `<=>` para evitar generar auditoría cuando un `UPDATE` no cambia realmente los valores.
-
-La validación integral comprobó:
-
-```text
-existencia de triggers
-estructura de audit_log
-INSERT -> UPDATE -> DELETE
-UPDATE sin cambios
-coherencia global
-```
-
-Las pruebas se ejecutaron dentro de transacciones y terminaron con `ROLLBACK`.
+**Validación integral.** Comprueba la existencia de los triggers, la estructura de `audit_log`, el ciclo `INSERT → UPDATE → DELETE`, los `UPDATE` sin cambios y la coherencia global. Todas las pruebas se ejecutan dentro de transacciones y terminan con `ROLLBACK`, por lo que no alteran los datos.
 
 <p align="center">
-  <img src="images/sql/11_audit1.png">
+  <img src="images/sql/11_audit1.png" alt="Registro de auditoría, parte 1">
 </p>
 <p align="center">
-  <img src="images/sql/11_audit2.png">
+  <img src="images/sql/11_audit2.png" alt="Registro de auditoría de la actualización de una venta">
   <br>
-  <em>Figura: Actualización del estado de una venta.</em>
+  <em>Figura: Actualización del estado de una venta registrada en <code>audit_log</code>.</em>
 </p>
 
 ---
 
-# Python — Análisis
+## Python: análisis
 
-Después de completar SQL, las views fueron exportadas a:
+Tras completar la parte de SQL, las views se exportaron a `data/views/`. El notebook corre en Google Colab, clona el repositorio y trabaja principalmente con dos archivos: `vw_sales_detail.csv` (análisis a nivel de línea, 10,194 filas) y `vw_order_summary.csv` (análisis a nivel de pedido, 5,113 filas). El resto de las views también están disponibles.
 
-```text
-data/views/
-```
-
-Python utiliza Google Colab y clona el repositorio:
+[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Edvard-Pichardo/superstore-analytics/blob/main/python/superstore_analytics.ipynb)
 
 <p align="center">
-  <img src="images/python/01_clone.png">
+  <img src="images/python/01_clone.png" alt="Clonado del repositorio en Google Colab">
 </p>
 
-El notebook principal puede encontrarse en:
+> **Nota:** en las dos views principales se eliminaron las comillas dobles (`"`) y las comas (`,`) de los nombres de producto, porque provocaban errores de lectura al importar el CSV en Python.
 
-[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/Edvard-Pichardo/superstore-analytics/blob/main/python/superstore_analytics.ipynb)
+### Preparación y validación
 
-Las dos fuentes principales de datos son las vistas `vw_sales_detail.csv` y `vw_order_summary.csv`, aunque también se tiene acceso a las demás vistas enc ualquier momento. 
+El notebook carga los CSV (con `utf-8-sig` y *fallback* a `latin-1`), inspecciona la estructura, convierte tipos y genera un reporte de calidad por columna. Comprueba que no haya filas duplicadas y que los nulos restantes (`profit` 498, `sales` 468, `ship_mode` 280 y `quantity` 188 líneas) coincidan con lo dejado a propósito en SQL.
 
-**Nota adicional:** El nombre de los productos contenidos en las vistas principales fue modificado debido a que, por problemas de importación, el interprete de python interpretaba mal algunas comillas dobles (") y comas (,) dentro de los nombres, por lo que fueron eliminadas de estos dos archivos. 
+### Reproducción del análisis SQL
 
----
+La intención no es repetir mecánicamente lo hecho en SQL, sino comprobar que pandas reconstruye los mismos resultados a partir de las views.
 
-# Python — Preparación y validación
+**Desempeño anual.** Las ventas y el beneficio no evolucionan de la mano:
 
-El notebook realiza:
+| Año | Ventas | Beneficio | Margen | Ventas (interanual) | Beneficio (interanual) |
+|:---:|---:|---:|:---:|:---:|:---:|
+| 2023 | $469,226 | $28,528 | 6.08 % | n/a | n/a |
+| 2024 | $449,335 | $32,924 | 7.33 % | −4.2 % | +15.4 % |
+| 2025 | $556,829 | $17,502 | 3.14 % | +23.9 % | −46.8 % |
+| 2026 | $681,386 | $67,934 | 9.97 % | +22.4 % | +288.2 % |
 
-```text
-carga de CSV
-inspección de estructura
-conversión de tipos
-revisión de NULL
-cardinalidad
-duplicados
-validaciones temporales
-validación de Discount
-```
-
-La vista de detalle se utiliza para análisis a nivel de línea y la de resumen para análisis a nivel de pedido.
-
----
-
-# Python — Reproducción del análisis SQL
-
-Python reconstruye parte de:
-
-```text
-Business Overview
-Annual Performance
-Monthly Trends
-Seasonality
-Category Analysis
-Subcategory Analysis
-Product Analysis
-Customer Analysis
-Geographic Analysis
-Logistics Analysis
-```
-
-La intención no es repetir mecánicamente SQL, sino comprobar que pandas puede reconstruir los resultados desde las views. Agunos ejemplos de esto es la gráfica anual que nos muestra las ventas contra el beneficio. Se puede observar que no están correlacionadas, es decir, que mayores ventas no se traducen en mejores ganancias, al contrario, si otros aspectos de la empresa no están optimizados o hay errores en alguna parte de la cadena de venta, se pueden tener muchas ventas, pero obtener un beneficio, incluso, negativo. 
+En 2024 las ventas bajaron y el beneficio subió; en 2025 ocurrió lo contrario. Vender más no garantiza ganar más. Con solo cuatro observaciones anuales, esta lectura es descriptiva y no una correlación estadística.
 
 <p align="center">
-  <img src="images/python/01_annual_sales_vs_profit.png" width="600">
+  <img src="images/python/01_annual_sales_vs_profit.png" alt="Ventas contra ganancia por año" width="600">
   <br>
-  <em>Figura: Gráfico de las ventas contra la ganacia por año.</em>
+  <em>Figura: Ventas contra ganancia por año.</em>
 </p>
 
-Otro de los gráficos importantes, por ejemplo, es el de estacionalidad por meses a través de los cuatro años que cubre el dataset. Se remarca que los meses **septiembre**, **noviembre** y **diciembre** representan una mayor densidad de ventas que, sumados, representan una proporción muy superior al 40% del volumen total anual.
+**Estacionalidad mensual (2023–2026).**
 
-Mientras que la baja actividad se concentra en el primer trimestre, siendo **enero** y **febrero** los de menor contribución. La caída de febrero es la más crítica, representando menos de la mitad del volumen de un mes promedio de la meseta central.
-
-El resto del año se mantiene en estabilidad, exceptuando a **marzo** que experimenta un salto abrupto en el número de ventas. Fuera de ello, este periodo no presenta picos ni mesetas lo que sugiere que son las ventas generales o ventas base del negocio.
+- **Temporada alta:** septiembre ($291.7k), noviembre ($327.5k) y diciembre ($313.6k) concentran el 43.3 % de las ventas totales. Aun así, el beneficio no escala: en noviembre el margen es de solo 0.68 %.
+- **Temporada baja:** el primer trimestre, sobre todo enero ($89.5k) y febrero ($56.8k). Febrero es la caída más crítica: menos de la mitad del volumen de un mes de la meseta central.
+- **Resto del año:** se mantiene estable (entre $130k y $185k por mes), con excepción de marzo ($180.9k), que presenta un salto abrupto. Ese bloque representa las ventas base del negocio.
 
 <p align="center">
-  <img src="images/python/01_estacionalidad.png">
+  <img src="images/python/01_estacionalidad.png" alt="Ventas totales por mes de 2023 a 2026">
   <br>
-  <em>Figura: Ventas totales por mes del 2023 al 2026.</em>
+  <em>Figura: Ventas totales por mes, 2023–2026.</em>
 </p>
 
----
+**Categorías y subcategorías.**
 
-# Python — Análisis exploratorio adicional
+| Categoría | Ventas | Beneficio | Margen |
+|---|---:|---:|:---:|
+| Technology | $755,222 | $97,578 | 12.92 % |
+| Furniture | $706,381 | −$20,903 | −2.96 % |
+| Office Supplies | $695,173 | $70,213 | 10.10 % |
 
-Python añade análisis que aprovechan mejor el entorno programático.
+Cinco subcategorías operan con pérdidas: Tables (−$25,750; −13.1 %), Bookcases (−$13,979; −12.9 %), Machines (−$9,284; −5.4 %), Binders (−$5,915; −3.1 %) y Supplies (−$1,162; −2.7 %). En cambio, *Copiers* tiene un margen de 48 % y *Accessories* de 19 %. El déficit de *Furniture* se explica sobre todo por Tables y Bookcases, no por toda la categoría.
 
-## Correlaciones
+**Geografía.**
 
-Se estudian:
+| Región | Ventas | Beneficio | Margen |
+|---|---:|---:|:---:|
+| West | $696,510 | $44,094 | 6.33 % |
+| East | $645,367 | $53,178 | 8.24 % |
+| Central | $448,164 | $28,701 | 6.40 % |
+| South | $366,734 | $20,915 | 5.70 % |
 
-```text
-Sales
-Quantity
-Discount
-Profit
-Shipping Days
-```
+Estados Unidos concentra el 98.7 % de las ventas (margen 6.75 %) y Canadá el 1.3 % (margen 11.27 %). A nivel de estado, California ($439k; 11.0 %) y Nueva York ($287k; 16.2 %) sostienen el beneficio, mientras que Texas ($152k; −16.9 %), Illinois, Pennsylvania, Ohio y Carolina del Norte (−41.9 %) venden con margen negativo.
 
-con especial interés en:
+**Logística.**
 
-```text
-Discount y Profit
-```
+| Modo de envío | Pedidos | Margen | Días promedio |
+|---|:---:|:---:|:---:|
+| Standard Class | 56.9 % | 8.00 % | 4.99 |
+| Second Class | 18.1 % | 3.07 % | 3.23 |
+| First Class | 14.8 % | 7.78 % | 2.19 |
+| Same Day | 4.8 % | 2.07 % | 0.04 |
+| Desconocido | 5.4 % | 14.60 % | 3.97 |
 
-La correlación se interpreta como asociación, no como causalidad.
+Al cruzar región y modo de envío, los días de entrega son casi idénticos entre regiones. Lo que cambia es la rentabilidad: *Same Day* pierde dinero en East y South, y *Second Class* en West.
+
+### Análisis exploratorio adicional
+
+**Correlaciones.** Se estudian `Sales`, `Quantity`, `Discount`, `Profit` y `Shipping Days`. La relación más negativa es Descuento–Beneficio (−0.12); Ventas–Beneficio es positiva pero débil (0.09). La correlación se interpreta como asociación, no como causalidad, y al ser lineal no captura relaciones de otro tipo.
 
 <p align="center">
-  <img src="images/python/02_matriz_corr.png">
+  <img src="images/python/02_matriz_corr.png" alt="Matriz de correlación">
   <br>
-  <em>Figura: Matriz de correlación entre las variables más importantes del dataset.</em>
+  <em>Figura: Matriz de correlación entre las variables principales.</em>
 </p>
 
-## Discount vs Profit
+**Descuento vs. beneficio.** Un scatter plot y bandas de descuento muestran en qué punto cambia la rentabilidad:
 
-Se utiliza un scatter plot y bandas de descuento:
-
-```text
-0–10%
-10–20%
-20–30%
-30–40%
-40–50%
-50%+
-```
-
-para estudiar cambios de rentabilidad.
+| Banda | Ventas | Beneficio | Margen |
+|:---:|---:|---:|:---:|
+| 0–10 % | $1,040,907 | $265,787 | 25.53 % |
+| 10–20 % | $739,913 | $7,898 | 1.07 % |
+| 20–30 % | $101,182 | −$18,277 | −18.06 % |
+| 30–40 % | $120,918 | −$21,480 | −17.76 % |
+| 40–50 % | $57,556 | −$21,459 | −37.28 % |
+| 50 %+ | $96,300 | −$65,581 | −68.10 % |
 
 <p align="center">
-  <img src="images/python/03_bandas.png">
+  <img src="images/python/03_bandas.png" alt="Beneficio por banda de descuento">
   <br>
-  <em>Figura: Tabla del profit por banda de descuentos.</em>
+  <em>Figura: Beneficio por banda de descuento.</em>
 </p>
 
-
-## Distribuciones
-
-Se analizan las distribuciones de:
-
-```text
-Sales
-Profit
-Quantity
-Discount
-Shipping Days
-```
+**Distribuciones** de `Sales`, `Profit`, `Quantity`, `Discount` y `Shipping Days`: las variables económicas son muy asimétricas, con una cola de pérdidas más larga que la de ganancias. Por eso se prefiere la mediana sobre la media.
 
 <p align="center">
-  <img src="images/python/04_distribucion.png">
+  <img src="images/python/04_distribucion.png" alt="Distribución de las variables principales">
   <br>
   <em>Figura: Distribución de las variables principales.</em>
 </p>
 
-## Outliers
+**Outliers.** Se detectan con el criterio IQR (`Q1 − 1.5 × IQR` y `Q3 + 1.5 × IQR`): 1,129 en `Sales`, 1,891 en `Profit` y 277 en `Quantity`. No se eliminan automáticamente, porque pueden ser pedidos estratégicos o pérdidas reales que merecen auditoría.
 
-Se utiliza IQR:
-
-```text
-Q1 - 1.5 × IQR
-Q3 + 1.5 × IQR
-```
-
-Los outliers no se eliminan automáticamente.
-
-## Cuadrantes de productos
-
-Se analiza:
-
-```text
-Sales vs Profit
-```
-
-con cuatro perfiles:
-
-```text
-High Sales / High Profit
-High Sales / Low Profit
-Low Sales / High Profit
-Low Sales / Low Profit
-```
+**Cuadrantes de productos.** Ventas vs. beneficio respecto a la mediana, con cuatro perfiles: alta venta / alto beneficio, alta venta / bajo beneficio, baja venta / alto beneficio y baja venta / bajo beneficio.
 
 <p align="center">
-  <img src="images/python/05_cuadrantes.png">
+  <img src="images/python/05_cuadrantes.png" alt="Cuadrantes de ventas contra beneficio por producto">
   <br>
-  <em>Figura: Cuadrantes de sales vs profit.</em>
+  <em>Figura: Cuadrantes de ventas vs. beneficio.</em>
 </p>
 
-## RFM
-
-Se construye una segmentación descriptiva de clientes:
-
-```text
-Recency
-Frequency
-Monetary
-```
-
-RFM se utiliza como análisis descriptivo y no como CLV predictivo.
+**RFM.** Segmentación descriptiva de clientes por *Recency*, *Frequency* y *Monetary*, con puntuaciones por cuartiles (1 a 4) y un puntaje agregado de 3 a 12. Se usa como análisis descriptivo, no como CLV predictivo.
 
 <p align="center">
-  <img src="images/python/06_rfm.png">
+  <img src="images/python/06_rfm.png" alt="Análisis RFM de la base de clientes">
   <br>
   <em>Figura: Análisis RFM de la base de clientes.</em>
 </p>
 
----
+### Resumen de líderes y rezagados
 
-# Python — Resultados destacados
+| Dimensión | Hallazgo |
+|---|---|
+| Categoría líder por ventas | Technology |
+| Categoría líder por beneficio | Technology |
+| Categoría con peor beneficio | Furniture |
+| Región líder por ventas | West |
+| Producto líder por ventas | Fellowes PB500 Electric Punch Plastic Comb Binding Machine |
+| Producto líder por beneficio | Canon imageCLASS 2200 Advanced Copier |
+| Cliente líder por ventas | Sean Miller |
+| Subcategoría líder por ventas | Phones |
+| Subcategoría con peor beneficio | Tables |
+| Modo de envío más utilizado | Standard Class |
+| Modo de envío con mayor tiempo promedio | Standard Class |
 
-La implementación actual muestra:
-
-```text
-10,194 líneas de pedido
-5,113 pedidos
-800 clientes
-1,894 productos
-3 categorías
-17 subcategorías
-```
-
-Valores globales aproximados:
-
-<p align="center">
-  <img src="images/python/07_global.png">
-</p>
-
-Algunos detalles importantes son:
-
-<p align="center">
-  <img src="images/python/08_hallazgos.png">
-  <br>
-  <em>Figura: Resumen ejecutivo sobre los hallazgos por dimensión.</em>
-</p>
-
-Estos resultados son ejemplos de la clase de insights que el proyecto permite obtener; las conclusiones finales deben basarse en las tablas y gráficos completos.
+Estos resultados ilustran el tipo de insights que permite obtener el proyecto; las conclusiones finales deben basarse en las tablas y gráficos completos del notebook.
 
 ---
 
-# Power BI - Dashboard
+## Power BI: dashboard
 
-Como cierre del proyecto, los resultados del análisis se llevaron a un dashboard interactivo en Power BI, construido sobre las mismas dos views que usa Python:
-- vw_sales_detail
-- vw_order_summary
+Como cierre del proyecto, los resultados se llevaron a un dashboard interactivo en Power BI, construido sobre las mismas dos views que usa Python: `vw_sales_detail` y `vw_order_summary`.
 
-El archivo puede encontrarse en: powerbi/superstore_dashboard.pbix
+- Archivo: [`powerbi/superstore_dashboard.pbix`](powerbi/superstore_dashboard.pbix)
+- Exportación en PDF, para quien no tenga Power BI Desktop: [Ver dashboard en PDF](powerbi/superstore_dashboard.pdf)
 
-Junto a una exportación en PDF, para quien no tenga Power BI Desktop instalado: 
+### Modelo de datos
 
-[![Ver dashboard en PDF](https://img.shields.io/badge/Ver%20Dashboard-PDF-F2C811?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://github.com/Edvard-Pichardo/superstore-analytics/blob/main/power%20bi/superstore_dashboard.pdf)
+Se construyó una tabla `Calendario` relacionada con `vw_order_summary` por `order_date`, y esta a su vez con `vw_sales_detail` por `order_key`. Un solo camino de filtros evita relaciones ambiguas dentro del modelo.
 
+### Páginas
 
-## Modelo de datos
-
-Se construyó una tabla `Calendario` como tabla de fechas, relacionada con `vw_order_summary` por `order_date`, y esta a su vez relacionada con `vw_sales_detail` por `order_key`. Un solo camino de filtros evita relaciones ambiguas dentro del modelo.
-
-## Resumen ejecutivo
-
-Primera página del dashboard: ventas, beneficio, margen, pedidos y clientes, junto con la evolución mensual y la estacionalidad que ya se identificó en el análisis de Python.
-
-<p align="center">
-  <img src="images/powerbi/page1.png">
-  <br>
-  <em>Figura: Resumen ejecutivo.</em>
-</p>
-
-## Productos y descuentos
-
-Esta página reproduce, de forma interactiva, el hallazgo central del análisis SQL y Python: los descuentos superiores al 30% generan pérdidas en la mayoría de las líneas de pedido.
+| Página | Contenido |
+|---|---|
+| **1. Resumen ejecutivo** | Ventas, beneficio, margen, pedidos y clientes, con evolución mensual y estacionalidad |
+| **2. Productos y descuentos** | Reproduce de forma interactiva el hallazgo central: los descuentos altos generan pérdidas en la mayoría de las líneas de pedido |
+| **3. Clientes y geografía** | Ventas por estado y desempeño por segmento de cliente |
+| **4. Logística** | Días de envío por modo y región, con mapa de calor para detectar combinaciones lentas |
 
 <p align="center">
-  <img src="images/powerbi/page2.png">
+  <img src="images/powerbi/page2.png" alt="Beneficio por banda de descuento y productos con mayor pérdida">
   <br>
   <em>Figura: Beneficio por banda de descuento y productos con mayor pérdida.</em>
 </p>
 
-## Clientes y geografía
+<details>
+<summary><b>Ver las otras páginas del dashboard</b></summary>
 
-Distribución geográfica de las ventas y desempeño por segmento de cliente.
+<br>
 
 <p align="center">
-  <img src="images/powerbi/page3.png">
+  <img src="images/powerbi/page3.png" alt="Ventas por estado y por segmento de cliente">
   <br>
   <em>Figura: Ventas por estado y por segmento de cliente.</em>
 </p>
 
-## Logística
-
-Desempeño de envío por modo y por región, con un mapa de calor que cruza ambas dimensiones para detectar combinaciones lentas.
-
 <p align="center">
-  <img src="images/powerbi/page4.png">
+  <img src="images/powerbi/page4.png" alt="Días de envío promedio por región y modo de envío">
   <br>
   <em>Figura: Días de envío promedio por región y modo de envío.</em>
 </p>
 
+</details>
+
 ---
-# Ejecución del proyecto
 
-## SQL
+## Cómo reproducir el proyecto
 
-Orden general:
+### Requisitos
 
-```text
+- MySQL 8.0+ y un cliente (MySQL Workbench o la extensión Database Client de VS Code)
+- Python 3.10+ con `pandas`, `numpy` y `matplotlib` (o una cuenta de Google Colab)
+- Power BI Desktop, solo para abrir el `.pbix`
+
+### 1. SQL
+
+Ejecuta las carpetas de `sql/` en orden numérico (1 → 6). Dentro de cada una, los archivos también están numerados. El orden general es:
+
 1. Crear esquema
 2. Crear tablas
 3. Crear PK/FK/restricciones
-4. Cargar datos
-5. Limpiar / normalizar
+4. Cargar datos (`data/raw/sales_superstore_raw.csv`)
+5. Limpiar / normalizar (`04_data_cleaning_1` → `04_data_cleaning_7`)
 6. Validar datos
 7. Crear views
-8. Ejecutar analysis
-9. Crear procedures
-10. Crear audit_log
-11. Crear triggers
-12. Ejecutar validación integral
-```
+8. Ejecutar `analysis` (`01` → `09`)
+9. Crear procedures (`01` → `06`)
+10. Crear `audit_log`
+11. Crear triggers (`01` → `06`)
+12. Ejecutar la validación integral (`07_validate_audit_system`)
 
-En particular, dentro de la carpeta `sql/` se encuentran las carpetas enumeradas, así como sus archivos internos, por orden de ejecución para que no haya ningún problema al momento de replicar este proyecto. 
+### 2. Python
 
-De esta forma, dentro de `analysis`:
+1. Abre el notebook en Colab con el botón de arriba.
+2. La primera celda clona el repositorio:
+   ```python
+   !git clone https://github.com/Edvard-Pichardo/superstore-analytics.git
+   ```
+3. `RUTA_BASE` apunta a `superstore-analytics/data/views/`.
+4. Ejecuta las celdas en orden: carga de CSV, validación de estructura, análisis y visualizaciones.
 
-```text
-01_business_overview
-02_annual_performance
-03_monthly_trends
-04_category_analysis
-05_subcategory_analysis
-06_product_analysis
-07_customer_analysis
-08_geographic_analysis
-09_logistics_analysis
-```
+### 3. Power BI
 
-Dentro de `procedures`:
-
-```text
-01 → 02 → 03 → 04 → 05 → 06
-```
-
-Dentro de `triggers`:
-
-```text
-audit_log
-|
-triggers 01–06
-|
-07_validate_audit_system
-```
-
-## Python
-
-```text
-1. Abrir Google Colab
-2. Clonar el repositorio
-3. Definir RUTA_BASE
-4. Detectar y cargar CSV
-5. Validar estructura
-6. Ejecutar análisis
-7. Revisar visualizaciones
-```
+Abre `powerbi/superstore_dashboard.pbix` y, si cambias la ubicación de los CSV, actualiza la ruta de origen en *Transformar datos*.
 
 ---
 
-# Tecnologías utilizadas
+## Decisiones de diseño y limitaciones
 
-```text
-MySQL 8
-SQL
-MySQL Workbench / VS Code Database Client
-Python
-pandas
-NumPy
-matplotlib
-Jupyter Notebook
-Google Colab
-Git
-GitHub
-Power BI Desktop
-DAX
-```
+**Decisiones**
 
----
+- **`NULL`:** los valores monetarios no recuperables con evidencia se dejaron vacíos, y toda la recuperación exigió una referencia única y no ambigua.
+- **Clave sustituta `product_key`:** resuelve IDs de producto reutilizados.
+- **Dos niveles de detalle** (línea y pedido) para no mezclar métricas.
+- **Correlación no es causalidad,** y RFM se usa como análisis descriptivo, no predictivo.
 
-# Conclusión
+**Limitaciones**
 
-SuperStore Analytics parte de un dataset transaccional con problemas reales de calidad y lo convierte en una solución analítica estructurada.
-
-La capa SQL se encarga de:
-
-```text
-Carga
-Limpieza
-Normalización
-Recuperación de datos
-Modelado relacional
-Views
-Análisis
-Procedimientos
-Auditoría
-Validación
-```
-
-La capa Python utiliza las views resultantes para:
-
-```text
-Reproducir análisis
-Explorar datos
-Estudiar relaciones
-Detectar outliers
-Medir concentración
-Segmentar clientes
-Crear visualizaciones
-Validar resultados
-```
-
-El resultado es un flujo completo que conecta ingeniería de datos con análisis de negocio:
-
-```text
-Datos de origen
-      |
-     SQL
-      |
-Views analíticas
-      |
-    Python
-      |
-   Insights
-```
+- Es un dataset público de práctica; los resultados no describen a una empresa real. Algunos productos presentan márgenes superiores al 100 % o inferiores al −100 %, lo que confirma que los datos no son totalmente consistentes con un negocio real.
+- Los totales se calculan sobre valores conocidos: `Sales` tiene cobertura de 95.4 % de las líneas, `Profit` de 95.1 % y `Quantity` de 98.2 %. Los valores `NULL` restantes no se estiman.
+- La recuperación de `Sales`, `Quantity` y `Profit` se basa en precios y márgenes de referencia, por lo que es una estimación y no un dato observado.
+- Dos `order_id` (`CA-2023-131807` y `CA-2026-131807`) aparecen con dos ciudades y códigos postales distintos (Calgary y Edmonton). No hay evidencia suficiente para decidir cuál es el correcto, por lo que se conservaron sin modificar. Esto explica que haya 5,113 pedidos en `vw_order_summary` y 5,111 `order_id` distintos.
+- Hay 280 pedidos sin modo de envío conocido que se agrupan como *Unknown* en el análisis logístico.
+- La comparación anual se basa en solo cuatro años, así que las tendencias son descriptivas.
+- El análisis es descriptivo; no incluye modelos predictivos.
 
 ---
 
-# Licencia
+## Tecnologías
 
-Este proyecto se distribuye bajo la licencia **MIT**.
-
-Consulta el archivo **LICENSE** para más información.
-
-
-
-# Autor
-
-## Edvard Pichardo
-
-**Licenciado en Física**  
-Universidad Nacional Autónoma de México (UNAM)
+| Área | Herramientas |
+|---|---|
+| Base de datos | MySQL 8, SQL, MySQL Workbench / VS Code Database Client |
+| Análisis | Python, pandas, NumPy, matplotlib, Jupyter Notebook, Google Colab |
+| BI | Power BI Desktop, DAX |
+| Control de versiones | Git, GitHub |
 
 ---
+
+## Autor y licencia
+
+**Cristian Eduardo Pichardo Rico**
+
+Egresado de la Licenciatura en Física, Facultad de Ciencias, UNAM
+[LinkedIn](https://www.linkedin.com/in/edvard-pichardo) · GitHub: [@Edvard-Pichardo](https://github.com/Edvard-Pichardo)
+
+Distribuido bajo la licencia **MIT**. Consulta el archivo [LICENSE](LICENSE) para más información.
