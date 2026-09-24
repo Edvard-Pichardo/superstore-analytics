@@ -27,7 +27,7 @@
 - [Arquitectura](#arquitectura)
 - [Dataset](#dataset)
 - [Estructura del repositorio](#estructura-del-repositorio)
-- SQL: [Limpieza](#sql-limpieza-y-normalización) · [Modelo relacional](#sql-modelo-relacional) · [Views](#sql-views-analíticas) · [Análisis](#sql-análisis-de-negocio) · [Procedures](#sql-stored-procedures) · [Triggers y auditoría](#sql-triggers-y-auditoría)
+- [SQL: Limpieza](#sql-limpieza-y-normalización) · [Modelo relacional](#sql-modelo-relacional) · [Views](#sql-views-analíticas) · [Análisis](#sql-análisis-de-negocio) · [Procedures](#sql-stored-procedures) · [Triggers y auditoría](#sql-triggers-y-auditoría)
 - [Python: análisis](#python-análisis)
 - [Power BI: dashboard](#power-bi-dashboard)
 - [Cómo reproducir el proyecto](#cómo-reproducir-el-proyecto)
